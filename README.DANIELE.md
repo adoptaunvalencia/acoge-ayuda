@@ -129,3 +129,62 @@ useEffect(() => {
 
 - The `scrollToRef` function uses `scrollIntoView` to scroll the element into view, with smooth scrolling and aligned to the start of the viewport.
 - If the `ref` is not attached to a valid DOM element, the function will do nothing.
+
+# Global Reducer Context
+
+The `ReducerProvider` component creates a global context, `ReducerContext`, providing centralized state management across the application for loading, authentication, and offers data. This is accomplished through three separate reducers:
+
+### Reducers Overview
+
+- **Loader Reducer**: Handles loading states to indicate when asynchronous operations, like data fetching, are in progress.
+- **Auth Reducer**: Manages user authentication status and user details.
+- **Offers Reducer**: Manages offer-related data, such as lists of offers and individual offer details.
+
+Each reducer is initialized with its own initial state and managed through respective actions.
+
+### Code Overview
+
+The `ReducerProvider` component initializes each reducer using `useReducer` and provides the following state variables and dispatch methods globally:
+
+- **`stateLoad`** and **`dispatchLoad`** - Loading state and dispatch.
+- **`stateIsAuth`** and **`dispatchIsAuth`** - Authentication state and dispatch.
+- **`stateOffer`** and **`dispatchOffer`** - Offers data state and dispatch.
+
+```jsx
+import { useReducer, createContext } from 'react'
+import {
+  stateLoader,
+  initStateLoader
+} from '../../reducers/loader.reducer/loader'
+import {
+  stateAuth,
+  initStateAuth
+} from '../../reducers/auth.reducer/auth.reducer'
+import {
+  initStateOffers,
+  stateOffers
+} from '../../reducers/offers.reducer/offer.reducer'
+
+export const ReducerContext = createContext()
+
+export const ReducerProvider = ({ children }) => {
+  const [stateLoad, dispatchLoad] = useReducer(stateLoader, initStateLoader)
+  const [stateIsAuth, dispatchIsAuth] = useReducer(stateAuth, initStateAuth)
+  const [stateOffer, dispatchOffer] = useReducer(stateOffers, initStateOffers)
+
+  return (
+    <ReducerContext.Provider
+      value={{
+        stateLoad,
+        dispatchLoad,
+        stateIsAuth,
+        dispatchIsAuth,
+        stateOffer,
+        dispatchOffer
+      }}
+    >
+      {children}
+    </ReducerContext.Provider>
+  )
+}
+```
