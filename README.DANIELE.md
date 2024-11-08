@@ -91,3 +91,41 @@ In this example:
 
 - `data`: The filtered data (assistance offers).
 - `stateLoad`: The loading state, which you can use to display a loading spinner or message.
+
+## `useScrollToRef` Hook
+
+The `useScrollToRef` hook allows you to smoothly scroll to a specific element on the page by passing a reference to that element. This can be useful for improving navigation and providing a better user experience by focusing attention on certain parts of the page.
+
+### Example
+
+```jsx
+import useScrollToRef from '/hooks/useScrollToRef'
+const MyComponent = () => {
+  const scrollToRef = useScrollToRef()
+}
+const handleScroll = () => {
+  scrollToRef(targetRef)
+}
+//!OR
+
+useEffect(() => {
+  setTimeOut(() => {
+    scrollToRef(targetRef)
+  }, 500)
+}, [])
+```
+
+### Explanation
+
+- **`scrollToRef(ref)`**: When called, this function scrolls smoothly to the element referenced by `ref`.
+
+- **Parameters**:
+
+  - `ref` (React ref): The reference to the target element to which you want to scroll.
+
+- **Return Value**: Returns the `scrollToRef` function to be used in the component.
+
+### Important Notes
+
+- The `scrollToRef` function uses `scrollIntoView` to scroll the element into view, with smooth scrolling and aligned to the start of the viewport.
+- If the `ref` is not attached to a valid DOM element, the function will do nothing.
