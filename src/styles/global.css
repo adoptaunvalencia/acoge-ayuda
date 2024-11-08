@@ -1,0 +1,177 @@
+/* Colors */
+:root {
+  --color-dark-gray: #222222;
+  --color-medium-gray: #7e7e7e;
+  --color-light-gray: #ebebeb;
+  --color-lighter-gray: #f7f7f7;
+  --color-primary-red: #da121a;
+  --color-light-red: #fe353d;
+  --color-lighter-red: #ffe1e2;
+  --color-inactive: #b0b0b0;
+}
+
+/* Button Small */
+.button-sm {
+  min-width: 128px;
+  padding: 10px 24px;
+  background-color: var(--color-primary-red);
+  color: #fff;
+  font-weight: 500;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-sm:hover {
+  background-color: var(--color-light-red);
+}
+
+.button-sm:disabled {
+  background-color: var(--color-inactive);
+  color: var(--color-light-gray);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Button Large */
+.button-lg {
+  min-width: 128px;
+  padding: 10px 72px;
+  background-color: var(--color-primary-red);
+  color: #fff;
+  font-weight: 500;
+  text-transform: capitalize;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-lg:hover {
+  background-color: var(--color-light-red);
+}
+
+.button-lg:disabled {
+  background-color: var(--color-inactive);
+  color: var(--color-light-gray);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Button Ghost Small */
+.button-ghost-sm {
+  min-width: 128px;
+  padding: 10px 24px;
+  background-color: transparent;
+  color: var(--color-dark-gray);
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 1px solid var(--color-medium-gray);
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.button-ghost-sm:hover {
+  border-color: var(--color-light-red);
+  color: var(--color-light-red);
+}
+
+.button-ghost-sm:disabled {
+  border-color: var(--color-inactive);
+  color: var(--color-inactive);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Button Ghost Large */
+.button-ghost-lg {
+  min-width: 128px;
+  padding: 10px 72px;
+  background-color: transparent;
+  color: var(--color-dark-gray);
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 1px solid var(--color-medium-gray);
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.button-ghost-lg:hover {
+  border-color: var(--color-light-red);
+  color: var(--color-light-red);
+}
+
+.button-ghost-lg:disabled {
+  border-color: var(--color-inactive);
+  color: var(--color-inactive);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Button Ghost Rojo Small */
+.button-ghost-red-sm {
+  min-width: 128px;
+  padding: 10px 24px;
+  background-color: transparent;
+  color: var(--color-primary-red);
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 1px solid var(--color-primary-red);
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-ghost-red-sm:hover {
+  color: #fff;
+  background-color: var(--color-primary-red);
+}
+
+.button-ghost-red-sm:disabled {
+  border-color: var(--color-inactive);
+  color: var(--color-inactive);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Button Ghost Rojo Large */
+.button-ghost-red-lg {
+  min-width: 128px;
+  padding: 10px 72px;
+  background-color: transparent;
+  color: var(--color-primary-red);
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 1px solid var(--color-primary-red);
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-ghost-red-lg:hover {
+  color: #fff;
+  background-color: var(--color-primary-red);
+}
+
+.button-ghost-red-lg:disabled {
+  border-color: var(--color-inactive);
+  color: var(--color-inactive);
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}
