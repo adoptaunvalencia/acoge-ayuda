@@ -10,7 +10,7 @@ const useFetch = ({
   isFileUpload = false
 }) => {
   const [data, setData] = useState(null)
-  const [stateLoad, dispatchLoad] = useContext(ReducerContext)
+  const { stateLoad, dispatchLoad } = useContext(ReducerContext)
 
   const buildUrl = () => {
     let finalUrl = uri
@@ -20,6 +20,7 @@ const useFetch = ({
     }
     return finalUrl
   }
+
   useEffect(() => {
     const fetchData = async () => {
       dispatchLoad({ type: 'LOAD_TRUE' })
