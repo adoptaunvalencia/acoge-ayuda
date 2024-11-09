@@ -1,0 +1,26 @@
+.button {
+  font-weight: 500;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-white {
+  background-color: white;
+  color: #222222;
+  border: 1px solid #7E7E7E;
+}
+
+.button-red {
+  background-color: #DA121A;
+  color: white;
+  border: none;
+}
+
+.button-icon {
+  margin-right: 5px;
+}
