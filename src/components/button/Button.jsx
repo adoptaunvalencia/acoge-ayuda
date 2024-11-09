@@ -5,6 +5,8 @@ const Button = ({
   icon,
   bgColor,
   textColor,
+  padding,
+  borderRadius,
   action = () => {},
   disabled = false
 }) => {
@@ -16,7 +18,9 @@ const Button = ({
       disabled={disabled}
       style={{
         backgroundColor: bgColor ? bgColor : 'var(--bg-lighter-gray)',
-        color: textColor ? textColor : 'var(--text-primary'
+        color: textColor ? textColor : 'var(--text-primary',
+        padding: padding,
+        borderRadius:borderRadius
       }}
     >
       {icon && <img className='icon' src={icon} alt="icon type help" />}

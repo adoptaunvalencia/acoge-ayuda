@@ -1,18 +1,18 @@
-import { handleCreateOffer } from "../../contexts/function.contexts/FunctionContext";
+import Button from '../button/Button'
+import './floatButton.css'
+import addIcon from '../../assets/icons/add-icon.svg'
 
-export const  FloatButton = ({
-  icon,
-  bgColor,
-  disabled = false,
-  arialLabel = "Boton de acción",
-}) => {
-  <button
-    className="button-float-component"
-    onClick={handleCreateOffer}
-    disabled={disabled}
-    style={{ backgroundColor: bgColor ? bgColor : "--bg-primary-red" }}
-    aria-label={arialLabel}
-  >
-    {icon && <span className="icon">{icon}</span>}
-  </button>;
-};
+const FloatButton = () => {
+  return (
+    <div className='float-button__container'>
+      <Button
+        icon={addIcon}
+        bgColor='var(--bg-primary-red)'
+        padding='10px 10px'
+        borderRadius='100%'
+      />
+    </div>
+  )
+}
+
+export default FloatButton
