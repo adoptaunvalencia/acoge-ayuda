@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { ReducerContext } from 'contexts/reducer.contexts/ReducerContext'
 import Footer from 'components/footer/Footer'
 import Header from 'components/header/Header'
-import FloatButton  from '../components/float-button/FloatButton'
+import FloatButton from '../components/float-button/FloatButton'
 
 const Layout = () => {
   const {
@@ -17,7 +17,7 @@ const Layout = () => {
       <header>
         <Header isAuth={isAuth} user={user} />
       </header>
-        <FloatButton />
+      {isAuth && <FloatButton />}
       <main>
         <Outlet />
       </main>
