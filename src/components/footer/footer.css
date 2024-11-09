@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
 footer {
   background-color: #EBEBEB;
   max-width: 100%;
@@ -11,7 +9,6 @@ footer {
 }
 
 .footer-text {
-  font-family: "Inter", sans-serif;
   width: 280px;
 }
 

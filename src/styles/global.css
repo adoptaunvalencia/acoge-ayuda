@@ -1,4 +1,6 @@
-/* Colors */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Variables */
 :root {
   --color-dark-gray: #222222;
   --color-medium-gray: #7e7e7e;
@@ -8,6 +10,11 @@
   --color-light-red: #fe353d;
   --color-lighter-red: #ffe1e2;
   --color-inactive: #b0b0b0;
+  --font-main: "Fira Sans", sans-serif;
+}
+
+body{
+  font-family: var(--font-main);
 }
 
 /* Button Small */
