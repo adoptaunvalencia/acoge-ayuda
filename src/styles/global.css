@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
   /* BACKGROUND COLOR */
   --bg-dark-gray: #222222;
@@ -15,12 +16,12 @@
   --text-secondary: #7e7e7e;
   --text-tertiary: #6750a4;
 
-  /*SPACING*/
+  /*SPACING AND ROUNDED*/
   --spacing-xs: 8px;
   --spacing-s: 12px;
   --spacing-m: 16px;
   --spacing-l: 24px;
-  
+
   /*FONT SIZE*/
   --font-size-s: 16px;
   --font-size-m: 18px;
@@ -32,7 +33,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: 'Roboto', sans-serif;
 }
 
 html {
@@ -68,6 +69,11 @@ a {
   text-transform: capitalize;
   border: none;
   transition: all 0.5s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.384);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 button:hover {
@@ -79,6 +85,11 @@ button:hover {
   color: var(--text-primary-light);
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
 }
 
 /*MEDIA QUERY*/
