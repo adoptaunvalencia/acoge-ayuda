@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import { ReducerContext } from '../contexts/reducer.contexts/ReducerContext'
+import { ReducerContext } from 'contexts/reducer.contexts/ReducerContext'
+import Footer from 'components/footer/Footer'
+import Header from 'components/header/Header'
 
 const Layout = () => {
   const {
@@ -9,7 +11,13 @@ const Layout = () => {
   console.log(user)
   console.log(isAuth)
 
-  return <div>{Outlet}</div>
+  return (
+    <main>
+      <Header isAuth={isAuth} user={user} />
+      <Outlet />
+      <Footer />
+    </main>
+  )
 }
 
 export default Layout
