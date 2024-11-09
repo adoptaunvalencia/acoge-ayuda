@@ -1,177 +1,129 @@
-/* Colors */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
-  --color-dark-gray: #222222;
-  --color-medium-gray: #7e7e7e;
-  --color-light-gray: #ebebeb;
-  --color-lighter-gray: #f7f7f7;
-  --color-primary-red: #da121a;
-  --color-light-red: #fe353d;
-  --color-lighter-red: #ffe1e2;
-  --color-inactive: #b0b0b0;
+  /* BACKGROUND COLOR */
+  --bg-dark-gray: #222222;
+  --bg-medium-gray: #7e7e7e;
+  --bg-light-gray: #ebebeb;
+  --bg-lighter-gray: #f7f7f7;
+  --bg-primary-red: #da121a;
+  --bg-light-red: #fe353d;
+  --bg-lighter-red: #ffe1e2;
+  --bg-inactive: #b0b0b0;
+
+  /*COLOR TEXT*/
+  --text-primary: #222222;
+  --text-primary-light: #ebebeb;
+  --text-secondary: #7e7e7e;
+  --text-tertiary: #6750a4;
+
+  /*SPACING AND ROUNDED*/
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+
+  /*FONT SIZE*/
+  --font-size-s: 16px;
+  --font-size-m: 18px;
+  --font-size-l: 22px;
+  --font-size-xl: 28px;
 }
 
-/* Button Small */
-.button-sm {
-  min-width: 128px;
-  padding: 10px 24px;
-  background-color: var(--color-primary-red);
-  color: #fff;
-  font-weight: 500;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: var(--font-size-xl);
+}
+
+p,
+button,
+li {
+  font-size: var(--font-size-m);
+  line-height: 20px;
+}
+
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+.button {
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-s);
   text-transform: capitalize;
   border: none;
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.384);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
-.button-sm:hover {
-  background-color: var(--color-light-red);
+button:hover {
+  transform: scale(1.1);
 }
 
-.button-sm:disabled {
-  background-color: var(--color-inactive);
-  color: var(--color-light-gray);
+.button:disabled {
+  background-color: var(--bg-medium-gray);
+  color: var(--text-primary-light);
   cursor: not-allowed;
   pointer-events: none;
-  user-select: none;
 }
 
-/* Button Large */
-.button-lg {
-  min-width: 128px;
-  padding: 10px 72px;
-  background-color: var(--color-primary-red);
-  color: #fff;
-  font-weight: 500;
-  text-transform: capitalize;
-  border: none;
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease;
+.icon {
+  display: flex;
+  align-items: center;
 }
 
-.button-lg:hover {
-  background-color: var(--color-light-red);
+/*MEDIA QUERY*/
+@media (max-width: 850px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-size: var(--font-size-l);
+  }
+
+  button,
+  li,
+  p {
+    font-size: var(--font-size-s);
+    line-height: 20px;
+  }
 }
 
-.button-lg:disabled {
-  background-color: var(--color-inactive);
-  color: var(--color-light-gray);
-  cursor: not-allowed;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Button Ghost Small */
-.button-ghost-sm {
-  min-width: 128px;
-  padding: 10px 24px;
-  background-color: transparent;
-  color: var(--color-dark-gray);
-  font-weight: 500;
-  text-transform: capitalize;
-  border: 1px solid var(--color-medium-gray);
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.button-ghost-sm:hover {
-  border-color: var(--color-light-red);
-  color: var(--color-light-red);
-}
-
-.button-ghost-sm:disabled {
-  border-color: var(--color-inactive);
-  color: var(--color-inactive);
-  cursor: not-allowed;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Button Ghost Large */
-.button-ghost-lg {
-  min-width: 128px;
-  padding: 10px 72px;
-  background-color: transparent;
-  color: var(--color-dark-gray);
-  font-weight: 500;
-  text-transform: capitalize;
-  border: 1px solid var(--color-medium-gray);
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.button-ghost-lg:hover {
-  border-color: var(--color-light-red);
-  color: var(--color-light-red);
-}
-
-.button-ghost-lg:disabled {
-  border-color: var(--color-inactive);
-  color: var(--color-inactive);
-  cursor: not-allowed;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Button Ghost Rojo Small */
-.button-ghost-red-sm {
-  min-width: 128px;
-  padding: 10px 24px;
-  background-color: transparent;
-  color: var(--color-primary-red);
-  font-weight: 500;
-  text-transform: capitalize;
-  border: 1px solid var(--color-primary-red);
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-ghost-red-sm:hover {
-  color: #fff;
-  background-color: var(--color-primary-red);
-}
-
-.button-ghost-red-sm:disabled {
-  border-color: var(--color-inactive);
-  color: var(--color-inactive);
-  cursor: not-allowed;
-  pointer-events: none;
-  user-select: none;
-}
-
-/* Button Ghost Rojo Large */
-.button-ghost-red-lg {
-  min-width: 128px;
-  padding: 10px 72px;
-  background-color: transparent;
-  color: var(--color-primary-red);
-  font-weight: 500;
-  text-transform: capitalize;
-  border: 1px solid var(--color-primary-red);
-  border-radius: 9999px;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-ghost-red-lg:hover {
-  color: #fff;
-  background-color: var(--color-primary-red);
-}
-
-.button-ghost-red-lg:disabled {
-  border-color: var(--color-inactive);
-  color: var(--color-inactive);
-  cursor: not-allowed;
-  pointer-events: none;
-  user-select: none;
+@media (max-width: 400px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-size: var(--rb-font-size-m);
+  }
+  li,
+  button,
+  a {
+    font-size: var(--rb-font-size-s);
+  }
+  p {
+    font-size: 14px;
+  }
 }
