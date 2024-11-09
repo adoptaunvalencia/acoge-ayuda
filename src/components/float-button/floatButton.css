@@ -1,12 +1,5 @@
-.button-float-component{
-    border: 0;
-    padding: 12px;
-    border-radius: 50%;
-    background-color: var(--bg-primary-red);
-    cursor: pointer;
-    transition: transform 1s ease;
-}
-
-.button-float-component:hover{
-    transform: scale(1.1);
+.float-button__container {
+  position: fixed;
+  right: 50px;
+    bottom: 100px;;
 }
