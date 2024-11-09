@@ -1,5 +1,4 @@
 import React from 'react'
-import './button.css'
 
 const Button = ({
   text,
@@ -9,6 +8,7 @@ const Button = ({
   action = () => {},
   disabled = false
 }) => {
+  
   return (
     <button
       className='button-component'
@@ -19,8 +19,8 @@ const Button = ({
         color: textColor ? textColor : 'var(--text-primary'
       }}
     >
-      {icon && <span className='icon'>{icon}</span>}
-      {text && { text }}
+      {icon && <img className='icon' src={icon} alt="icon type help" />}
+      {text && <span>{text}</span>}
     </button>
   )
 }
