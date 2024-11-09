@@ -12,11 +12,17 @@ const Layout = () => {
   console.log(isAuth)
 
   return (
-    <main>
-      <Header isAuth={isAuth} user={user} />
-      <Outlet />
-      <Footer />
-    </main>
+    <>
+      <header>
+        <Header isAuth={isAuth} user={user} />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </>
   )
 }
 
