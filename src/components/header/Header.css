@@ -1,0 +1,12 @@
+.header__container{
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  padding:var(--spacing-l) var(--spacing-xl); 
+}
+
+.header__container > div{
+  display: flex;
+  align-items: center;
+  gap:10px;
+}

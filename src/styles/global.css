@@ -24,6 +24,7 @@
   --spacing-s: 12px;
   --spacing-m: 16px;
   --spacing-l: 24px;
+  --spacing-xl: 48px;
 
   /*FONT SIZE*/
   --font-size-s: 16px;
@@ -55,7 +56,7 @@ p,
 button,
 li {
   font-size: var(--font-size-m);
-  line-height: 20px;
+
 }
 
 ul,
