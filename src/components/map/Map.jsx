@@ -9,7 +9,7 @@ import {
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
-import useFetch from "../../hooks/useFetch";
+import { useFunctionContext } from "../../contexts/function.contexts/FunctionContext";
 import "leaflet/dist/leaflet.css";
 import accommodation from "../../assets/icons/accommodation.png";
 import hygiene from "../../assets/icons/hygiene.png";
@@ -52,102 +52,26 @@ const offerIcons = {
   }),
 };
 
-function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-
 export const Map = ({ maxDistance, selectedCity }) => {
-  const [userLocation, setUserLocation] = useState(null);
+  const { userLocation, categorizedOffers, load, filterOffers } =
+    useFunctionContext();
   const [activeType, setActiveType] = useState("all");
-  const [categorizedOffers, setCategorizedOffers] = useState({
-    all: [],
-    accommodation: [],
-    hygiene: [],
-    food: [],
-    pet_fostering: [],  
-  });
 
   const overlayNames = {
-    "all": "Todas las ofertas",
-    "accommodation": "Alojamientos",
-    "hygiene": "Higiene",
-    "food": "Comida",
-    "pet_fostering": "Acogida de mascotas",
-  }
-
-  const {
-    data: assistanceOffers,
-    stateLoad: { load },
-  } = useFetch({
-    uri: "https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer",
-    method: "GET",
-  });
+    all: "Todas las ofertas",
+    accommodation: "Alojamientos",
+    hygiene: "Higiene",
+    food: "Comida",
+    pet_fostering: "Acogida de mascotas",
+  };
 
   useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ latitude, longitude });
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (assistanceOffers?.assistancesOffers) {
-      let offersToFilter = assistanceOffers.assistancesOffers;
-
-      if (selectedCity && selectedCity !== "all") {
-        offersToFilter = offersToFilter.filter(
-          (offer) => offer.city === selectedCity
-        );
-      }
-
-      if (userLocation && maxDistance > 0) {
-        offersToFilter = offersToFilter.filter((offer) => {
-          const distance = getDistanceFromLatLonInKm(
-            userLocation.latitude,
-            userLocation.longitude,
-            offer.location.coordinates[1],
-            offer.location.coordinates[0]
-          );
-          return distance <= maxDistance;
-        });
-      }
-
-      const newCategorizedOffers = {
-        accommodation: [],
-        hygiene: [],
-        food: [],
-        pet_fostering: [],
-        all: [],
-      };
-
-      offersToFilter.forEach((offer) => {
-        newCategorizedOffers.all.push(offer);
-        offer.typeOffer.forEach((item) => {
-          if (newCategorizedOffers[item.type]) {
-            newCategorizedOffers[item.type].push(offer);
-          }
-        });
-      });
-
-      setCategorizedOffers(newCategorizedOffers);
-    }
-  }, [assistanceOffers, userLocation, maxDistance, selectedCity]);
+    filterOffers(selectedCity, maxDistance);
+  }, [selectedCity, maxDistance, filterOffers]);
 
   const initialPosition = userLocation
     ? [userLocation.latitude, userLocation.longitude]
-    : [40.42372525496708, -3.678864358280353]; //MADRID
+    : [40.42372525496708, -3.678864358280353]; // MADRID
 
   return (
     <>
@@ -160,10 +84,7 @@ export const Map = ({ maxDistance, selectedCity }) => {
           scrollWheelZoom={false}
           style={{ height: "35vh", width: "100%" }}
         >
-          <LayersControl
-            position="topright"
-            onChange={(e) => setActiveType(e.name)}
-          >
+          <LayersControl position="topright">
             <BaseLayer checked name="Ofertas">
               <TileLayer
                 attribution="&copy; OpenStreetMap contributors"
@@ -174,11 +95,14 @@ export const Map = ({ maxDistance, selectedCity }) => {
               <Overlay
                 key={type}
                 checked={activeType === type}
-                name={overlayNames[type] || type.charAt(0).toUpperCase() + type.slice(1)}
+                name={
+                  overlayNames[type] ||
+                  type.charAt(0).toUpperCase() + type.slice(1)
+                }
               >
                 <LayerGroup>
-                  {categorizedOffers[type].map((offer, index) => (
-                    <CustomMarker key={`${offer._id}-${index}`} offer={offer} />
+                  {categorizedOffers[type].map((offer) => (
+                    <CustomMarker key={offer._id} offer={offer} />
                   ))}
                 </LayerGroup>
               </Overlay>
@@ -199,9 +123,9 @@ const CustomMarker = ({ offer }) => {
       { animate: true, duration: 0.8 }
     );
   };
-  const offerType = offer.typeOffer[0]?.type || "default";
-  const markerIcon = offerIcons[offerType];
 
+  const offerType = offer.typeOffer[0]?.type || "default";
+  const markerIcon = offerIcons[offerType] || offerIcons.default;
   return (
     <Marker
       position={[offer.location.coordinates[1], offer.location.coordinates[0]]}
