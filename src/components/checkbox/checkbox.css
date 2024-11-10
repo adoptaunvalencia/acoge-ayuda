@@ -1,0 +1,21 @@
+.form-checkbox {
+  width: 100%;
+}
+.form-checkbox .checbox-input {
+  transform: translateY(5px);
+  width: 20px;
+  height: 20px;
+  border: 1px solid #79747E;
+  accent-color: var(--bg-primary-red);
+  cursor: pointer;
+}
+.form-checkbox .checbox-input:checked {
+  background-color: var(--bg-primary-red);
+}
+.form-checkbox .checkbox-label {
+  margin-left: 15px;
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=checkbox.css.map */
