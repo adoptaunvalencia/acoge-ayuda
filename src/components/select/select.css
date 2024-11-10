@@ -1,0 +1,87 @@
+.form-select {
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+.form-select .select-label {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  padding: 0px 4px;
+  font-size: var(--font-size-s);
+  transition: all 0.1s linear;
+}
+.form-select .select-options {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  top: 53px;
+  left: 0px;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 2;
+}
+.form-select .select-options .select-option {
+  padding: 10px 5px;
+  transition: all 0.1s linear;
+}
+.form-select .select-options .select-option:hover {
+  background-color: lightgray;
+}
+.form-select .select-tooltip {
+  display: block;
+  width: 100%;
+  padding: 4px 16px;
+  padding-bottom: 0px;
+  font-size: var(--font-size-xs);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.form-select .select {
+  position: relative;
+  display: block;
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  width: 100%;
+  height: 53px;
+  padding: 16px;
+  font-size: var(--font-size-s);
+  border: 1px solid #79747E;
+  border-radius: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.form-select .select.opened:after {
+  transform: rotate(180deg);
+}
+.form-select .select:after {
+  position: absolute;
+  content: "";
+  top: 22px;
+  right: 1em;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 5px solid #79747E;
+  transition: transform 0.3s ease-in-out;
+}
+.form-select .select-input {
+  display: none;
+  visibility: hidden;
+}
+.form-select .select-input:valid + .select-label {
+  background-color: #FEF7FF;
+  transform: scale(0.85) translateY(-30px);
+}
+.form-select .select,
+.form-select .select-label {
+  pointer-events: none;
+}
+
+/*# sourceMappingURL=select.css.map */

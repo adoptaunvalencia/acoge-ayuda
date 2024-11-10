@@ -1,13 +1,21 @@
 import React from 'react'
 
-import 'styles/components/input.css'
+import './input.css'
 
 const Input = (props) => {
-    const { type, label, name, id, tooltip, required = false, className = ""} = props
-
+    const { type, label, name, id, tooltip, required = false, className = "", onChange} = props
+    
+    const handleChange = (event) => { if (onChange) onChange(event.target.value) }
+    
     return (
-        <div className={`form-input ${className} ${required && 'input-required'}`}>
-            <input className="input" id={id} name={name} type={type} required />
+        <div className={`form-input ${className}`}>
+            <input 
+                className={`input ${required && 'input-required'}`}
+                id={id} 
+                name={name} 
+                type={type}
+                onChange={handleChange}
+            />
             <label className="input-label" htmlFor={id}>{label}</label>
             <span className="input-tooltip">{tooltip}</span>
         </div>

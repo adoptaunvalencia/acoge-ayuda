@@ -1,13 +1,15 @@
 .home__container {
+  margin-top: 40px;;
   min-height: 50svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  padding:0 40px;
 }
 .home__content-title {
-  width: 60%;
+  width: 100%;
 }
 .home__content-description {
   width: 50%;
@@ -18,5 +20,20 @@
 }
 .home__content-buttons{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width:676px) {
+  .home__content-description {
+    width: 75%;
+  }
+}
+
+@media (max-width:460px) {
+  .home__content-description {
+    width: 100%;
+  }
 }
