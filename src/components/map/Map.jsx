@@ -41,6 +41,7 @@ const offerIcons = {
   pet_fostering: new L.Icon({
     iconUrl: pet_fostering,
     iconSize: [32, 32],
+    iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),
   default: new L.Icon({
@@ -65,16 +66,24 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-export const Map = ({ maxDistance }) => {
+export const Map = ({ maxDistance, selectedCity }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [activeType, setActiveType] = useState("all");
   const [categorizedOffers, setCategorizedOffers] = useState({
+    all: [],
     accommodation: [],
     hygiene: [],
     food: [],
-    pet_fostering: [],
-    all: [],
+    pet_fostering: [],  
   });
+
+  const overlayNames = {
+    "all": "Todas las ofertas",
+    "accommodation": "Alojamientos",
+    "hygiene": "Higiene",
+    "food": "Comida",
+    "pet_fostering": "Acogida de mascotas",
+  }
 
   const {
     data: assistanceOffers,
@@ -86,14 +95,10 @@ export const Map = ({ maxDistance }) => {
 
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ latitude, longitude });
-        },
-        (error) =>
-          console.error("Error al obtener la ubicación:", error.message)
-      );
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ latitude, longitude });
+      });
     }
   }, []);
 
@@ -101,20 +106,21 @@ export const Map = ({ maxDistance }) => {
     if (assistanceOffers?.assistancesOffers) {
       let offersToFilter = assistanceOffers.assistancesOffers;
 
-      if (
-        userLocation &&
-        maxDistance !== null &&
-        maxDistance !== undefined &&
-        maxDistance > 0
-      ) {
-        offersToFilter = assistanceOffers.assistancesOffers.filter((offer) => {
-          const offerDistance = getDistanceFromLatLonInKm(
+      if (selectedCity && selectedCity !== "all") {
+        offersToFilter = offersToFilter.filter(
+          (offer) => offer.city === selectedCity
+        );
+      }
+
+      if (userLocation && maxDistance > 0) {
+        offersToFilter = offersToFilter.filter((offer) => {
+          const distance = getDistanceFromLatLonInKm(
             userLocation.latitude,
             userLocation.longitude,
             offer.location.coordinates[1],
             offer.location.coordinates[0]
           );
-          return offerDistance <= maxDistance;
+          return distance <= maxDistance;
         });
       }
 
@@ -137,16 +143,16 @@ export const Map = ({ maxDistance }) => {
 
       setCategorizedOffers(newCategorizedOffers);
     }
-  }, [assistanceOffers, userLocation, maxDistance]);
+  }, [assistanceOffers, userLocation, maxDistance, selectedCity]);
 
   const initialPosition = userLocation
     ? [userLocation.latitude, userLocation.longitude]
-    : [40.42372525496708, -3.678864358280353]; // MADRID
+    : [40.42372525496708, -3.678864358280353]; //MADRID
 
   return (
     <>
       {load ? (
-        "Loading"
+        "Loading..."
       ) : (
         <MapContainer
           center={initialPosition}
@@ -164,34 +170,19 @@ export const Map = ({ maxDistance }) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
             </BaseLayer>
-            <Overlay checked={activeType === "all"} name="Todas las ofertas">
-              <LayerGroup>
-                {categorizedOffers.all.map((offer, index) => (
-                  <CustomMarker key={`${offer._id}-${index}`} offer={offer} />
-                ))}
-              </LayerGroup>
-            </Overlay>
-            {Object.keys(categorizedOffers).map((type) => {
-              if (type !== "all") {
-                return (
-                  <Overlay
-                    key={type}
-                    checked={activeType === type}
-                    name={type.charAt(0).toUpperCase() + type.slice(1)}
-                  >
-                    <LayerGroup>
-                      {categorizedOffers[type].map((offer, index) => (
-                        <CustomMarker
-                          key={`${offer._id}-${index}`}
-                          offer={offer}
-                        />
-                      ))}
-                    </LayerGroup>
-                  </Overlay>
-                );
-              }
-              return null;
-            })}
+            {Object.keys(categorizedOffers).map((type) => (
+              <Overlay
+                key={type}
+                checked={activeType === type}
+                name={overlayNames[type] || type.charAt(0).toUpperCase() + type.slice(1)}
+              >
+                <LayerGroup>
+                  {categorizedOffers[type].map((offer, index) => (
+                    <CustomMarker key={`${offer._id}-${index}`} offer={offer} />
+                  ))}
+                </LayerGroup>
+              </Overlay>
+            ))}
           </LayersControl>
         </MapContainer>
       )}
@@ -208,15 +199,14 @@ const CustomMarker = ({ offer }) => {
       { animate: true, duration: 0.8 }
     );
   };
-  const offerType =
-    offer.typeOffer.length > 0 ? offer.typeOffer[0].type : "default";
-  const markerIcon = offerIcons[offerType] || offerIcons.default;
+  const offerType = offer.typeOffer[0]?.type || "default";
+  const markerIcon = offerIcons[offerType];
 
   return (
     <Marker
       position={[offer.location.coordinates[1], offer.location.coordinates[0]]}
       icon={markerIcon}
       eventHandlers={{ click: handleClickPosition }}
-    ></Marker>
+    />
   );
 };
