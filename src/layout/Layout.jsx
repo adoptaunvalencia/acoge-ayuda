@@ -8,6 +8,7 @@ import FloatButton from 'components/float-button/FloatButton'
 import WelcomePopUp from 'components/welcome-pop-up/WelcomePopUp'
 import { Map } from 'components/map/Map'
 import Modal from '../components/modal/Modal'
+import CardList from '../components/card/CardList'
 
 const Layout = () => {
   const {
@@ -32,6 +33,7 @@ const Layout = () => {
           </Modal>
         )}
         <Map />
+        <CardList  isAuth={isAuth} user={user} />
       </main>
       <footer>
         <Footer />
