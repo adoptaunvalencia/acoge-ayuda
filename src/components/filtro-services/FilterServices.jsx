@@ -11,10 +11,10 @@ const FilterServices = () => {
       <section className="filter-services__container">
         <p className="filter__title">Filtros</p>
         <div className="filter__button-container">
-            <Button text="Alojamiento" icon={accommodationIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-xs)"/>
-            <Button text="Comida" icon={foodIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-xs)"/>
-            <Button text="Higiene" icon={hygieneIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-xs)"/>
-            <Button text="Mascotas" icon={petsIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-xs)"/>
+            <Button text="Alojamiento" icon={accommodationIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-m)"/>
+            <Button text="Comida" icon={foodIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-m)"/>
+            <Button text="Higiene" icon={hygieneIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-m)"/>
+            <Button text="Mascotas" icon={petsIcon} textColor="var(--text-secondary)" bgColor="#FFFFFF" borderRadius="var(--spacing-m)"/>
         </div>
       </section>
     </>

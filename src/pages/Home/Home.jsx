@@ -1,4 +1,5 @@
 import Button from '../../components/button/Button'
+import FilterServicer from '../../components/filtro-services/FilterServices'
 import './Home.css'
 
 const Home = () => {
@@ -14,14 +15,17 @@ const Home = () => {
         </p>
       </div>
       <div className='home__content-buttons'>
-        <Button text='Ubicación' />
-        <Button text='Distancia máxima ' />
+        <Button text='Ubicación' bgColor="#FFFFFF" borderRadius='var(--spacing-m)' />
+        <Button text='Distancia máxima' bgColor="#FFFFFF" borderRadius='var(--spacing-m)' />
         <Button
           text='Buscar'
           bgColor='var(--bg-primary-red)'
           textColor='var(--text-primary-light)'
           borderRadius='50px'
         />
+      </div>
+      <div>
+        <FilterServicer />
       </div>
     </section>
   )
