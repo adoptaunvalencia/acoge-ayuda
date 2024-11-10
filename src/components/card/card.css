@@ -50,7 +50,7 @@
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: var(--spacing-m);
   padding: var(--spacing-l) 0;
-  height: 120px; /* Establece una altura fija para las categorías de la oferta */
+  height: 120px;
 }
 
 .card__offer-category {
