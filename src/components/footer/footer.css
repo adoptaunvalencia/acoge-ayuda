@@ -1,20 +1,21 @@
-footer {
-  background-color: #EBEBEB;
-  max-width: 100%;
+.footer-container {
+  background-color: var(--bg-lighter-gray);
+  width: 100vw;
   height: 399px;
-  padding: 0 75px;
+  padding: 0 80px;
+  position: absolute;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .footer-text {
-  width: 280px;
+  width: 300px;
 }
 
 .footer-text h4 {
-  font-weight: 400;
-  line-height: 24.2px;
+  margin-bottom: 40px;
 }
 
 footer img {
