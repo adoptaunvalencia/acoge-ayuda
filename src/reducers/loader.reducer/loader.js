@@ -3,9 +3,9 @@ export const initStateLoader = { load: false }
 export const stateLoader = (state, action) => {
   switch (action.type) {
     case 'LOAD_TRUE':
-      return { ...state, loading: true }
+      return { ...state, load: true }
     case 'LOAD_FALSE':
-      return { ...state, loading: false }
+      return { ...state, load: false }
 
     default:
       state

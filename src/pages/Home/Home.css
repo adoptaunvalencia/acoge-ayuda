@@ -1,0 +1,22 @@
+.home__container {
+  min-height: 50svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.home__content-title {
+  width: 60%;
+}
+.home__content-description {
+  width: 50%;
+}
+.home__content-title > h2,
+.home__content-description > p {
+  text-align: center;
+}
+.home__content-buttons{
+  display: flex;
+  gap: 20px;
+}
