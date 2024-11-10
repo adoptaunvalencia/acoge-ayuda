@@ -1,0 +1,42 @@
+.form-textarea {
+  width: 100%;
+  position: relative;
+}
+.form-textarea .textarea-label {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  padding: 0px 4px;
+  font-size: var(--font-size-s);
+  transition: all 0.1s linear;
+}
+.form-textarea .textarea-tooltip {
+  display: block;
+  width: 100%;
+  padding: 4px 16px;
+  padding-bottom: 0px;
+  font-size: var(--font-size-xs);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.form-textarea .textarea {
+  display: block;
+  outline: none;
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  width: 100%;
+  padding: 16px;
+  resize: vertical;
+  font-size: var(--font-size-s);
+  border: 1px solid #79747E;
+  border-radius: 4px;
+}
+.form-textarea .textarea:focus + .textarea-label, .form-textarea .textarea:valid + .textarea-label {
+  background-color: #FEF7FF;
+  transform: scale(0.85) translateY(-30px);
+}
+
+/*# sourceMappingURL=textarea.css.map */
