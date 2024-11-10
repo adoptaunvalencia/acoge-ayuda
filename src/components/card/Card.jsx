@@ -5,20 +5,18 @@ import './card.css';
 import CardCategory from './CardCategory';
 
 const Card = ({ isAuth, user, offer }) => {
-  const { name, lastname, avatar } = user;
+  const { name, lastname, avatar, phone } = user;
   const { title, description, city, typeOffer } = offer;
 
   const [buttonText, setButtonText] = useState('Contactar');
 
-  const phone = 695177075;
-
   const handleShowPhone = () => {
-    setButtonText(phone);
-  }
+    setButtonText(user.phone);
+  };
 
   return (
     <div className='card'>
-      { isAuth && (
+      {isAuth && (
         <div className='card__user-info'>
           <img src={avatar} />
           <span>{name} {lastname}</span>

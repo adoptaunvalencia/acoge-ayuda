@@ -19,7 +19,26 @@
 }
 
 .card p {
-  font-size: var(--font-size-s)
+  font-size: var(--font-size-s);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.card__user-info {
+  display: flex;
+  align-items: center;
+  padding-bottom: var(--spacing-l);
+}
+
+.card__user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: var(--spacing-m);
 }
 
 .card__title-container {
@@ -31,6 +50,7 @@
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: var(--spacing-m);
   padding: var(--spacing-l) 0;
+  height: 120px; /* Establece una altura fija para las categorías de la oferta */
 }
 
 .card__offer-category {
