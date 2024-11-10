@@ -1,8 +1,8 @@
-.form-input {
+.form-textarea {
   width: 100%;
   position: relative;
 }
-.form-input .input-label {
+.form-textarea .textarea-label {
   position: absolute;
   top: 18px;
   left: 14px;
@@ -10,7 +10,7 @@
   font-size: var(--font-size-s);
   transition: all 0.1s linear;
 }
-.form-input .input-tooltip {
+.form-textarea .textarea-tooltip {
   display: block;
   width: 100%;
   padding: 4px 16px;
@@ -20,7 +20,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.form-input .input {
+.form-textarea .textarea {
   display: block;
   outline: none;
   border: none;
@@ -29,13 +29,14 @@
   box-shadow: none;
   width: 100%;
   padding: 16px;
+  resize: vertical;
   font-size: var(--font-size-s);
   border: 1px solid #79747E;
   border-radius: 4px;
 }
-.form-input .input:focus + .input-label, .form-input .input:valid + .input-label {
+.form-textarea .textarea:focus + .textarea-label, .form-textarea .textarea:valid + .textarea-label {
   background-color: #FEF7FF;
   transform: scale(0.85) translateY(-30px);
 }
 
-/*# sourceMappingURL=input.css.map */
+/*# sourceMappingURL=textarea.css.map */
