@@ -1,9 +1,10 @@
 .filter-services__container{
     display: flex;
     flex-direction: row;
-    gap: var(--spacing-l);
+    flex-direction: column-reverse;
+    gap: var(--spacing-s);
     padding: var(--spacing-m);
-    align-items: center;
+    align-items: end;
 }
 
 .filter__title{
