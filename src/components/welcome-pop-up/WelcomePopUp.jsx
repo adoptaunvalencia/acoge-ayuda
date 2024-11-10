@@ -1,16 +1,19 @@
+import { useContext, useEffect, useState } from 'react'
+import { useFunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import Button from '../button/Button'
+import texts from '../../utils/PopUp/welcome.json'
 import './welcomePopUp.css'
 import logoAdopta from '../../assets/images/logo.webp'
-import texts from '../../utils/PopUp/welcome.json'
-import { useEffect, useState } from 'react'
 
 const WelcomePopUp = () => {
+  const { showPopup, setShowPopup } = useFunctionContext()
   const localShow = localStorage.getItem('SHOW_POPUP')
-  const [showPopup, setShowPopup] = useState(null)
   useEffect(() => {
     const isRegister = () => {
       if (!localShow) {
-        setShowPopup(true)
+        setTimeout(() => {
+          setShowPopup(true)
+        }, 1500)
       } else {
         setShowPopup(false)
       }
@@ -29,11 +32,11 @@ const WelcomePopUp = () => {
     <>
       {showPopup && (
         <section className='welcome__container'>
-          <div className='welcome__close-container'>
+          {/*           <div className='welcome__close-container'>
             <button className='welcome__close' onClick={handleCreateCount}>
               ✕
             </button>
-          </div>
+          </div> */}
           <div className='welcome__brand'>
             <img
               className='welcome__brand-image'
