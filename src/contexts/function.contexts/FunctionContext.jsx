@@ -5,6 +5,7 @@ const FunctionContext = createContext();
 
 export const FunctionProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
+  const [showPopup, setShowPopup] = useState(null)
   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
     accommodation: [],
@@ -94,6 +95,7 @@ export const FunctionProvider = ({ children }) => {
     <FunctionContext.Provider
       value={{
         userLocation,
+        showPopup, setShowPopup,
         categorizedOffers,
         load,
         filterOffers,
