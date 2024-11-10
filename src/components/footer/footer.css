@@ -1,9 +1,7 @@
 .footer-container {
   background-color: var(--bg-lighter-gray);
-  width: 100vw;
-  height: 399px;
-  padding: 0 80px;
-  position: absolute;
+  width: 100%;
+  padding: 80px;
   bottom: 0;
   display: flex;
   align-items: center;

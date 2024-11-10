@@ -16,7 +16,7 @@ const Header = () => {
         <h1>Adopta un <br></br> Valenciano</h1>
       </div>
       <div>
-        <Button text='Login' bgColor='var(--bg-light-red)' textColor='var(--text-primary-light)' action={handleCreateHelp} />
+        <Button text='Login' bgColor='var(--bg-primary-red)' textColor='var(--text-primary-light)' action={handleCreateHelp} />
         <Button text='Registro' textColor='var(--text-tertiary)' action={handleCreateHelp} />
       </div>
     </div>
