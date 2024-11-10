@@ -1,0 +1,22 @@
+.filter-services__container{
+    display: flex;
+    flex-direction: row;
+    flex-direction: column-reverse;
+    gap: var(--spacing-s);
+    padding: var(--spacing-m);
+    align-items: end;
+}
+
+.filter__title{
+    font-size: var(--font-size-m);
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.filter__button-container{
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-m);
+    flex-wrap: wrap;
+}
+

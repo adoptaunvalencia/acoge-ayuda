@@ -2,11 +2,19 @@
   display: flex;
   align-items: center; 
   justify-content: space-between;
-  padding:var(--spacing-l) var(--spacing-xl); 
+  flex-wrap: wrap;
+  padding:var(--spacing-l) var(--spacing-xl);
+  gap: var(--spacing-l)
 }
 
 .header__container > div{
   display: flex;
   align-items: center;
   gap:10px;
+}
+
+@media (max-width:453px) {
+  .header__container{
+    justify-content: center;
+  }
 }
