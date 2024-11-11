@@ -3,7 +3,7 @@ import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContex
 import { registerUser } from '../../../reducers/auth.reducer/auth.action'
 import Input from '../../../components/input/Input'
 import Button from '../../../components/button/Button'
-import './register.css'
+import './Register.css'
 
 const Register = () => {
   const [formData, setFormData] = useState({
