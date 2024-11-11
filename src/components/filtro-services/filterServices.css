@@ -1,22 +1,21 @@
-.filter-services__container{
-    display: flex;
-    flex-direction: row;
-    flex-direction: column-reverse;
-    gap: var(--spacing-s);
-    padding: var(--spacing-m);
-    align-items: end;
+.filter-services__container {
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-l);
 }
 
-.filter__title{
-    font-size: var(--font-size-m);
-    color: var(--text-secondary);
-    font-weight: 500;
+.filter__title {
+  font-size: var(--font-size-s);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-.filter__button-container{
-    display: flex;
-    flex-direction: row;
-    gap: var(--spacing-m);
-    flex-wrap: wrap;
+.filter__button-container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-m);
+  flex-wrap: wrap;
 }
-

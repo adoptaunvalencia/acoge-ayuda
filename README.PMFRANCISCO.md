@@ -19,10 +19,10 @@ This provider doesn't receive any external props but provides the following valu
 - **`load`**: A loading state for fetching data.
 - **`filterOffers`**: A function to filter offers based on selected city and maximum distance.
 
-To use the context in other components, import `useFunctionContext`:
+To use the context in other components, import `FunctionContext`:
 
 ```javascript
-import { useFunctionContext } from "../../contexts/function.contexts/FunctionContext";
+import { FunctionContext } from "../../contexts/function.contexts/FunctionContext";
 ```
 
 ## How Filtering Works

@@ -1,32 +1,24 @@
-import React from 'react';
-import useFetch from '../../hooks/useFetch'
-import Card from './Card';
-import './card.css';
+import React, { useContext } from 'react'
+import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import Card from './Card'
+import './card.css'
 
 const CardList = ({ isAuth, user }) => {
   const {
-    data: assistanceOffers,
+    stateOffer: { offer, offers },
     stateLoad: { load }
-  } = useFetch({
-    uri: 'https://developer-proyect-dana.vercel.app/secure/api/v1/assistance-offer',
-    method: 'GET'
-  })
+  } = useContext(ReducerContext)
 
   return (
     <>
       {load ? (
         'Loading'
       ) : (
-        <div className="card-list">
-          {assistanceOffers?.assistancesOffers?.map((offer) => (
-            <Card
-              key={offer._id}
-              isAuth={isAuth}
-              user={user}
-              offer={offer}
-            />
+        <div className='card-list'>
+          {offers?.map((offer) => (
+            <Card key={offer._id} isAuth={isAuth} user={user} offer={offer} />
           ))}
-      </div>
+        </div>
       )}
     </>
   )
