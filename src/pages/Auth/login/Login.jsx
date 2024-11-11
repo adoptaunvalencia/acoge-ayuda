@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { ReducerContext } from "../../../contexts/reducer.contexts/ReducerContext"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../../reducers/auth.reducer/auth.action"
-import './Login.css'
+import './login.css'
 import Form from "../../../components/form-group/Form"
 
 const Login = () => {
