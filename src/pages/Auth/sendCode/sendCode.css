@@ -1,0 +1,11 @@
+.send-code {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.send-code h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}

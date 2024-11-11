@@ -32,6 +32,8 @@ const Login = () => {
 
   const handleFormSubmit = async (formData) => {
     const data = await loginUser(formData, dispatchLoad)
+    console.log(data);
+    
     if (data && data.user) {
       dispatchIsAuth({ type: 'SET_USER', payload: data.user })
       dispatchIsAuth({ type: 'SET_AUTH_TRUE' })

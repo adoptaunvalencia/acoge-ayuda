@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Form from '../../../components/form-group/Form'
-import './Forgot.css'
 import { forgotPassword } from '../../../reducers/auth.reducer/auth.action'
+import './Forgot.css'
 
 const Forgot = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -25,16 +25,9 @@ const Forgot = () => {
   ]
 
   const handleFormSubmit = async (formData) => {
-    const response = await forgotPassword(formData, dispatchLoad)
-    if (response && response.success) {
-      setResponseMessage(
-        'Correo de recuperación enviado. Revisa tu bandeja de entrada.'
-      )
-      // Opcional: Puedes redirigir después de unos segundos
-      setTimeout(() => navigate('../login'), 3000)
-    } else {
-      setResponseMessage('Hubo un error. Por favor, intenta nuevamente.')
-    }
+    const data = await forgotPassword(formData, dispatchLoad)
+    console.log(data)
+    setTimeout(() => navigate('../send-code'), 3000)
   }
 
   return (
@@ -52,6 +45,7 @@ const Forgot = () => {
           {responseMessage && (
             <p className='response-message'>{responseMessage}</p>
           )}
+          <Link  to='../send-code'>Tengo mi código</Link>
         </>
       )}
     </div>
