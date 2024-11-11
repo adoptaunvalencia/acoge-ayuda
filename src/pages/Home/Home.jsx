@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import Button from '../../components/button/Button'
@@ -9,21 +9,54 @@ import { Map } from '../../components/map/Map'
 import CardList from '../../components/card/CardList'
 import './Home.css'
 import Select from '../../components/select/Select'
+import { fetchFiltersRadius } from '../../reducers/offers.reducer/offer.action'
 
 const Home = () => {
+  const [userLocation, setUserLocation] = useState({
+    lat: null,
+    lon: null,
+    location: null,
+    radius: null
+  })
   const {
     stateIsAuth: { user, isAuth },
-    stateOffer:{offer, offers}
+    stateOffer: { offer, offers }
   } = useContext(ReducerContext)
   const { showPopup, setShowPopup } = useContext(FunctionContext)
 
   const selectOptionsObject = {
-    option1: 'Option1',
-    option2: 'Option2'
+    1: '1km',
+    2: '2km',
+    3: '3km'
   }
 
-  const handleChangeSelect = (value) => {
-    console.log(value)
+  const selectOptionsLocation = {
+    home: 'Home',
+    location: 'Actually Location'
+  }
+
+  const handleChangeSelect = (value, type) => {
+    setUserLocation((prev) => ({
+      ...prev,
+      [type]: value
+    }))
+  }
+
+  const selectPosition = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords
+      setUserLocation((prev) => ({
+        ...prev,
+        lat: latitude,
+        lon: longitude,
+        location: 'location'
+      }))
+    })
+  }
+
+  const handleSendFilter = async () => {
+    console.log(userLocation)
+    const data = await fetchFiltersRadius(userLocation)
   }
 
   return (
@@ -40,29 +73,30 @@ const Home = () => {
         </div>
         <div className='home__content-buttons'>
           <Select
-            label='Nombre'
-            name='name'
-            id='name'
-            tooltip='Ingrese su nombre'
+            label='Ubicación'
+            name='filer_location'
+            id='filer_location'
+            defaultOption={true}
+            options={selectOptionsLocation}
+            onChange={(value) => handleChangeSelect(value, 'location')}
+          />
+          <Select
+            label='Distancia máxima'
+            name='filer_offers'
+            id='filer_offers'
             defaultOption={true}
             options={selectOptionsObject}
-            onChange={handleChangeSelect}
-          />
-          <Button
-            text='Ubicación'
-            bgColor='#FFFFFF'
-            borderRadius='var(--spacing-xs)'
-          />
-          <Button
-            text='Distancia máxima'
-            bgColor='#FFFFFF'
-            borderRadius='var(--spacing-xs)'
+            onChange={(value) => handleChangeSelect(value, 'radius')}
           />
           <Button
             text='Buscar'
             bgColor='var(--bg-primary-red)'
             textColor='var(--text-primary-light)'
             borderRadius='50px'
+            action={() => {
+              handleSendFilter()
+              selectPosition()
+            }}
           />
         </div>
         <hr></hr>

@@ -14,3 +14,7 @@ export const fetchOffers = async (uriApi, dispatchOffer, dispatchLoad) => {
     dispatchLoad({ type: 'LOAD_FALSE' })
   }
 }
+
+export const fetchFiltersRadius = async() => {
+  const response = await fetch()
+}
