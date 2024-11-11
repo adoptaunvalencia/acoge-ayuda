@@ -20,8 +20,10 @@ export const fetchAuth = async (
     if (method !== 'GET') {
       options.body = JSON.stringify(formFields)
     }
+    console.log(options);
+    
     const response = await fetch(`${url}/${urlApi}`, options)
-    const data = await response.json()
+    const data = await response.json()    
     return { response, data }
   } catch (error) {
     console.log(error.message)
