@@ -3,12 +3,18 @@ import Layout from './layout/Layout'
 import ProtectedRoute from './components/protected-route/ProtectedRoute'
 import Home from 'pages/Home/Home'
 import Dashboard from 'pages/Dashboard/Dashboard'
+import Register from 'pages/Auth/register/Register'
+import Login from 'pages/Auth/login/Login'
+import Forgot from 'pages/Auth/forgot/Forgot'
 
 const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path='register' element={<Register />} />
+        <Route path='forgot-password' element={<Forgot />} />
+        <Route path='login' element={<Login />} />
         <Route
           path='dashboard'
           element={

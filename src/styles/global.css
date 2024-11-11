@@ -9,6 +9,9 @@
   --bg-light-red: #fe353d;
   --bg-lighter-red: #ffe1e2;
   --bg-inactive: #b0b0b0;
+  --bg-dark-gray-transparent: #8d6c6c8f;
+
+
 
   /*FONT*/
   --font-main: "Fira Sans", sans-serif;
@@ -27,6 +30,7 @@
   --spacing-xl: 48px;
 
   /*FONT SIZE*/
+  --font-size-xs: 12px;
   --font-size-s: 16px;
   --font-size-m: 18px;
   --font-size-l: 22px;
@@ -91,6 +95,11 @@ button:hover {
   pointer-events: none;
 }
 
+hr{
+  width:100%;
+  margin-top: 50px;
+}
+
 .icon {
   display: flex;
   align-items: center;
@@ -103,7 +112,7 @@ button:hover {
   h3,
   h4,
   h5 {
-    font-size: var(--font-size-l);
+    font-size: var(--font-size-xl);
   }
 
   button,
@@ -120,12 +129,12 @@ button:hover {
   h3,
   h4,
   h5 {
-    font-size: var(--rb-font-size-m);
+    font-size: var(--font-size-xl);
   }
   li,
   button,
   a {
-    font-size: var(--rb-font-size-s);
+    font-size: var(--font-size-s);
   }
   p {
     font-size: 14px;

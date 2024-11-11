@@ -1,12 +1,14 @@
+.home__container-sections{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
 .home__container {
-  margin-top: 40px;;
-  min-height: 50svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding:0 40px;
 }
 .home__content-title {
   width: 100%;
@@ -24,6 +26,10 @@
   justify-content: center;
   gap: 20px;
   padding: 20px;
+}
+
+.section__map, .section_card-offers{
+  margin-bottom: 40px;
 }
 
 @media (max-width:676px) {

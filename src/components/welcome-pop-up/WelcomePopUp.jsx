@@ -1,16 +1,20 @@
+import { useContext, useEffect, useState } from 'react'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import Button from '../button/Button'
+import texts from '../../utils/PopUp/welcome.json'
 import './welcomePopUp.css'
 import logoAdopta from '../../assets/images/logo.webp'
-import texts from '../../utils/PopUp/welcome.json'
-import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const WelcomePopUp = () => {
+  const { showPopup, setShowPopup } = useContext(FunctionContext)
   const localShow = localStorage.getItem('SHOW_POPUP')
-  const [showPopup, setShowPopup] = useState(null)
   useEffect(() => {
     const isRegister = () => {
       if (!localShow) {
-        setShowPopup(true)
+        setTimeout(() => {
+          setShowPopup(true)
+        }, 1500)
       } else {
         setShowPopup(false)
       }
@@ -29,11 +33,11 @@ const WelcomePopUp = () => {
     <>
       {showPopup && (
         <section className='welcome__container'>
-          <div className='welcome__close-container'>
+          {/*           <div className='welcome__close-container'>
             <button className='welcome__close' onClick={handleCreateCount}>
               ✕
             </button>
-          </div>
+          </div> */}
           <div className='welcome__brand'>
             <img
               className='welcome__brand-image'
@@ -56,13 +60,15 @@ const WelcomePopUp = () => {
             </p>
           </div>
           <div className='welcome__button-container'>
-            <Button
-              text='Registrarme'
-              bgColor='var(--bg-primary-red)'
-              textColor='white'
-              borderRadius='var(--spacing-l)'
-              action={handleCreateCount}
-            />
+            <Link to='register'>
+              <Button
+                text='Registrarme'
+                bgColor='var(--bg-primary-red)'
+                textColor='white'
+                borderRadius='var(--spacing-l)'
+                action={handleCreateCount}
+              />
+            </Link>
           </div>
         </section>
       )}
