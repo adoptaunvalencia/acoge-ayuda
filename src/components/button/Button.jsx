@@ -2,6 +2,7 @@ import React from 'react'
 
 const Button = ({
   text,
+  fontSize,
   icon,
   bgColor,
   textColor,
@@ -17,6 +18,7 @@ const Button = ({
       onClick={action}
       disabled={disabled}
       style={{
+        fontSize: fontSize && fontSize,
         backgroundColor: bgColor ? bgColor : 'var(--bg-lighter-gray)',
         color: textColor ? textColor : 'var(--text-primary',
         padding: padding,

@@ -16,6 +16,7 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
   opacity: 0;
   visibility: hidden;
+  padding: 20px;
 }
 
 .modal-overlay.open {

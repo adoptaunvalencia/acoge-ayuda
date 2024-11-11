@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
-import { useFunctionContext } from '../../contexts/function.contexts/FunctionContext'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import Button from '../button/Button'
 import texts from '../../utils/PopUp/welcome.json'
 import './welcomePopUp.css'
 import logoAdopta from '../../assets/images/logo.webp'
+import { Link } from 'react-router-dom'
 
 const WelcomePopUp = () => {
-  const { showPopup, setShowPopup } = useFunctionContext()
+  const { showPopup, setShowPopup } = useContext(FunctionContext)
   const localShow = localStorage.getItem('SHOW_POPUP')
   useEffect(() => {
     const isRegister = () => {
@@ -59,13 +60,15 @@ const WelcomePopUp = () => {
             </p>
           </div>
           <div className='welcome__button-container'>
-            <Button
-              text='Registrarme'
-              bgColor='var(--bg-primary-red)'
-              textColor='white'
-              borderRadius='var(--spacing-l)'
-              action={handleCreateCount}
-            />
+            <Link to='register'>
+              <Button
+                text='Registrarme'
+                bgColor='var(--bg-primary-red)'
+                textColor='white'
+                borderRadius='var(--spacing-l)'
+                action={handleCreateCount}
+              />
+            </Link>
           </div>
         </section>
       )}
