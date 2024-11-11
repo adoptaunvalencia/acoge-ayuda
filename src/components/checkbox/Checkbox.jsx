@@ -10,7 +10,7 @@ const Checkbox = (props) => {
     return (
         <div className={`form-checkbox ${className}`}>
             <input 
-                className={`checbox-input${required ? ' input-required' : ''}`}
+                className={`checbox-input ${required && 'input-required'}`}
                 id={id} 
                 name={name} 
                 type="checkbox"
