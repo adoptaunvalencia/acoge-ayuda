@@ -50,7 +50,7 @@ const Select = (props) => {
         <div className={`form-select ${className}`} ref={selectRef}>
             <div className={`select ${isOpen ? "opened" : ""}`}>{selectedText}</div>
             <input 
-                className={`select-input${required ? ' input-required' : ''}`}
+                className={`select-input ${required && 'input-required'}`}
                 id={id} 
                 name={name} 
                 type="text"
