@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Form from '../../../components/form-group/Form'
 import { resetPassword } from '../../../reducers/auth.reducer/auth.action'
-import './newPassword.css'
+import './NewPassword.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 
 const NewPassword = () => {
