@@ -1,0 +1,11 @@
+.forgot-password-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.forgot-password-form > h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}

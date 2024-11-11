@@ -1,12 +1,9 @@
-import React, { useState, useContext } from 'react'
-import './login.css'
-import Input from '../../../components/input/Input'
-import Button from '../../../components/button/Button'
-import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
-import { loginUser } from '../../../reducers/auth.reducer/auth.action'
-import { useNavigate } from 'react-router-dom'
-import Form from '../../../components/form-group/Form'
-
+import { useContext, useState } from "react"
+import { ReducerContext } from "../../../contexts/reducer.contexts/ReducerContext"
+import { Link, useNavigate } from "react-router-dom"
+import { loginUser } from "../../../reducers/auth.reducer/auth.action"
+import './Login.css'
+import Form from "../../../components/form-group/Form"
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -59,6 +56,7 @@ const Login = () => {
           {responseMessage && (
             <p className='response-message'>{responseMessage}</p>
           )}
+          <Link to='../forgot-password'>Restablecer contraseña</Link>
         </>
       )}
     </div>
