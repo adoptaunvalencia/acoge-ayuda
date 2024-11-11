@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate()
 
   if (!isAuth) {
-    navigate('/')
+    navigate('../')
     return null
   }
 
