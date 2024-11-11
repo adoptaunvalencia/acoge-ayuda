@@ -7,11 +7,11 @@ export default defineConfig({
   server: { host: true },
   resolve: {
     alias: {
-      pages: "/src/pages",
-      components: "/src/components",
-      contexts: "/src/contexts",
-      hooks: "/src/hooks",
-      styles: "/src/styles",
-    },
+      pages: '/src/pages',
+      components: '/src/components',
+      contexts: '/src/contexts',
+      hooks: '/src/hooks',
+      styles: '/src/styles'
+    }
   },
 })
