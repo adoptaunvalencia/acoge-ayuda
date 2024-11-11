@@ -6,6 +6,8 @@ import Dashboard from 'pages/Dashboard/Dashboard'
 import Register from 'pages/Auth/register/Register'
 import Login from 'pages/Auth/login/Login'
 import Forgot from 'pages/Auth/forgot/Forgot'
+import SendCode from 'pages/Auth/sendCode/SendCode'
+import NewPassword from 'pages/Auth/new-password/NewPassword'
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
         <Route path='register' element={<Register />} />
         <Route path='forgot-password' element={<Forgot />} />
         <Route path='login' element={<Login />} />
+        <Route path='send-code' element={<SendCode />} />
+        <Route path='new-password' element={<NewPassword />} />
         <Route
           path='dashboard'
           element={
