@@ -10,7 +10,7 @@ const Textarea = (props) => {
     return (
         <div className={`form-textarea ${className}`}>
             <textarea 
-                className={`textarea ${required && 'input-required'}`}
+                className={`textarea${required ? ' input-required' : ''}`}
                 id={id} 
                 name={name} 
                 {...(maxLength && { maxLength })}
