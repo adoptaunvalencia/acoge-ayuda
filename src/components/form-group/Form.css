@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+}
