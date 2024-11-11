@@ -26,14 +26,15 @@ export const FunctionProvider = ({ children }) => {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
+  //! USAR PARA HACER BUSQUEDA 
+  /* useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords
         setUserLocation({ latitude, longitude })
       })
     }
-  }, [])
+  }, []) */
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371 // Radius of the earth in km
