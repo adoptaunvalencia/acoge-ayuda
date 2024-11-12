@@ -3,9 +3,8 @@ import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import Card from './Card'
 import './card.css'
 
-const CardList = ({ isAuth, user }) => {
+const CardList = ({offers}) => {
   const {
-    stateOffer: { offer, offers },
     stateLoad: { load }
   } = useContext(ReducerContext)
 
@@ -16,7 +15,7 @@ const CardList = ({ isAuth, user }) => {
       ) : (
         <div className='card-list'>
           {offers?.map((offer) => (
-            <Card key={offer._id} isAuth={isAuth} user={user} offer={offer} />
+            <Card key={offer._id} offer={offer} />
           ))}
         </div>
       )}
