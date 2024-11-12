@@ -1,0 +1,10 @@
+.create-offer-form {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+.create-offer-form > h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
