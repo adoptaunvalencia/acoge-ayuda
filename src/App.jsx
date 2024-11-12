@@ -20,14 +20,14 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='send-code' element={<SendCode />} />
         <Route path='new-password' element={<NewPassword />} />
-        <Route
+        {/* <Route
           path='dashboard'
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path='create-offer'
           element={
@@ -36,6 +36,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='*' element={<ProtectedRoute></ProtectedRoute>} />
       </Route>
     </Routes>
   )
