@@ -53,7 +53,6 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
 
-          {/* Renderizar todas las categorías activas */}
           {activeTypes.map((type) => (
             categorizedOffers[type] && (
               <LayerGroup key={type}>
