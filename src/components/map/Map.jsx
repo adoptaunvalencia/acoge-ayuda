@@ -3,22 +3,16 @@ import {
   MapContainer,
   Marker,
   TileLayer,
-  LayersControl,
   LayerGroup,
   useMap
 } from 'react-leaflet'
 import L from 'leaflet'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
-import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import 'leaflet/dist/leaflet.css'
 import def from '../../assets/icons/icon_map.svg'
 import Modal from '../modal/Modal'
-import CardCategory from '../card/CardCategory'
 import Card from '../card/Card'
-import CardList from '../card/CardList'
-
-const { BaseLayer, Overlay } = LayersControl
 
 const defaultIcon = new L.Icon({
   iconUrl: def,
@@ -27,25 +21,13 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -32]
 })
 
-export const Map = ({ maxDistance, selectedCity }) => {
-  const { userLocation, categorizedOffers, load, filterOffers } =
-    useContext(FunctionContext)
-  const [activeType, setActiveType] = useState('all')
+export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
+  const { userLocation, categorizedOffers, load, filterOffers } = useContext(FunctionContext)
   const {
     stateOffer: { offers },
     stateIsAuth: { isAuth, user },
-    dispatchLoad,
     dispatchOffer
   } = useContext(ReducerContext)
-
-
-  const overlayNames = {
-    all: 'Todas las ofertas',
-    accommodation: 'Alojamientos',
-    hygiene: 'Higiene',
-    food: 'Comida',
-    pet_fostering: 'Acogida de mascotas'
-  }
 
   useEffect(() => {
     filterOffers(selectedCity, maxDistance)
@@ -54,10 +36,6 @@ export const Map = ({ maxDistance, selectedCity }) => {
   const initialPosition = userLocation
     ? [userLocation.latitude, userLocation.longitude]
     : [40.42372525496708, -3.678864358280353] // MADRID
-
-  const handleEventClickOffer = (offer) => {
-    console.log(offer)
-  }
 
   return (
     <>
@@ -70,36 +48,27 @@ export const Map = ({ maxDistance, selectedCity }) => {
           scrollWheelZoom={false}
           style={{ height: '35vh', width: '100%' }}
         >
-          <LayersControl position='topright'>
-            <BaseLayer checked name='Ofertas'>
-              <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-              />
-            </BaseLayer>
-            {Object.keys(categorizedOffers).map((type) => (
-              <Overlay
-                key={type}
-                checked={activeType === type}
-                name={
-                  overlayNames[type] ||
-                  type.charAt(0).toUpperCase() + type.slice(1)
-                }
-              >
-                <LayerGroup>
-                  {categorizedOffers[type].map((offer) => (
-                    <CustomMarker
-                      key={offer._id}
-                      offer={offer}
-                      dispatchOffer={dispatchOffer}
-                      isAuth={isAuth}
-                      user={user}
-                    />
-                  ))}
-                </LayerGroup>
-              </Overlay>
-            ))}
-          </LayersControl>
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
+
+          {/* Renderizar todas las categorías activas */}
+          {activeTypes.map((type) => (
+            categorizedOffers[type] && (
+              <LayerGroup key={type}>
+                {categorizedOffers[type].map((offer) => (
+                  <CustomMarker
+                    key={offer._id}
+                    offer={offer}
+                    dispatchOffer={dispatchOffer}
+                    isAuth={isAuth}
+                    user={user}
+                  />
+                ))}
+              </LayerGroup>
+            )
+          ))}
         </MapContainer>
       )}
     </>
@@ -118,8 +87,6 @@ const CustomMarker = ({ offer, dispatchOffer, isAuth, user }) => {
     )
     dispatchOffer({ type: 'SET_OFFER', payload: offer })
     setShowPopup(true)
-    console.log(offer);
-    
   }
 
   return (
