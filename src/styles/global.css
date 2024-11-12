@@ -106,6 +106,15 @@ hr{
   align-items: center;
 }
 
+.spinner{
+  position: fixed;
+  height: 100svh;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*MEDIA QUERY*/
 @media (max-width: 850px) {
   h1,
