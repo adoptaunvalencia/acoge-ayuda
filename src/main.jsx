@@ -6,6 +6,7 @@ import { ReducerProvider } from './contexts/reducer.contexts/ReducerContext'
 import { RefProvider } from './contexts/ref.context/RefContext.jsx'
 import { FunctionProvider } from './contexts/function.contexts/FunctionContext'
 import App from './App'
+import { Analytics } from "@vercel/analytics/react"
 import './styles/global.css'
 
 createRoot(document.getElementById('root')).render(
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
         <FunctionProvider>
           <RefProvider>
             <App />
+            <Analytics />
           </RefProvider>
         </FunctionProvider>
       </ReducerProvider>
