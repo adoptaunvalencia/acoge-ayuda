@@ -35,39 +35,38 @@ export const FunctionProvider = ({ children }) => {
 
   const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
   const [existToken, setExistToken] = useState(token || null)
-  useEffect(() => {
-    const getProfile = async () => {
-      const url = 'user'
-      const uriApi = `assistance-offer`
-      if (existToken) {
-        try {
-          dispatchLoad({ type: 'LOAD_TRUE' })
-          const { data } = await fetchAuth(url, {}, 'GET', existToken)
-          const offers = await fetchAuth(uriApi, {}, 'GET', existToken)
-          dispatchOffer({
-            type: 'SET_OFFERS',
-            payload: offers.assistancesOffers
-          })
-          dispatchIsAuth({ type: 'SET_USER', payload: data.user })
-          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-          dispatchOffer({
-            type: 'SET_OFFERS',
-            payload: offers.data.assistancesOffers
-          })
-        } catch (error) {
-          console.log(error.message)
-        } finally {
-          dispatchLoad({ type: 'LOAD_FALSE' })
-        }
+  const getProfile = async () => {
+    const url = 'user'
+    const uriApi = `assistance-offer`
+    if (existToken) {
+      try {
+        dispatchLoad({ type: 'LOAD_TRUE' })
+        const { data } = await fetchAuth(url, {}, 'GET', existToken)
+        const offers = await fetchAuth(uriApi, {}, 'GET', existToken)
+        dispatchOffer({
+          type: 'SET_OFFERS',
+          payload: offers.assistancesOffers
+        })
+        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
+        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+        dispatchOffer({
+          type: 'SET_OFFERS',
+          payload: offers.data.assistancesOffers
+        })
+      } catch (error) {
+        console.log(error.message)
+      } finally {
+        dispatchLoad({ type: 'LOAD_FALSE' })
       }
     }
+  }
 
-    const getOffers = async () => {
-      const uriApi = `assistance-offer`
-      const data = await fetchOffers(uriApi, dispatchLoad)
-      dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
-    }
-
+  const getOffers = async () => {
+    const uriApi = `assistance-offer`
+    const data = await fetchOffers(uriApi, dispatchLoad)
+    dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
+  }
+  useEffect(() => {
     if (token) {
       getProfile()
     } else {
@@ -154,7 +153,10 @@ export const FunctionProvider = ({ children }) => {
         filterOffers,
         handleLogin,
         handleRegister,
-        handleCreateOffer
+        handleCreateOffer,
+        activeTypes,
+        setActiveTypes,
+        handleCategoryToggle
       }}
     >
       {children}

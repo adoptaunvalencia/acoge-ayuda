@@ -4,13 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../../../reducers/auth.reducer/auth.action'
 import './login.css'
 import Form from '../../../components/form-group/Form'
+import { fetchAuth } from '../../../services/services'
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const {
     stateLoad: { load },
     dispatchLoad,
-    dispatchIsAuth
+    dispatchIsAuth,
+    dispatchOffer
   } = useContext(ReducerContext)
 
   const navigate = useNavigate()
@@ -31,13 +33,20 @@ const Login = () => {
   ]
 
   const handleFormSubmit = async (formData) => {
+    const uriApi = `assistance-offer`
     try {
       const data = await loginUser(formData, dispatchLoad)
       if (data && data.user) {
         dispatchIsAuth({ type: 'SET_USER', payload: data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
-        navigate('../')
+        const token = data.token
+       localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', token)
+        const offers = await fetchAuth(uriApi, {}, 'GET', token)        
+        dispatchOffer({
+          type: 'SET_OFFERS',
+          payload: offers.data.assistancesOffers
+        })
+        navigate('../dashboard')
       } else {
         setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
       }
