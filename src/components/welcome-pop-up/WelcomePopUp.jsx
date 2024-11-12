@@ -33,11 +33,6 @@ const WelcomePopUp = () => {
     <>
       {showPopup && (
         <section className='welcome__container'>
-          {/*           <div className='welcome__close-container'>
-            <button className='welcome__close' onClick={handleCreateCount}>
-              ✕
-            </button>
-          </div> */}
           <div className='welcome__brand'>
             <img
               className='welcome__brand-image'
@@ -48,7 +43,6 @@ const WelcomePopUp = () => {
           </div>
           <div className='welcome__explain-container'>
             <p className='welcome__explain-title'>{texts.explainTextTitle1}</p>
-
             <p className='welcome__explain-text'>
               {texts.explainTextDescription1}
             </p>
