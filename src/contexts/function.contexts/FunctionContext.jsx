@@ -26,7 +26,8 @@ export const FunctionProvider = ({ children }) => {
   const {
     stateOffer: { offers },
     stateIsAuth: { user },
-    dispatchIsAuth,dispatchOffer,
+    dispatchIsAuth,
+    dispatchOffer,
     dispatchLoad
   } = useContext(ReducerContext)
 
@@ -43,15 +44,16 @@ export const FunctionProvider = ({ children }) => {
           dispatchLoad({ type: 'LOAD_TRUE' })
           const { data } = await fetchAuth(url, {}, 'GET', existToken)
           const offers = await fetchAuth(uriApi, {}, 'GET', existToken)
-          console.log(offers.data);
-          
           dispatchOffer({
             type: 'SET_OFFERS',
             payload: offers.assistancesOffers
           })
           dispatchIsAuth({ type: 'SET_USER', payload: data.user })
           dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-          dispatchOffer({ type: 'SET_OFFERS', payload: offers.data.assistancesOffers })
+          dispatchOffer({
+            type: 'SET_OFFERS',
+            payload: offers.data.assistancesOffers
+          })
         } catch (error) {
           console.log(error.message)
         } finally {
