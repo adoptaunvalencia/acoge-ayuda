@@ -20,8 +20,9 @@ const Home = () => {
   })
   const {
     stateIsAuth: { user, isAuth },
-    stateOffer: { offer, offers }
+    stateOffer: { offers }
   } = useContext(ReducerContext)
+  
   const { showPopup, setShowPopup } = useContext(FunctionContext)
 
   const selectOptionsObject = {
@@ -116,7 +117,7 @@ const Home = () => {
         <Map />
       </section>
       <section className='section_card-offers'>
-        <CardList isAuth={isAuth} user={user} />
+        <CardList offers={offers} />
       </section>
     </div>
   )

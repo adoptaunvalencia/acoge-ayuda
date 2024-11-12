@@ -9,49 +9,23 @@ import {
 } from 'react-leaflet'
 import L from 'leaflet'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
-import 'leaflet/dist/leaflet.css'
-import accommodation from '../../assets/icons/accommodation.png'
-import hygiene from '../../assets/icons/hygiene.png'
-import food from '../../assets/icons/food.png'
-import pet_fostering from '../../assets/icons/pet_fostering.png'
-import def from '../../assets/icons/default.png'
-import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
+import 'leaflet/dist/leaflet.css'
+import def from '../../assets/icons/icon_map.svg'
+import Modal from '../modal/Modal'
+import CardCategory from '../card/CardCategory'
+import Card from '../card/Card'
+import CardList from '../card/CardList'
 
 const { BaseLayer, Overlay } = LayersControl
 
-const offerIcons = {
-  accommodation: new L.Icon({
-    iconUrl: accommodation, // URL de tu icono
-    iconSize: [32, 32], // Tamaño del icono
-    iconAnchor: [16, 32], // Punto de anclaje del icono (la base del icono)
-    popupAnchor: [0, -32] // Posición del popup
-  }),
-  hygiene: new L.Icon({
-    iconUrl: hygiene,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  }),
-  food: new L.Icon({
-    iconUrl: food,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  }),
-  pet_fostering: new L.Icon({
-    iconUrl: pet_fostering,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  }),
-  default: new L.Icon({
-    iconUrl: def,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  })
-}
+const defaultIcon = new L.Icon({
+  iconUrl: def,
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32]
+})
 
 export const Map = ({ maxDistance, selectedCity }) => {
   const { userLocation, categorizedOffers, load, filterOffers } =
@@ -59,15 +33,15 @@ export const Map = ({ maxDistance, selectedCity }) => {
   const [activeType, setActiveType] = useState('all')
   const {
     stateOffer: { offers },
-    stateIsAuth: { isAuth },
+    stateIsAuth: { isAuth, user },
     dispatchLoad,
     dispatchOffer
   } = useContext(ReducerContext)
+
   useEffect(() => {
     const getOffers = async () => {
       const uriApi = `assistance-offer`
-      const data = await fetchOffers(uriApi, dispatchOffer, dispatchLoad)
-
+      const data = await fetchOffers(uriApi, dispatchLoad)
       dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
     }
     getOffers()
@@ -88,6 +62,10 @@ export const Map = ({ maxDistance, selectedCity }) => {
   const initialPosition = userLocation
     ? [userLocation.latitude, userLocation.longitude]
     : [40.42372525496708, -3.678864358280353] // MADRID
+
+  const handleEventClickOffer = (offer) => {
+    console.log(offer)
+  }
 
   return (
     <>
@@ -118,7 +96,13 @@ export const Map = ({ maxDistance, selectedCity }) => {
               >
                 <LayerGroup>
                   {categorizedOffers[type].map((offer) => (
-                    <CustomMarker key={offer._id} offer={offer} />
+                    <CustomMarker
+                      key={offer._id}
+                      offer={offer}
+                      dispatchOffer={dispatchOffer}
+                      isAuth={isAuth}
+                      user={user}
+                    />
                   ))}
                 </LayerGroup>
               </Overlay>
@@ -130,23 +114,38 @@ export const Map = ({ maxDistance, selectedCity }) => {
   )
 }
 
-const CustomMarker = ({ offer }) => {
+const CustomMarker = ({ offer, dispatchOffer, isAuth, user }) => {
   const map = useMap()
+  const [showPopup, setShowPopup] = useState(false)
+
   const handleClickPosition = () => {
     map.setView(
       [offer.location.coordinates[1], offer.location.coordinates[0]],
       13,
       { animate: true, duration: 0.8 }
     )
+    dispatchOffer({ type: 'SET_OFFER', payload: offer })
+    setShowPopup(true)
+    console.log(offer);
+    
   }
 
-  const offerType = offer.typeOffer[0]?.type || 'default'
-  const markerIcon = offerIcons[offerType] || offerIcons.default
   return (
-    <Marker
-      position={[offer.location.coordinates[1], offer.location.coordinates[0]]}
-      icon={markerIcon}
-      eventHandlers={{ click: handleClickPosition }}
-    />
+    <>
+      <Modal
+        isModalOpen={showPopup}
+        handleCloseModal={() => setShowPopup(false)}
+      >
+        <Card offer={offer} />
+      </Modal>
+      <Marker
+        position={[
+          offer.location.coordinates[1],
+          offer.location.coordinates[0]
+        ]}
+        icon={defaultIcon}
+        eventHandlers={{ click: handleClickPosition }}
+      />
+    </>
   )
 }

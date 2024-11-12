@@ -11,19 +11,21 @@
   border: 1px solid var(--bg-medium-gray);
   padding: 16px;
   overflow: hidden;
+  background-color: var(--bg-white);
 }
 
 .card h4 {
-  font-size: var(--font-size-m)
+  font-size: var(--font-size-m);
 }
 
 .card p {
   font-size: var(--font-size-s);
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; 
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
 }
 
 .card__user-info {
