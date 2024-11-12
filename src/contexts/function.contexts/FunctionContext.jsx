@@ -154,9 +154,6 @@ export const FunctionProvider = ({ children }) => {
         handleLogin,
         handleRegister,
         handleCreateOffer,
-        activeTypes,
-        setActiveTypes,
-        handleCategoryToggle
       }}
     >
       {children}
