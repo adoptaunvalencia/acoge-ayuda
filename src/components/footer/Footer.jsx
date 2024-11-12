@@ -1,6 +1,7 @@
 import React from 'react'
 import './footer.css'
 import Logo from '../../assets/images/logo.webp'
+import InstallApp from '../install-app/InstallApp'
 
 const Footer = () => {
   return (
@@ -15,6 +16,7 @@ const Footer = () => {
           a ofrecer alojamiento, comida, higiene y ayuda con mascotas. Aquí nos
           apoyamos unos a otros.
         </p>
+        <InstallApp />
       </div>
       <div className='footer-content-img'>
         <img src={Logo} alt='Adopta un Valenciano Logo' />
