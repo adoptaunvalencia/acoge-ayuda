@@ -8,6 +8,7 @@ import Login from 'pages/Auth/login/Login'
 import Forgot from 'pages/Auth/forgot/Forgot'
 import SendCode from 'pages/Auth/sendCode/SendCode'
 import NewPassword from 'pages/Auth/new-password/NewPassword'
+import CreateOffer from './pages/create-offer/CreateOffer'
 
 const App = () => {
   return (
@@ -19,11 +20,12 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='send-code' element={<SendCode />} />
         <Route path='new-password' element={<NewPassword />} />
+        
         <Route
-          path='dashboard'
+          path='create-offer'
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <CreateOffer />
             </ProtectedRoute>
           }
         />

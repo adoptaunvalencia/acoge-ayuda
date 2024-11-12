@@ -1,9 +1,9 @@
-import { useContext, useState } from "react"
-import { ReducerContext } from "../../../contexts/reducer.contexts/ReducerContext"
-import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../../../reducers/auth.reducer/auth.action"
+import { useContext, useState } from 'react'
+import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
+import { Link, useNavigate } from 'react-router-dom'
+import { loginUser } from '../../../reducers/auth.reducer/auth.action'
 import './login.css'
-import Form from "../../../components/form-group/Form"
+import Form from '../../../components/form-group/Form'
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -31,15 +31,18 @@ const Login = () => {
   ]
 
   const handleFormSubmit = async (formData) => {
-    const data = await loginUser(formData, dispatchLoad)
-    console.log(data);
-    
-    if (data && data.user) {
-      dispatchIsAuth({ type: 'SET_USER', payload: data.user })
-      dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-      navigate('../dashboard')
-    } else {
-      setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
+    try {
+      const data = await loginUser(formData, dispatchLoad)
+      if (data && data.user) {
+        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
+        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
+        navigate('../dashboard')
+      } else {
+        setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
