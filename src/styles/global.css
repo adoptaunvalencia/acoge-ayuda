@@ -2,6 +2,7 @@
 :root {
   /* BACKGROUND COLOR */
   --bg-dark-gray: #222222;
+  --bg-white: #ffffff;
   --bg-medium-gray: #7e7e7e;
   --bg-light-gray: #ebebeb;
   --bg-lighter-gray: #f7f7f7;
@@ -103,6 +104,15 @@ hr{
 .icon {
   display: flex;
   align-items: center;
+}
+
+.spinner{
+  position: fixed;
+  height: 100svh;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*MEDIA QUERY*/

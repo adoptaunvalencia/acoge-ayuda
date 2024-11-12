@@ -4,24 +4,13 @@ import Card from './Card'
 import Spinner from '../spinner/Spinner'
 import './card.css'
 
-const CardList = ({ isAuth, user }) => {
-  const {
-    stateOffer: { offer, offers },
-    stateLoad: { load }
-  } = useContext(ReducerContext)
-
+const CardList = ({ offers }) => {
   return (
-    <>
-      {load ? (
-        'Loading'
-      ) : (
-        <div className='card-list'>
-          {offers?.map((offer) => (
-            <Card key={offer._id} isAuth={isAuth} user={user} offer={offer} />
-          ))}
-        </div>
-      )}
-    </>
+    <div className='card-list'>
+      {offers?.map((offer) => (
+        <Card key={offer._id} offer={offer} />
+      ))}
+    </div>
   )
 }
 
