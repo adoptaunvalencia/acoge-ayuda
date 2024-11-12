@@ -1,8 +1,8 @@
 import React from 'react';
-import accommodation from '../../assets/icons/accommodation.png'
-import hygiene from '../../assets/icons/hygiene.png'
-import food from '../../assets/icons/food.png'
-import pet_fostering from '../../assets/icons/pet_fostering.png'
+import accommodation from '../../assets/icons/accommodation-icon.svg'
+import hygiene from '../../assets/icons/hygiene-icon.svg'
+import food from '../../assets/icons/food-icon.svg'
+import pet_fostering from '../../assets/icons/pets-icon.svg'
 import './card.css';
 
 const categoryIcons = {

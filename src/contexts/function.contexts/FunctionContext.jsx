@@ -8,6 +8,8 @@ import React, {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReducerContext } from '../reducer.contexts/ReducerContext'
+import { fetchAuth } from '../../services/services'
+import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -20,21 +22,58 @@ export const FunctionProvider = ({ children }) => {
     food: [],
     pet_fostering: []
   })
+
   const {
     stateOffer: { offers },
+    stateIsAuth: { user },
+    dispatchIsAuth,
+    dispatchOffer,
+    dispatchLoad
   } = useContext(ReducerContext)
 
   const navigate = useNavigate()
 
-  //! USAR PARA HACER BUSQUEDA 
-  /* useEffect(() => {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords
-        setUserLocation({ latitude, longitude })
-      })
+  const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
+  const [existToken, setExistToken] = useState(token || null)
+  useEffect(() => {
+    const getProfile = async () => {
+      const url = 'user'
+      const uriApi = `assistance-offer`
+      if (existToken) {
+        try {
+          dispatchLoad({ type: 'LOAD_TRUE' })
+          const { data } = await fetchAuth(url, {}, 'GET', existToken)
+          const offers = await fetchAuth(uriApi, {}, 'GET', existToken)
+          dispatchOffer({
+            type: 'SET_OFFERS',
+            payload: offers.assistancesOffers
+          })
+          dispatchIsAuth({ type: 'SET_USER', payload: data.user })
+          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+          dispatchOffer({
+            type: 'SET_OFFERS',
+            payload: offers.data.assistancesOffers
+          })
+        } catch (error) {
+          console.log(error.message)
+        } finally {
+          dispatchLoad({ type: 'LOAD_FALSE' })
+        }
+      }
     }
-  }, []) */
+
+    const getOffers = async () => {
+      const uriApi = `assistance-offer`
+      const data = await fetchOffers(uriApi, dispatchLoad)
+      dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
+    }
+
+    if (token) {
+      getProfile()
+    } else {
+      getOffers()
+    }
+  }, [existToken])
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371 // Radius of the earth in km
@@ -103,6 +142,8 @@ export const FunctionProvider = ({ children }) => {
     navigate('register')
   }
 
+  const handleCreateOffer = () => {}
+
   return (
     <FunctionContext.Provider
       value={{
@@ -112,7 +153,8 @@ export const FunctionProvider = ({ children }) => {
         categorizedOffers,
         filterOffers,
         handleLogin,
-        handleRegister
+        handleRegister,
+        handleCreateOffer
       }}
     >
       {children}

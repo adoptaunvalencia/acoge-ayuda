@@ -1,6 +1,6 @@
 export const initStateOffers = {
   offers: [],
-  offer: []
+  offer: {}
 }
 
 export const stateOffers = (state, action) => {

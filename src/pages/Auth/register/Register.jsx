@@ -46,21 +46,13 @@ const Register = () => {
 
   return (
     <div className='register-form'>
-      {load ? (
-        'Loading...'
-      ) : (
-        <>
-          <h2>Registro de Usuario</h2>
-          <Form
-            fields={fields}
-            onSubmit={handleFormSubmit}
-            buttonText='Registrarse'
-          />
-          {responseMessage && (
-            <p className='response-message'>{responseMessage}</p>
-          )}
-        </>
-      )}
+      <h2>Registro de Usuario</h2>
+      <Form
+        fields={fields}
+        onSubmit={handleFormSubmit}
+        buttonText='Registrarse'
+      />
+      {responseMessage && <p className='response-message'>{responseMessage}</p>}
     </div>
   )
 }

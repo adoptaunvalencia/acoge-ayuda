@@ -32,22 +32,14 @@ const Forgot = () => {
 
   return (
     <div className='forgot-password-form'>
-      {load ? (
-        'Loading...'
-      ) : (
-        <>
-          <h2>Recuperar Contraseña</h2>
-          <Form
-            fields={fields}
-            onSubmit={handleFormSubmit}
-            buttonText='Enviar Correo de Recuperación'
-          />
-          {responseMessage && (
-            <p className='response-message'>{responseMessage}</p>
-          )}
-          <Link  to='../send-code'>Tengo mi código</Link>
-        </>
-      )}
+      <h2>Recuperar Contraseña</h2>
+      <Form
+        fields={fields}
+        onSubmit={handleFormSubmit}
+        buttonText='Enviar Correo de Recuperación'
+      />
+      {responseMessage && <p className='response-message'>{responseMessage}</p>}
+      <Link to='../send-code'>Tengo mi código</Link>
     </div>
   )
 }
