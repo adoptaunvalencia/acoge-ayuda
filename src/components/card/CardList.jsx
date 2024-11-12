@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import Card from './Card'
-import Spinner from '../spinner/Spinner'
 import './card.css'
 
 const CardList = ({ offers }) => {
