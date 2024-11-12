@@ -12,14 +12,20 @@
   padding: 16px;
   overflow: hidden;
   background-color: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .card h4 {
   font-size: var(--font-size-m);
+  text-align: center;
 }
 
 .card p {
   font-size: var(--font-size-s);
+  color: var(--text-secondary);
   display: -webkit-box;
   line-clamp: 3;
   -webkit-line-clamp: 3;
@@ -43,20 +49,24 @@
 }
 
 .card__title-container {
-  line-height: 23px;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
 }
 
 .card__offer-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: var(--spacing-m);
-  padding: var(--spacing-l) 0;
-  height: 120px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .card__offer-category {
   display: flex;
   align-items: center;
+  justify-content: start;
+  width:110px;
+  gap:10px;
 }
 
 .card__offer-category-icon {
@@ -65,7 +75,7 @@
 }
 
 .card__offer-category-text {
-  margin-left: var(--spacing-xs);
+  color: var(--text-secondary)
 }
 
 .card__button-container {
