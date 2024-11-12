@@ -1,16 +1,26 @@
-import React, { useContext } from 'react'
 import { Map } from '../../components/map/Map'
 import CardList from '../../components/card/CardList'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import './Dashboard.css'
+import { useContext } from 'react'
+import FilterServices from '../../components/filtro-services/FilterServices'
 
 const Dashboard = () => {
   const {
-    stateOffer: { offers }
+    stateOffer: { offers },
+    handleCategoryToggle
   } = useContext(ReducerContext)
   return (
-    <div>
-      <Map />
-      <CardList offers={offers} />
+    <div className='dashborad__container'>
+      <div>
+        <FilterServices onCategoryToggle={handleCategoryToggle} />
+      </div>
+      <div>
+        <Map />
+      </div>
+      <div>
+        <CardList offers={offers} />
+      </div>
     </div>
   )
 }

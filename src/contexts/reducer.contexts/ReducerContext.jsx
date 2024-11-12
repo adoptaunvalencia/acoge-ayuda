@@ -1,4 +1,4 @@
-import { useReducer, createContext } from 'react'
+import { useReducer, createContext, useState } from 'react'
 import {
   stateLoader,
   initStateLoader
@@ -11,10 +11,12 @@ import {
   initStateOffers,
   stateOffers
 } from '../../reducers/offers.reducer/offer.reducer'
+import { allCategories } from '../../utils/typesOffers'
 
 export const ReducerContext = createContext()
 
 export const ReducerProvider = ({ children }) => {
+  const [activeTypes, setActiveTypes] = useState(allCategories)
   const [stateLoad, dispatchLoad] = useReducer(stateLoader, initStateLoader)
   const [stateIsAuth, dispatchIsAuth] = useReducer(stateAuth, initStateAuth)
   const [stateOffer, dispatchOffer] = useReducer(stateOffers, initStateOffers)
@@ -22,6 +24,8 @@ export const ReducerProvider = ({ children }) => {
   return (
     <ReducerContext.Provider
       value={{
+        activeTypes,
+        setActiveTypes,
         stateLoad,
         dispatchLoad,
         stateIsAuth,

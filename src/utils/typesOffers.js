@@ -1,0 +1,1 @@
+export const allCategories = ["accommodation", "food", "hygiene", "pet_fostering"];
