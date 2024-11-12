@@ -5,7 +5,7 @@
     {
       "src": "/images/logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "size": "512x512"
     }
   ],
   "start_url": ".",
