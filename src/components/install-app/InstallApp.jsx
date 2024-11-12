@@ -40,15 +40,23 @@ const InstallApp = () => {
   }
 
   return (
-    <div className={`${!showInstallPrompt && 'fadeIn'}`}>
-      {showInstallPrompt && (
-      <Button
-        text='Instalar APP'
-        icon={logo}
-        action={handleInstallClick}
-      />
+    <>
+      {!showInstallPrompt && (
+        <button
+          className={`install-app ${!showInstallPrompt && 'fadeIn'}`}
+          onClick={handleInstallClick}
+        >
+          <p>Instalar APP</p>
+          <img
+            src={logo}
+            alt='Adopta un Valenciano'
+            width='65'
+            loading='lazy'
+          />
+        </button>
       )}
-    </div>
+
+    </>
   )
 }
 
