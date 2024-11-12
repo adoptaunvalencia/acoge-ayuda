@@ -3,9 +3,9 @@
   "name": "Acoge-una-ayuda",
   "icons": [
     {
-      "src": "/logo.webp",
-      "type": "image/webp",
-      "sizes": "192x192"
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
