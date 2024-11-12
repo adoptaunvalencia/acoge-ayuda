@@ -48,22 +48,14 @@ const Login = () => {
 
   return (
     <div className='login-form'>
-      {load ? (
-        'Loading...'
-      ) : (
-        <>
-          <h2>Iniciar Sesión</h2>
-          <Form
-            fields={fields}
-            onSubmit={handleFormSubmit}
-            buttonText='Iniciar Sesión'
-          />
-          {responseMessage && (
-            <p className='response-message'>{responseMessage}</p>
-          )}
-          <Link to='../forgot-password'>Restablecer contraseña</Link>
-        </>
-      )}
+      <h2>Iniciar Sesión</h2>
+      <Form
+        fields={fields}
+        onSubmit={handleFormSubmit}
+        buttonText='Iniciar Sesión'
+      />
+      {responseMessage && <p className='response-message'>{responseMessage}</p>}
+      <Link to='../forgot-password'>Restablecer contraseña</Link>
     </div>
   )
 }

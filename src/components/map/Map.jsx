@@ -10,13 +10,10 @@ import {
 import L from 'leaflet'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
-import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import 'leaflet/dist/leaflet.css'
 import def from '../../assets/icons/icon_map.svg'
 import Modal from '../modal/Modal'
-import CardCategory from '../card/CardCategory'
 import Card from '../card/Card'
-import CardList from '../card/CardList'
 
 const { BaseLayer, Overlay } = LayersControl
 
@@ -37,7 +34,6 @@ export const Map = ({ maxDistance, selectedCity }) => {
     dispatchLoad,
     dispatchOffer
   } = useContext(ReducerContext)
-
 
   const overlayNames = {
     all: 'Todas las ofertas',
@@ -60,49 +56,42 @@ export const Map = ({ maxDistance, selectedCity }) => {
   }
 
   return (
-    <>
-      {load ? (
-        'Loading...'
-      ) : (
-        <MapContainer
-          center={initialPosition}
-          zoom={5}
-          scrollWheelZoom={false}
-          style={{ height: '35vh', width: '100%' }}
-        >
-          <LayersControl position='topright'>
-            <BaseLayer checked name='Ofertas'>
-              <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-              />
-            </BaseLayer>
-            {Object.keys(categorizedOffers).map((type) => (
-              <Overlay
-                key={type}
-                checked={activeType === type}
-                name={
-                  overlayNames[type] ||
-                  type.charAt(0).toUpperCase() + type.slice(1)
-                }
-              >
-                <LayerGroup>
-                  {categorizedOffers[type].map((offer) => (
-                    <CustomMarker
-                      key={offer._id}
-                      offer={offer}
-                      dispatchOffer={dispatchOffer}
-                      isAuth={isAuth}
-                      user={user}
-                    />
-                  ))}
-                </LayerGroup>
-              </Overlay>
-            ))}
-          </LayersControl>
-        </MapContainer>
-      )}
-    </>
+    <MapContainer
+      center={initialPosition}
+      zoom={5}
+      scrollWheelZoom={false}
+      style={{ height: '35vh', width: '100%' }}
+    >
+      <LayersControl position='topright'>
+        <BaseLayer checked name='Ofertas'>
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
+        </BaseLayer>
+        {Object.keys(categorizedOffers).map((type) => (
+          <Overlay
+            key={type}
+            checked={activeType === type}
+            name={
+              overlayNames[type] || type.charAt(0).toUpperCase() + type.slice(1)
+            }
+          >
+            <LayerGroup>
+              {categorizedOffers[type].map((offer) => (
+                <CustomMarker
+                  key={offer._id}
+                  offer={offer}
+                  dispatchOffer={dispatchOffer}
+                  isAuth={isAuth}
+                  user={user}
+                />
+              ))}
+            </LayerGroup>
+          </Overlay>
+        ))}
+      </LayersControl>
+    </MapContainer>
   )
 }
 
@@ -118,8 +107,7 @@ const CustomMarker = ({ offer, dispatchOffer, isAuth, user }) => {
     )
     dispatchOffer({ type: 'SET_OFFER', payload: offer })
     setShowPopup(true)
-    console.log(offer);
-    
+    console.log(offer)
   }
 
   return (
