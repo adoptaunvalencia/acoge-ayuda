@@ -3,6 +3,7 @@ import {
   MapContainer,
   Marker,
   TileLayer,
+  LayersControl,
   LayerGroup,
   useMap
 } from 'react-leaflet'
@@ -13,11 +14,8 @@ import 'leaflet/dist/leaflet.css'
 import def from '../../assets/icons/icon_map.svg'
 import Modal from '../modal/Modal'
 import Card from '../card/Card'
-<<<<<<< HEAD
 
 const { BaseLayer, Overlay } = LayersControl
-=======
->>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
 
 const defaultIcon = new L.Icon({
   iconUrl: def,
@@ -26,15 +24,17 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -32]
 })
 
-export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
-  const { userLocation, categorizedOffers, load, filterOffers } = useContext(FunctionContext)
+export const Map = ({ maxDistance, selectedCity }) => {
+  const { userLocation, categorizedOffers, load, filterOffers } =
+    useContext(FunctionContext)
+  const [activeType, setActiveType] = useState('all')
   const {
     stateOffer: { offers },
     stateIsAuth: { isAuth, user },
+    dispatchLoad,
     dispatchOffer
   } = useContext(ReducerContext)
 
-<<<<<<< HEAD
   const overlayNames = {
     all: 'Todas las ofertas',
     accommodation: 'Alojamientos',
@@ -43,8 +43,6 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
     pet_fostering: 'Acogida de mascotas'
   }
 
-=======
->>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
   useEffect(() => {
     filterOffers(selectedCity, maxDistance)
   }, [selectedCity, maxDistance, filterOffers])
@@ -53,8 +51,11 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
     ? [userLocation.latitude, userLocation.longitude]
     : [40.42372525496708, -3.678864358280353] // MADRID
 
+  const handleEventClickOffer = (offer) => {
+    console.log(offer)
+  }
+
   return (
-<<<<<<< HEAD
     <MapContainer
       center={initialPosition}
       zoom={5}
@@ -63,23 +64,10 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
     >
       <LayersControl position='topright'>
         <BaseLayer checked name='Ofertas'>
-=======
-    <>
-      {load ? (
-        'Loading...'
-      ) : (
-        <MapContainer
-          center={initialPosition}
-          zoom={5}
-          scrollWheelZoom={false}
-          style={{ height: '35vh', width: '100%' }}
-        >
->>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
           <TileLayer
             attribution='&copy; OpenStreetMap contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
-<<<<<<< HEAD
         </BaseLayer>
         {Object.keys(categorizedOffers).map((type) => (
           <Overlay
@@ -104,27 +92,6 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
         ))}
       </LayersControl>
     </MapContainer>
-=======
-
-          {activeTypes.map((type) => (
-            categorizedOffers[type] && (
-              <LayerGroup key={type}>
-                {categorizedOffers[type].map((offer) => (
-                  <CustomMarker
-                    key={offer._id}
-                    offer={offer}
-                    dispatchOffer={dispatchOffer}
-                    isAuth={isAuth}
-                    user={user}
-                  />
-                ))}
-              </LayerGroup>
-            )
-          ))}
-        </MapContainer>
-      )}
-    </>
->>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
   )
 }
 
@@ -140,10 +107,7 @@ const CustomMarker = ({ offer, dispatchOffer, isAuth, user }) => {
     )
     dispatchOffer({ type: 'SET_OFFER', payload: offer })
     setShowPopup(true)
-<<<<<<< HEAD
     console.log(offer)
-=======
->>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
   }
 
   return (
