@@ -56,7 +56,6 @@ const Home = () => {
   }
 
   const handleSendFilter = async () => {
-    console.log(userLocation)
     const data = await fetchFiltersRadius(userLocation)
   }
 

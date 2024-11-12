@@ -38,14 +38,6 @@ export const Map = ({ maxDistance, selectedCity }) => {
     dispatchOffer
   } = useContext(ReducerContext)
 
-  useEffect(() => {
-    const getOffers = async () => {
-      const uriApi = `assistance-offer`
-      const data = await fetchOffers(uriApi, dispatchLoad)
-      dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
-    }
-    getOffers()
-  }, [])
 
   const overlayNames = {
     all: 'Todas las ofertas',

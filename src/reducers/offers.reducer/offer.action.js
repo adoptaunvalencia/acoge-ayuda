@@ -1,6 +1,6 @@
 import { fetchAuth } from '../../services/services'
 
-export const fetchOffers = async (uriApi, dispatchLoad) => {
+export const fetchOffers = async (uriApi, dispatchLoad, token = null) => {
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi)

@@ -8,7 +8,7 @@ const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId } = offer
 
   const handleShowPhone = (phone) => {
-    const message = encodeURIComponent('¡Hola! Estoy interesado en tu oferta.')
+    const message = encodeURIComponent(`¡Hola! Estoy interesado en tu oferta: ${offer.title} en la web de Adopta un Valenciano⭐!`)
     const whatsappUrl = `https://wa.me/${phone}?text=${message}`
     window.open(whatsappUrl, '_blank')
   }

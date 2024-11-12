@@ -17,6 +17,12 @@
 
 }
 
+.header__contentinfo-user{
+  display: flex;
+  align-items: center;
+  gap:20px;
+}
+
 .header__container > div > a > img {
   width: 100px;
   transition: all 0.3s;
