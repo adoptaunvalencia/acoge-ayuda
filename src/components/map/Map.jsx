@@ -3,13 +3,13 @@ import {
   MapContainer,
   Marker,
   TileLayer,
-  LayersControl,
   LayerGroup,
   useMap
 } from 'react-leaflet'
 import L from 'leaflet'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import 'leaflet/dist/leaflet.css'
+<<<<<<< HEAD
 import accommodation from '../../assets/icons/accommodation.png'
 import hygiene from '../../assets/icons/hygiene.png'
 import food from '../../assets/icons/food.png'
@@ -17,8 +17,16 @@ import pet_fostering from '../../assets/icons/pet_fostering.png'
 import def from '../../assets/icons/default.png'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+=======
+import def from '../../assets/icons/icon_map.svg'
+import Modal from '../modal/Modal'
+import Card from '../card/Card'
+<<<<<<< HEAD
+>>>>>>> parent of 6b11729 (FEAT Spinner)
 
 const { BaseLayer, Overlay } = LayersControl
+=======
+>>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
 
 const offerIcons = {
   accommodation: new L.Icon({
@@ -53,14 +61,16 @@ const offerIcons = {
   })
 }
 
-export const Map = ({ maxDistance, selectedCity }) => {
-  const { userLocation, categorizedOffers, load, filterOffers } =
-    useContext(FunctionContext)
-  const [activeType, setActiveType] = useState('all')
+export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
+  const { userLocation, categorizedOffers, load, filterOffers } = useContext(FunctionContext)
   const {
     stateOffer: { offers },
+<<<<<<< HEAD
     stateIsAuth: { isAuth },
     dispatchLoad,
+=======
+    stateIsAuth: { isAuth, user },
+>>>>>>> parent of 6b11729 (FEAT Spinner)
     dispatchOffer
   } = useContext(ReducerContext)
   useEffect(() => {
@@ -73,6 +83,7 @@ export const Map = ({ maxDistance, selectedCity }) => {
     getOffers()
   }, [])
 
+<<<<<<< HEAD
   const overlayNames = {
     all: 'Todas las ofertas',
     accommodation: 'Alojamientos',
@@ -81,6 +92,8 @@ export const Map = ({ maxDistance, selectedCity }) => {
     pet_fostering: 'Acogida de mascotas'
   }
 
+=======
+>>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
   useEffect(() => {
     filterOffers(selectedCity, maxDistance)
   }, [selectedCity, maxDistance, filterOffers])
@@ -90,6 +103,19 @@ export const Map = ({ maxDistance, selectedCity }) => {
     : [40.42372525496708, -3.678864358280353] // MADRID
 
   return (
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <MapContainer
+      center={initialPosition}
+      zoom={5}
+      scrollWheelZoom={false}
+      style={{ height: '35vh', width: '100%' }}
+    >
+      <LayersControl position='topright'>
+        <BaseLayer checked name='Ofertas'>
+=======
+>>>>>>> parent of 6b11729 (FEAT Spinner)
     <>
       {load ? (
         'Loading...'
@@ -100,6 +126,7 @@ export const Map = ({ maxDistance, selectedCity }) => {
           scrollWheelZoom={false}
           style={{ height: '35vh', width: '100%' }}
         >
+<<<<<<< HEAD
           <LayersControl position='topright'>
             <BaseLayer checked name='Ofertas'>
               <TileLayer
@@ -127,6 +154,59 @@ export const Map = ({ maxDistance, selectedCity }) => {
         </MapContainer>
       )}
     </>
+=======
+>>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
+<<<<<<< HEAD
+        </BaseLayer>
+        {Object.keys(categorizedOffers).map((type) => (
+          <Overlay
+            key={type}
+            checked={activeType === type}
+            name={
+              overlayNames[type] || type.charAt(0).toUpperCase() + type.slice(1)
+            }
+          >
+            <LayerGroup>
+              {categorizedOffers[type].map((offer) => (
+                <CustomMarker
+                  key={offer._id}
+                  offer={offer}
+                  dispatchOffer={dispatchOffer}
+                  isAuth={isAuth}
+                  user={user}
+                />
+              ))}
+            </LayerGroup>
+          </Overlay>
+        ))}
+      </LayersControl>
+    </MapContainer>
+=======
+
+          {activeTypes.map((type) => (
+            categorizedOffers[type] && (
+              <LayerGroup key={type}>
+                {categorizedOffers[type].map((offer) => (
+                  <CustomMarker
+                    key={offer._id}
+                    offer={offer}
+                    dispatchOffer={dispatchOffer}
+                    isAuth={isAuth}
+                    user={user}
+                  />
+                ))}
+              </LayerGroup>
+            )
+          ))}
+        </MapContainer>
+      )}
+    </>
+>>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
+>>>>>>> parent of 6b11729 (FEAT Spinner)
   )
 }
 
@@ -138,6 +218,15 @@ const CustomMarker = ({ offer }) => {
       13,
       { animate: true, duration: 0.8 }
     )
+<<<<<<< HEAD
+=======
+    dispatchOffer({ type: 'SET_OFFER', payload: offer })
+    setShowPopup(true)
+<<<<<<< HEAD
+    console.log(offer)
+=======
+>>>>>>> 95c51c188088b2d4a9144f19920747db321c56ee
+>>>>>>> parent of 6b11729 (FEAT Spinner)
   }
 
   const offerType = offer.typeOffer[0]?.type || 'default'
