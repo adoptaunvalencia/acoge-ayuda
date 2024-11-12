@@ -37,7 +37,7 @@ const Login = () => {
         dispatchIsAuth({ type: 'SET_USER', payload: data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
-        navigate('../dashboard')
+        navigate('../')
       } else {
         setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
       }
