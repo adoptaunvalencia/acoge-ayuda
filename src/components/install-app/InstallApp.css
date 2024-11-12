@@ -1,16 +1,6 @@
 .install-app {
-  position: relative;
-  background-color: var(--rb-bg-toast);
-  color: var(--rb-text-secondary);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 5px;
-  opacity: 0;
-}
-@media (max-width: 840px) {
-  .install-app {
-    margin-bottom: 50px;
-  }
 }
