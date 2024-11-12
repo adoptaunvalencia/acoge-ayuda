@@ -23,8 +23,6 @@ export const loginUser = async (formData, dispatchLoad) => {
     if (response.status !== 200) {
       console.log('error')
     }
-    console.log(data)
-
     return data
   } catch (error) {
     console.log(error)
