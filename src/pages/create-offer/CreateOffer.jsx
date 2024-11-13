@@ -1,14 +1,19 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext';
 import { createOffer } from '../../reducers/offers.reducer/offer.action';
 import CreateOfferForm from '../../components/create-offer-form/CreateOfferForm';
 import './CreateOffer.css';
 
 const CreateOffer = () => {
+  const navigate = useNavigate();
+
   const [responseMessage, setResponseMessage] = useState('');
   const {
     stateIsAuth: { user },
-    dispatchLoad
+    dispatchLoad,
+    dispatchOffer,
+    stateOffer: { offers }
   } = useContext(ReducerContext);
 
   const fields = [
@@ -30,7 +35,11 @@ const CreateOffer = () => {
   const handleFormSubmit = async (formData) => {
     const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
     const data = await createOffer(formData, dispatchLoad, token)
-    console.log(data)
+    dispatchOffer({
+      type: "SET_OFFERS",
+      payload: [...offers.offers, data.assistanceOffer]
+    })
+    navigate('/');
   };
 
   return (
