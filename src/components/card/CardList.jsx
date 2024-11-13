@@ -66,7 +66,7 @@ const CardList = ({ offers }) => {
     const handleScroll = () => {
       if (
         window.innerHeight + window.scrollY >=
-          document.documentElement.scrollHeight - 200 &&
+          document.documentElement.scrollHeight - 400 &&
         !isLoading
       ) {
         loadMoreOffers()
