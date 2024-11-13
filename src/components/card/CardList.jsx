@@ -8,7 +8,7 @@ import './card.css'
 
 const CardList = ({ offers, activeTypes }) => {
   const { dispatchOffer } = useContext(ReducerContext)
-
+  const [allOffers, setAllOffers] = useState([])
   const [currentOffers, setCurrentOffers] = useState(
     offers.assistancesOffers || []
   )
@@ -40,6 +40,7 @@ const CardList = ({ offers, activeTypes }) => {
             )
         )
         setCurrentOffers((prevOffers) => [...prevOffers, ...newOffers])
+        setAllOffers(newOffers)
         setPage(nextPage)
         setTotalPages(newOffersData.data.totalPages || totalPages)
       }
@@ -85,10 +86,9 @@ const CardList = ({ offers, activeTypes }) => {
   }, [])
 
   useEffect(() => {
-    const offers = offers.assistancesOffers
-    console.log('v2', offers.length, activeTypes, offers)
+    console.log('v3', allOffers.length, activeTypes, allOffers)
     
-    const filteredOffers = offers.filter(offer =>
+    const filteredOffers = allOffers.filter(offer =>
       offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
     )
     console.log(filteredOffers)
