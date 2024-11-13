@@ -37,31 +37,38 @@ export const FunctionProvider = ({ children }) => {
   const [existToken, setExistToken] = useState(token || null)
   const getProfile = async () => {
     const url = 'user'
-    const uriApi = `assistance-offer/map-offers`
-    const uriApiOfferCard = `assistance-offer/`
+    const uriApi = 'assistance-offer/map-offers'
+    const uriApiOfferCard = 'assistance-offer/'
+
     if (existToken) {
+      dispatchLoad({ type: 'LOAD_TRUE' })
       try {
-        dispatchLoad({ type: 'LOAD_TRUE' })
-        const user = await fetchAuth(url, {}, 'GET', existToken)
-        const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
-        const offersCard = await fetchAuth(
-          uriApiOfferCard,
-          {},
-          'GET',
-          existToken
-        )
-        dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
-        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        dispatchOffer({
-          type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.assistancesOffers
-        })
-        dispatchOffer({
-          type: 'SET_OFFERS',
-          payload: offersCard.data
-        })
+        const [user, offersMap, offersCard] = await Promise.all([
+          fetchAuth(url, {}, 'GET', existToken),
+          fetchAuth(uriApi, {}, 'GET', existToken),
+          fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
+        ])
+
+        if (user?.data?.user) {
+          dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
+          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+        }
+
+        if (offersMap?.data?.assistancesOffers) {
+          dispatchOffer({
+            type: 'SET_OFFERS_MAP',
+            payload: offersMap.data.assistancesOffers
+          })
+        }
+
+        if (offersCard?.data) {
+          dispatchOffer({
+            type: 'SET_OFFERS',
+            payload: offersCard.data
+          })
+        }
       } catch (error) {
-        console.log(error.message)
+        console.error('Error loading profile data:', error.message)
       } finally {
         dispatchLoad({ type: 'LOAD_FALSE' })
       }
@@ -69,18 +76,31 @@ export const FunctionProvider = ({ children }) => {
   }
 
   const getOffers = async () => {
-    const uriApi = `assistance-offer/map-offers`
-    const uriApiOfferCard = `assistance-offer/`
-    const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
-    const offersCard = await fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
-    dispatchOffer({
-      type: 'SET_OFFERS_MAP',
-      payload: offersMap.data.assistancesOffers
-    })
-    dispatchOffer({
-      type: 'SET_OFFERS',
-      payload: offersCard.data
-    })
+    const uriApi = 'assistance-offer/map-offers'
+    const uriApiOfferCard = 'assistance-offer/'
+
+    try {
+      const [offersMap, offersCard] = await Promise.all([
+        fetchAuth(uriApi, {}, 'GET', existToken),
+        fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
+      ])
+
+      if (offersMap?.data?.assistancesOffers) {
+        dispatchOffer({
+          type: 'SET_OFFERS_MAP',
+          payload: offersMap.data.assistancesOffers
+        })
+      }
+
+      if (offersCard?.data) {
+        dispatchOffer({
+          type: 'SET_OFFERS',
+          payload: offersCard.data
+        })
+      }
+    } catch (error) {
+      console.error('Error loading offers:', error.message)
+    }
   }
   useEffect(() => {
     if (token) {
