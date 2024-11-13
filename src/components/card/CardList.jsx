@@ -6,7 +6,7 @@ import Spinner from '../spinner/Spinner'
 import Modal from '../modal/Modal'
 import './card.css'
 
-const CardList = ({ offers }) => {
+const CardList = ({ offers, activeTypes }) => {
   const { dispatchOffer } = useContext(ReducerContext)
   const [currentOffers, setCurrentOffers] = useState(
     offers.assistancesOffers || []
@@ -82,6 +82,14 @@ const CardList = ({ offers }) => {
       loadMoreOffers()
     }
   }, [])
+
+  useEffect(() => {
+    console.log(activeTypes, offers)
+    const filteredOffers = offers.filter(offer =>
+      offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
+    )
+    setCurrentOffers(filteredOffers)
+  }, [activeTypes])
 
   const closeModal = () => setIsLoading(false)
 
