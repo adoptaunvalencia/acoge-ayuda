@@ -5,52 +5,50 @@ import hygieneIcon from "../../assets/icons/hygiene-icon.svg"
 import petsIcon from "../../assets/icons/pets-icon.svg"
 import "./filterServices.css"
 
-const FilterServices = ({ onCategoryToggle }) => {
+const FilterServices = ({ onCategoryToggle, activeTypes }) => {
+  const isSelected = (category) => activeTypes.includes(category);
+  const buttons = [
+    {
+      text: "Alojamiento",
+      icon: accommodationIcon,
+      category: "accommodation"
+    },
+    {
+      text: "Comida",
+      icon: foodIcon,
+      category: "food"
+    },
+    {
+      text: "Higiene",
+      icon: hygieneIcon,
+      category: "hygiene"
+    },
+    {
+      text: "Mascotas",
+      icon: petsIcon,
+      category: "pet_fostering"
+    }
+  ]
+
   return (
-    <>
-      <section className="filter-services__container">
-        <p className="filter__title">Filtros</p>
-        <div className="filter__button-container">
+    <section className="filter-services__container">
+      <p className="filter__title">Filtros</p>
+      <div className="filter__button-container">
+        {buttons.map((button) => (
           <Button
-            text="Alojamiento"
+            key={button.category}
+            text={button.text}
             fontSize="var(--font-size-xs)"
-            icon={accommodationIcon}
-            textColor="var(--text-secondary)"
-            bgColor="#FFFFFF"
+            icon={button.icon}
+            textColor={isSelected(button.category) ? "#000000" : "var(--text-secondary)"}
+            bgColor={isSelected(button.category) ? "var(--selected-bg-color)" : "#FFFFFF"}
             borderRadius="var(--spacing-xs)"
-            action={() => onCategoryToggle('accommodation')}
+            action={() => onCategoryToggle(button.category)}
           />
-          <Button
-            text="Comida"
-            fontSize="var(--font-size-xs)"
-            icon={foodIcon}
-            textColor="var(--text-secondary)"
-            bgColor="#FFFFFF"
-            borderRadius="var(--spacing-xs)"
-            action={() => onCategoryToggle('food')}
-          />
-          <Button
-            text="Higiene"
-            fontSize="var(--font-size-xs)"
-            icon={hygieneIcon}
-            textColor="var(--text-secondary)"
-            bgColor="#FFFFFF"
-            borderRadius="var(--spacing-xs)"
-            action={() => onCategoryToggle('hygiene')}
-          />
-          <Button
-            text="Mascotas"
-            fontSize="var(--font-size-xs)"
-            icon={petsIcon}
-            textColor="var(--text-secondary)"
-            bgColor="#FFFFFF"
-            borderRadius="var(--spacing-xs)"
-            action={() => onCategoryToggle('pet_fostering')}
-          />
-        </div>
-      </section>
-    </>
+        ))}
+      </div>
+    </section>
   );
 };
 
-export default FilterServices;
+export default FilterServices
