@@ -77,12 +77,11 @@ const CardList = ({ offers }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isLoading, page, totalPages])
 
-  // Run loadMoreOffers on initial mount if no offers are loaded
   useEffect(() => {
     if (currentOffers.length === 0 && !isLoading) {
       loadMoreOffers()
     }
-  }, []) // Empty dependency to trigger once on mount
+  }, [])
 
   const closeModal = () => setIsLoading(false)
 
