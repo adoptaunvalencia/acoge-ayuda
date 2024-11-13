@@ -115,7 +115,10 @@ const Home = () => {
         <hr></hr>
       </section>
       <section>
-        <FilterServicer onCategoryToggle={handleCategoryToggle} />
+        <FilterServicer
+          onCategoryToggle={handleCategoryToggle}
+          activeTypes={activeTypes}
+        />
       </section>
       {!isAuth && (
         <Modal
