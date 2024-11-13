@@ -9,6 +9,7 @@ import Forgot from './pages/Auth/forgot/Forgot'
 import SendCode from './pages/Auth/sendCode/SendCode'
 import NewPassword from './pages/Auth/new-password/NewPassword'
 import CreateOffer from './pages/create-offer/CreateOffer'
+import Collaborator from './pages/collaborators/Collaborator'
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='collaborators' element={<Collaborator />} />
         <Route path='*' element={<Home />} />
       </Route>
     </Routes>
