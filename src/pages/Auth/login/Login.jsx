@@ -40,13 +40,14 @@ const Login = () => {
         dispatchIsAuth({ type: 'SET_USER', payload: data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         const token = data.token
-       localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', token)
-        const offers = await fetchAuth(uriApi, {}, 'GET', token)        
+        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', token)
+        const offers = await fetchAuth(uriApi, {}, 'GET', token)
         dispatchOffer({
           type: 'SET_OFFERS',
           payload: offers.data.assistancesOffers
         })
-        navigate('../dashboard')
+        //navigate('../dashboard')
+        navigate('../')
       } else {
         setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
       }
