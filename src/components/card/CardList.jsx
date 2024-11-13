@@ -8,6 +8,7 @@ import './card.css'
 
 const CardList = ({ offers, activeTypes }) => {
   const { dispatchOffer } = useContext(ReducerContext)
+
   const [currentOffers, setCurrentOffers] = useState(
     offers.assistancesOffers || []
   )
@@ -84,9 +85,10 @@ const CardList = ({ offers, activeTypes }) => {
   }, [])
 
   useEffect(() => {
-    console.log('v1', currentOffers.length, activeTypes, currentOffers)
+    const offers = offers.assistancesOffers
+    console.log('v2', offers.length, activeTypes, offers)
     
-    const filteredOffers = currentOffers.filter(offer =>
+    const filteredOffers = offers.filter(offer =>
       offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
     )
     console.log(filteredOffers)
