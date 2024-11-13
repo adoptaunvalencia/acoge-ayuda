@@ -72,12 +72,7 @@ export const FunctionProvider = ({ children }) => {
     const uriApi = `assistance-offer/map-offers`
     const uriApiOfferCard = `assistance-offer/`
     const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
-    const offersCard = await fetchAuth(
-      uriApiOfferCard,
-      {},
-      'GET',
-      existToken
-    )
+    const offersCard = await fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
     dispatchOffer({
       type: 'SET_OFFERS_MAP',
       payload: offersMap.data.assistancesOffers
@@ -152,7 +147,7 @@ export const FunctionProvider = ({ children }) => {
 
       setCategorizedOffers(newCategorizedOffers)
     },
-    [offers, userLocation]
+    [offers_map, userLocation]
   )
 
   const handleLogin = () => {
