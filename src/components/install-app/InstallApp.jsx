@@ -41,7 +41,7 @@ const InstallApp = () => {
 
   return (
     <>
-      {!showInstallPrompt && (
+      {showInstallPrompt && (
         <button
           className={`install-app ${!showInstallPrompt && 'fadeIn'}`}
           onClick={handleInstallClick}

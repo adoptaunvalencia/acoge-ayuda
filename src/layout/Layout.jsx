@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import { ReducerContext } from 'contexts/reducer.contexts/ReducerContext'
-import Footer from 'components/footer/Footer'
-import Header from 'components/header/Header'
-import FloatButton from 'components/float-button/FloatButton'
+import { ReducerContext } from '../contexts/reducer.contexts/ReducerContext'
+import Footer from '../components/footer/Footer'
+import Header from '../components/header/Header'
+import FloatButton from '../components/float-button/FloatButton'
 import Spinner from '../components/spinner/Spinner'
 
 const Layout = () => {

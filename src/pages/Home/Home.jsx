@@ -20,7 +20,7 @@ const Home = () => {
   });
   const {
     stateIsAuth: { user, isAuth },
-    stateOffer: { offers },
+    stateOffer: { offers, offers_map },
   } = useContext(ReducerContext);
 
   const { showPopup, setShowPopup } = useContext(FunctionContext);
@@ -115,7 +115,10 @@ const Home = () => {
         <hr></hr>
       </section>
       <section>
-        <FilterServicer onCategoryToggle={handleCategoryToggle} />
+        <FilterServicer
+          onCategoryToggle={handleCategoryToggle}
+          activeTypes={activeTypes}
+        />
       </section>
       {!isAuth && (
         <Modal
@@ -129,7 +132,7 @@ const Home = () => {
         <Map activeTypes={activeTypes} />
       </section>
       <section className="section_card-offers">
-        <CardList offers={offers} />
+        <CardList offers={offers.assistancesOffers} />
       </section>
     </div>
   );

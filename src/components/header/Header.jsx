@@ -16,7 +16,7 @@ const Header = () => {
     <div className='header__container'>
       <div className='header__content'>
         <Link to='/'>
-          <img src={logo} />
+          <img src={logo} alt='Logo' />
         </Link>
         <h1>
           Adopta un <br></br> Valenciano
