@@ -58,7 +58,7 @@ export const FunctionProvider = ({ children }) => {
         })
         dispatchOffer({
           type: 'SET_OFFERS',
-          payload: offersCard.data.assistancesOffers
+          payload: offersCard.data
         })
       } catch (error) {
         console.log(error.message)

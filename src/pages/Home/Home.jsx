@@ -132,7 +132,7 @@ const Home = () => {
         <Map activeTypes={activeTypes} />
       </section>
       <section className="section_card-offers">
-        <CardList offers={offers} />
+        <CardList offers={offers.assistancesOffers} />
       </section>
     </div>
   );
