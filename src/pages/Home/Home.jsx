@@ -20,7 +20,7 @@ const Home = () => {
   });
   const {
     stateIsAuth: { user, isAuth },
-    stateOffer: { offers },
+    stateOffer: { offers, offers_map },
   } = useContext(ReducerContext);
 
   const { showPopup, setShowPopup } = useContext(FunctionContext);

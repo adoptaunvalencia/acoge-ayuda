@@ -24,7 +24,7 @@ export const FunctionProvider = ({ children }) => {
   })
 
   const {
-    stateOffer: { offers },
+    stateOffer: { offers, offers_map },
     stateIsAuth: { user },
     dispatchIsAuth,
     dispatchOffer,
@@ -37,21 +37,28 @@ export const FunctionProvider = ({ children }) => {
   const [existToken, setExistToken] = useState(token || null)
   const getProfile = async () => {
     const url = 'user'
-    const uriApi = `assistance-offer`
+    const uriApi = `assistance-offer/map-offers`
+    const uriApiOfferCard = `assistance-offer/`
     if (existToken) {
       try {
         dispatchLoad({ type: 'LOAD_TRUE' })
-        const { data } = await fetchAuth(url, {}, 'GET', existToken)
-        const offers = await fetchAuth(uriApi, {}, 'GET', existToken)
-        dispatchOffer({
-          type: 'SET_OFFERS',
-          payload: offers.assistancesOffers
-        })
-        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
+        const user = await fetchAuth(url, {}, 'GET', existToken)
+        const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
+        const offersCard = await fetchAuth(
+          uriApiOfferCard,
+          {},
+          'GET',
+          existToken
+        )
+        dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         dispatchOffer({
+          type: 'SET_OFFERS_MAP',
+          payload: offersMap.data.assistancesOffers
+        })
+        dispatchOffer({
           type: 'SET_OFFERS',
-          payload: offers.data.assistancesOffers
+          payload: offersCard.data.assistancesOffers
         })
       } catch (error) {
         console.log(error.message)
@@ -62,9 +69,9 @@ export const FunctionProvider = ({ children }) => {
   }
 
   const getOffers = async () => {
-    const uriApi = `assistance-offer`
+    const uriApi = `assistance-offer/map-offers`
     const data = await fetchOffers(uriApi, dispatchLoad)
-    dispatchOffer({ type: 'SET_OFFERS', payload: data.assistancesOffers })
+    dispatchOffer({ type: 'SET_OFFERS_MAP', payload: data.assistancesOffers })
   }
   useEffect(() => {
     if (token) {
@@ -90,9 +97,9 @@ export const FunctionProvider = ({ children }) => {
 
   const filterOffers = useCallback(
     (selectedCity, maxDistance) => {
-      if (!offers) return
+      if (!offers_map) return
 
-      let offersToFilter = offers
+      let offersToFilter = offers_map
 
       if (selectedCity && selectedCity !== 'all') {
         offersToFilter = offersToFilter.filter(
@@ -153,7 +160,7 @@ export const FunctionProvider = ({ children }) => {
         filterOffers,
         handleLogin,
         handleRegister,
-        handleCreateOffer,
+        handleCreateOffer
       }}
     >
       {children}
