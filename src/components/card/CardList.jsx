@@ -84,14 +84,13 @@ const CardList = ({ offers, activeTypes }) => {
   }, [])
 
   useEffect(() => {
-    console.log(activeTypes, currentOffers)
-    if(currentOffers & currentOffers.length > 0) {
-      const filteredOffers = currentOffers.filter(offer =>
-        offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
-      )
-      console.log(filteredOffers)
-      setCurrentOffers(filteredOffers)
-    }
+    console.log('v1', currentOffers.length, activeTypes, currentOffers)
+    
+    const filteredOffers = currentOffers.filter(offer =>
+      offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
+    )
+    console.log(filteredOffers)
+    setCurrentOffers(filteredOffers)
   }, [activeTypes])
 
   const closeModal = () => setIsLoading(false)
