@@ -86,12 +86,9 @@ const CardList = ({ offers, activeTypes }) => {
   }, [])
 
   useEffect(() => {
-    console.log('v3', allOffers.length, activeTypes, allOffers)
-    
     const filteredOffers = allOffers.filter(offer =>
       offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
     )
-    console.log(filteredOffers)
     setCurrentOffers(filteredOffers)
   }, [activeTypes])
 
