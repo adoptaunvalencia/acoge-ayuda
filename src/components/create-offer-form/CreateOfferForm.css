@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.form-input .input-label {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  padding: 0px 4px;
+  font-size: var(--font-size-s);
+  transition: all 0.1s linear;
+}
