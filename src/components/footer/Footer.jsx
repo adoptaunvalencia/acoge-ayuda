@@ -2,6 +2,7 @@ import React from 'react'
 import './footer.css'
 import Logo from '../../assets/images/logo.webp'
 import InstallApp from '../install-app/InstallApp'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -17,6 +18,7 @@ const Footer = () => {
           apoyamos unos a otros.
         </p>
         <InstallApp />
+        <Link to='collaborators'>Colaboradores❤️</Link>
       </div>
       <div className='footer-content-img'>
         <img src={Logo} alt='Adopta un Valenciano Logo' />
