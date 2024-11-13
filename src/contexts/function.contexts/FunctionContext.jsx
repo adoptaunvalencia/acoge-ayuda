@@ -70,8 +70,22 @@ export const FunctionProvider = ({ children }) => {
 
   const getOffers = async () => {
     const uriApi = `assistance-offer/map-offers`
-    const data = await fetchOffers(uriApi, dispatchLoad)
-    dispatchOffer({ type: 'SET_OFFERS_MAP', payload: data.assistancesOffers })
+    const uriApiOfferCard = `assistance-offer/`
+    const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
+    const offersCard = await fetchAuth(
+      uriApiOfferCard,
+      {},
+      'GET',
+      existToken
+    )
+    dispatchOffer({
+      type: 'SET_OFFERS_MAP',
+      payload: offersMap.data.assistancesOffers
+    })
+    dispatchOffer({
+      type: 'SET_OFFERS',
+      payload: offersCard.data
+    })
   }
   useEffect(() => {
     if (token) {
