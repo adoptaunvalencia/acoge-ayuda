@@ -7,29 +7,26 @@ import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import Modal from '../modal/Modal'
 
 const CardList = ({ offers }) => {
-  console.log(offers)
+  const { dispatchOffer } = useContext(ReducerContext)
   const [currentOffers, setCurrentOffers] = useState(
     offers.assistancesOffers || []
   )
   const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [existToken, setExistToken] = useState(token || null)
   const [page, setPage] = useState(offers.page || 1)
+  const [totalPages, setTotalPages] = useState(offers.totalPages || 1)
   const [isLoading, setIsLoading] = useState(false)
-  const [totalPages, setTotalPages] = useState(offers.totalPages)
-  const { dispatchOffer } = useContext(ReducerContext)
 
   const loadMoreOffers = async () => {
-    if (isLoading || page >= totalPages) return
+    if (isLoading || page >= totalPages) {
+      return
+    }
+
     setIsLoading(true)
     try {
       const nextPage = page + 1
       const uriApiOfferCard = `assistance-offer?page=${nextPage}`
-      const newOffersData = await fetchAuth(
-        uriApiOfferCard,
-        {},
-        'GET',
-        existToken
-      )
+      const newOffersData = await fetchAuth(uriApiOfferCard, {}, 'GET', token)
+
       if (
         newOffersData &&
         newOffersData.data &&
@@ -46,16 +43,24 @@ const CardList = ({ offers }) => {
         setTotalPages(newOffersData.data.totalPages || totalPages)
       }
     } catch (error) {
-      console.log(error)
+      console.log('Error loading offers:', error)
     } finally {
       setIsLoading(false)
     }
   }
+
   useEffect(() => {
     if (currentOffers.length > 0) {
-      dispatchOffer({ type: 'SET_OFFERS', payload: currentOffers })
+      dispatchOffer({
+        type: 'SET_OFFERS',
+        payload: {
+          offers: currentOffers,
+          totalPages,
+          page
+        }
+      })
     }
-  }, [currentOffers, dispatchOffer])
+  }, [currentOffers, dispatchOffer, totalPages, page])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,11 +77,18 @@ const CardList = ({ offers }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isLoading, page, totalPages])
 
+  // Run loadMoreOffers on initial mount if no offers are loaded
+  useEffect(() => {
+    if (currentOffers.length === 0 && !isLoading) {
+      loadMoreOffers()
+    }
+  }, []) // Empty dependency to trigger once on mount
+
   const closeModal = () => setIsLoading(false)
 
   return (
     <div className='card-list'>
-      {currentOffers?.map((offer, index) => (
+      {currentOffers.map((offer, index) => (
         <Card key={`${offer._id}-${index}`} offer={offer} />
       ))}
       {isLoading && (
