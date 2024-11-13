@@ -13,5 +13,5 @@ export default defineConfig({
       hooks: '/src/hooks',
       styles: '/src/styles'
     }
-  },
+  }
 })
