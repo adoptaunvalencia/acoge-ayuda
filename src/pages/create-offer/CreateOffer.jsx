@@ -13,8 +13,7 @@ const CreateOffer = () => {
 
   const fields = [
     { name: 'title', label: 'Título', type: 'text', required: true },
-    { name: 'description', label: 'Descripción', type: 'textarea', required: true },
-    { name: 'expires', label: 'Hasta', type: 'date', required: true },
+    { name: 'description', label: 'Descripción', type: 'textarea', maxLenght: 256, rows: 4, required: true },
     { name: 'useUserAddress', label: 'Usar mi propia dirección', type: 'checkbox' },
     { name: 'city', label: 'Ciudad', type: 'text', required: true },
     { name: 'address', label: 'Dirección', type: 'text', required: true },
