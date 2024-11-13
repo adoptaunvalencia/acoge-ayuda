@@ -38,28 +38,28 @@ export const FunctionProvider = ({ children }) => {
   const getProfile = async () => {
     const url = 'user'
     const uriApi = `assistance-offer/map-offers`
-    //const uriApiOfferCard = `assistance-offer/`
+    const uriApiOfferCard = `assistance-offer/`
     if (existToken) {
       try {
         dispatchLoad({ type: 'LOAD_TRUE' })
         const user = await fetchAuth(url, {}, 'GET', existToken)
         const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
-        /* const offersCard = await fetchAuth(
+        const offersCard = await fetchAuth(
           uriApiOfferCard,
           {},
           'GET',
           existToken
-        ) */
+        )
         dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
           payload: offersMap.data.assistancesOffers
         })
-/*         dispatchOffer({
+        dispatchOffer({
           type: 'SET_OFFERS',
           payload: offersCard.data
-        }) */
+        })
       } catch (error) {
         console.log(error.message)
       } finally {
@@ -70,22 +70,17 @@ export const FunctionProvider = ({ children }) => {
 
   const getOffers = async () => {
     const uriApi = `assistance-offer/map-offers`
-    //const uriApiOfferCard = `assistance-offer/`
+    const uriApiOfferCard = `assistance-offer/`
     const offersMap = await fetchAuth(uriApi, {}, 'GET', existToken)
-   /*  const offersCard = await fetchAuth(
-      uriApiOfferCard,
-      {},
-      'GET',
-      existToken
-    ) */
+    const offersCard = await fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
     dispatchOffer({
       type: 'SET_OFFERS_MAP',
       payload: offersMap.data.assistancesOffers
     })
-    /* dispatchOffer({
+    dispatchOffer({
       type: 'SET_OFFERS',
       payload: offersCard.data
-    }) */
+    })
   }
   useEffect(() => {
     if (token) {
