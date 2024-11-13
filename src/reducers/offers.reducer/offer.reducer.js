@@ -1,6 +1,7 @@
 export const initStateOffers = {
   offers: [],
-  offer: {}
+  offer: {},
+  offers_map:[]
 }
 
 export const stateOffers = (state, action) => {
@@ -9,6 +10,8 @@ export const stateOffers = (state, action) => {
       return { ...state, offers: action.payload }
     case 'SET_OFFER':
       return { ...state, offer: action.payload }
+    case 'SET_OFFERS_MAP':
+      return { ...state, offers_map: action.payload }
     default:
       return state
   }
