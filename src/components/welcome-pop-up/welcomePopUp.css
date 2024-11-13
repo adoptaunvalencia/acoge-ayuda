@@ -23,8 +23,7 @@
 
 .welcome__brand-image {
   width: 150px;
-}
-.welcome__brand-image > img {
+  height: auto;
   display: flex;
   object-fit: cover;
 }
