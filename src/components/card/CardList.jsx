@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import { fetchAuth } from '../../services/services'
 import Card from './Card'
 import Spinner from '../spinner/Spinner'
-import './card.css'
-import { fetchAuth } from '../../services/services'
-import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import Modal from '../modal/Modal'
+import './card.css'
 
 const CardList = ({ offers }) => {
   const { dispatchOffer } = useContext(ReducerContext)
@@ -12,7 +12,7 @@ const CardList = ({ offers }) => {
     offers.assistancesOffers || []
   )
   const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [page, setPage] = useState(offers.page || 1)
+  const [page, setPage] = useState(offers.page || 0)
   const [totalPages, setTotalPages] = useState(offers.totalPages || 1)
   const [isLoading, setIsLoading] = useState(false)
 
