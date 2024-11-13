@@ -16,7 +16,7 @@ import Card from '../card/Card'
 
 const defaultIcon = new L.Icon({
   iconUrl: def,
-  iconSize: [32, 32],
+  iconSize: [72, 72],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
 })

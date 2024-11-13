@@ -9,6 +9,7 @@ import Forgot from './pages/Auth/forgot/Forgot'
 import SendCode from './pages/Auth/sendCode/SendCode'
 import NewPassword from './pages/Auth/new-password/NewPassword'
 import CreateOffer from './pages/create-offer/CreateOffer'
+import Collaborator from './pages/collaborators/Collaborator'
 
 const App = () => {
   return (
@@ -20,14 +21,14 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='send-code' element={<SendCode />} />
         <Route path='new-password' element={<NewPassword />} />
-        <Route
+        {/* <Route
           path='dashboard'
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path='create-offer'
           element={
@@ -36,6 +37,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path='collaborators' element={<Collaborator />} />
         <Route path='*' element={<Home />} />
       </Route>
     </Routes>
