@@ -7,16 +7,6 @@ const Modal = ({ isModalOpen, handleCloseModal, children }) => {
       handleCloseModal()
     }
   }
-  /**
-   * text,
-  icon,
-  bgColor,
-  textColor,
-  padding,
-  borderRadius,
-  action = () => {},
-  disabled = false
-   */
 
   return (
     <div
