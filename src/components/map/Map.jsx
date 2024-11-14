@@ -31,10 +31,10 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
   } = useContext(ReducerContext)
 
   useEffect(() => {
-    filterOffers(selectedCity, maxDistance)
-  }, [selectedCity, maxDistance, filterOffers])
+    filterOffers(selectedCity, maxDistance, activeTypes);
+  }, [selectedCity, maxDistance, activeTypes, filterOffers]);
 
-  const initialPosition = userLocation
+  const initialPosition = userLocation.latitude && userLocation.longitude
     ? [userLocation.latitude, userLocation.longitude]
     : [40.42372525496708, -3.678864358280353] // MADRID
 
