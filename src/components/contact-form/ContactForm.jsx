@@ -2,8 +2,9 @@ import { useState, useContext } from 'react'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext';
 import Form from '../form-group/Form'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext';
+import './ContactForm.css'
 
-const ContactForm = ({ onSubmit, onCancel }) => {
+const ContactForm = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const {
     stateLoad: { load },
@@ -18,8 +19,8 @@ const ContactForm = ({ onSubmit, onCancel }) => {
   ]
 
   return (
-    <div className='contact-form'>
-      <h2>Contactar</h2>
+    <div className='contact-form__container '>
+      <h2 className='contact-form__title'>Contactar</h2>
       <Form
         fields={fields}
         onSubmit={handleFormSubmit}
