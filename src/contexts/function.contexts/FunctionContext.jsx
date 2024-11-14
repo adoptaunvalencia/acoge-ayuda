@@ -53,11 +53,11 @@ export const FunctionProvider = ({ children }) => {
           dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
           dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         }
-
-        if (offersMap?.data?.assistancesOffers) {
+        
+        if (offersMap?.data?.offers) {
           dispatchOffer({
             type: 'SET_OFFERS_MAP',
-            payload: offersMap.data.assistancesOffers
+            payload: offersMap.data.offers
           })
         }
 
@@ -85,10 +85,10 @@ export const FunctionProvider = ({ children }) => {
         fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
       ])
 
-      if (offersMap?.data?.assistancesOffers) {
+      if (offersMap?.data?.offers) {
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.assistancesOffers
+          payload: offersMap.data.offers
         })
       }
 
