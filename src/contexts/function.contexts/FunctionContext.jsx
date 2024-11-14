@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import { ReducerContext } from '../reducer.contexts/ReducerContext'
 import { fetchAuth } from '../../services/services'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
+import { createEmail } from '../../reducers/emails.reducer/email.action'
+import { fetchUser } from '../../reducers/auth.reducer/auth.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -22,6 +24,7 @@ export const FunctionProvider = ({ children }) => {
     food: [],
     pet_fostering: []
   })
+  const [ activeOffer, setActiveOffer ] = useState({});
 
   const {
     stateOffer: { offers, offers_map },
@@ -179,6 +182,24 @@ export const FunctionProvider = ({ children }) => {
 
   const handleCreateOffer = () => {}
 
+  const handleFormSubmit = async (formData) => {
+    const userReceiveId = activeOffer.userId._id;
+    const userReceiveData = await fetchUser(userReceiveId, dispatchLoad, token);
+
+    const newEmail = {
+      ...formData,
+      userSendId: user._id,
+      userReceiveId: userReceiveData._id,
+      userReceiveEmail: userReceiveData.email,
+    };
+
+    try {
+      await createEmail(newEmail, dispatchLoad, token)
+    } catch (error) {
+      console.error('Error in handleFormSubmit:', error);
+    }
+  };
+
   return (
     <FunctionContext.Provider
       value={{
@@ -189,7 +210,9 @@ export const FunctionProvider = ({ children }) => {
         filterOffers,
         handleLogin,
         handleRegister,
-        handleCreateOffer
+        handleCreateOffer,
+        handleFormSubmit,
+        setActiveOffer
       }}
     >
       {children}

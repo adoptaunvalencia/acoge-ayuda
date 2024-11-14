@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from '../button/Button'
 import whatsapp from '../../assets/icons/whatsapp-icon.svg'
 import './card.css'
 import CardCategory from './CardCategory'
+import ContactForm from '../contact-form/ContactForm'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId } = offer
+
+  const { setActiveOffer } = useContext(FunctionContext)
+
+  const [showForm, setShowForm] = useState(false)
 
   const handleShowPhone = (phone) => {
     const message = encodeURIComponent(
@@ -13,6 +19,15 @@ const Card = ({ offer }) => {
     )
     const whatsappUrl = `https://wa.me/${phone}?text=${message}`
     window.open(whatsappUrl, '_blank')
+  }
+
+  const handleOpenForm = () => {
+    setActiveOffer(offer);
+    setShowForm(true);
+  }
+
+  const handleCloseForm = () => {
+    setShowForm(false);
   }
 
   return (
@@ -38,7 +53,14 @@ const Card = ({ offer }) => {
           ))}
       </div>
       <p>{description}</p>
-      {typeof userId === 'object' &&
+
+      {showForm ? (
+        <ContactForm 
+          onSubmit={handleOpenForm} 
+          onCancel={handleCloseForm}
+        />
+      ) : (
+        typeof userId === 'object' &&
         userId !== null &&
         Object.keys(userId).length > 0 &&
         userId.phone && (
@@ -49,9 +71,10 @@ const Card = ({ offer }) => {
               bgColor='white'
               textColor='var(--text-primary)'
               borderRadius='var(--spacing-l)'
-              action={() => handleShowPhone(userId.phone)}
+              action={handleOpenForm}
             />
           </div>
+          )
         )}
     </div>
   )
