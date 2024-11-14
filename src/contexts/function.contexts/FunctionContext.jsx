@@ -133,17 +133,14 @@ export const FunctionProvider = ({ children }) => {
 
   const filterOffers = useCallback(
     (selectedCity, maxDistance) => {
-      if (!offers_map) return
+      if (!offers_map) return;
 
-      console.log("Coordenadas actuales (contexto):", userLocation)
-      console.log("Distancia máxima (contexto):", maxDistance)
+      let offersToFilter = offers_map;
 
-      let offersToFilter = offers_map
-
-      if (selectedCity && selectedCity !== 'all') {
+      if (selectedCity && selectedCity !== "all") {
         offersToFilter = offersToFilter.filter(
           (offer) => offer.city === selectedCity
-        )
+        );
       }
 
       if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
@@ -153,9 +150,9 @@ export const FunctionProvider = ({ children }) => {
             userLocation.longitude,
             offer.location.coordinates[1],
             offer.location.coordinates[0]
-          )
-          return distance <= maxDistance
-        })
+          );
+          return distance <= maxDistance;
+        });
       }
 
       const newCategorizedOffers = {
@@ -163,22 +160,22 @@ export const FunctionProvider = ({ children }) => {
         hygiene: [],
         food: [],
         pet_fostering: [],
-        all: []
-      }
+        all: [],
+      };
 
       offersToFilter.forEach((offer) => {
-        newCategorizedOffers.all.push(offer)
+        newCategorizedOffers.all.push(offer);
         offer.typeOffer.forEach((item) => {
           if (newCategorizedOffers[item.type]) {
-            newCategorizedOffers[item.type].push(offer)
+            newCategorizedOffers[item.type].push(offer);
           }
-        })
-      })
+        });
+      });
 
-      setCategorizedOffers(newCategorizedOffers)
+      setCategorizedOffers(newCategorizedOffers);
     },
     [offers_map, userLocation]
-  )
+  );
 
   const handleLogin = () => {
     navigate("login");

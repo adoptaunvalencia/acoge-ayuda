@@ -66,9 +66,6 @@ const Home = () => {
       return;
     }
 
-    console.log("Coordenadas actuales (Home):", userLocation);
-    console.log("Distancia máxima (Home):", userLocation.radius);
-
     filterOffers(null, userLocation.radius);
   };
 
