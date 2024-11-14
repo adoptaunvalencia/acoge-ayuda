@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Input from '../input/Input'
+import Textarea from '../textarea/Textarea'
 import Button from '../button/Button'
 import './Form.css'
 
@@ -45,13 +46,24 @@ const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
     <form onSubmit={handleSubmit} className='form'>
       {fields.map(({ label, name, type }) => (
         <div key={name} className='form-input'>
-          <Input
-            type={type}
-            label={label}
-            name={name}
-            value={formData[name] || ''}
-            onChange={handleInputChange(name)}
-          />
+          {type === 'textarea' ? (
+            <Textarea
+              label={label}
+              name={name}
+              value={formData[name] || ''}
+              onChange={handleInputChange(name)}
+              maxLength={599}
+              rows={6}
+            />
+          ) : (
+            <Input
+              type={type}
+              label={label}
+              name={name}
+              value={formData[name] || ''}
+              onChange={handleInputChange(name)}
+            />
+          )}
           {errors[name] && <div className='error-text'>{errors[name]}</div>}
         </div>
       ))}

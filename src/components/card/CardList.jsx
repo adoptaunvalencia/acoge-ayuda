@@ -9,12 +9,11 @@ import './card.css'
 const CardList = ({ offers, activeTypes }) => {
   const { dispatchOffer } = useContext(ReducerContext)
   const [allOffers, setAllOffers] = useState([])
-  const [currentOffers, setCurrentOffers] = useState(
-    offers.assistancesOffers || []
-  )
+  const [currentOffers, setCurrentOffers] = useState(offers?.offers || [])
+
   const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [page, setPage] = useState(offers.page || 0)
-  const [totalPages, setTotalPages] = useState(offers.totalPages || 1)
+  const [page, setPage] = useState(offers?.page || 0)
+  const [totalPages, setTotalPages] = useState(offers?.totalPages || 1)
   const [isLoading, setIsLoading] = useState(false)
 
   const loadMoreOffers = async () => {
@@ -27,13 +26,15 @@ const CardList = ({ offers, activeTypes }) => {
       const nextPage = page + 1
       const uriApiOfferCard = `assistance-offer?page=${nextPage}`
       const newOffersData = await fetchAuth(uriApiOfferCard, {}, 'GET', token)
+      console.log(newOffersData);
+      
 
       if (
         newOffersData &&
         newOffersData.data &&
-        Array.isArray(newOffersData.data.assistancesOffers)
+        Array.isArray(newOffersData.data.offers)
       ) {
-        const newOffers = newOffersData.data.assistancesOffers.filter(
+        const newOffers = newOffersData.data.offers.filter(
           (newOffer) =>
             !currentOffers.some(
               (existingOffer) => existingOffer._id === newOffer._id
@@ -86,8 +87,8 @@ const CardList = ({ offers, activeTypes }) => {
   }, [])
 
   useEffect(() => {
-    const filteredOffers = allOffers.filter(offer =>
-      offer.typeOffer.some(typeObj => activeTypes.includes(typeObj.type))
+    const filteredOffers = allOffers.filter((offer) =>
+      offer.typeOffer.some((typeObj) => activeTypes.includes(typeObj.type))
     )
     setCurrentOffers(filteredOffers)
   }, [activeTypes])
@@ -96,7 +97,7 @@ const CardList = ({ offers, activeTypes }) => {
 
   return (
     <div className='card-list'>
-      {currentOffers.map((offer, index) => (
+      {offers?.offers?.map((offer, index) => (
         <Card key={`${offer._id}-${index}`} offer={offer} />
       ))}
       {isLoading && (

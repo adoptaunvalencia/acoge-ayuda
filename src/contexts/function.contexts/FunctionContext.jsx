@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import { ReducerContext } from '../reducer.contexts/ReducerContext'
 import { fetchAuth } from '../../services/services'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
+import { createEmail } from '../../reducers/emails.reducer/email.action'
+import { fetchUser } from '../../reducers/auth.reducer/auth.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -22,6 +24,7 @@ export const FunctionProvider = ({ children }) => {
     food: [],
     pet_fostering: []
   })
+  const [ activeOffer, setActiveOffer ] = useState({});
 
   const {
     stateOffer: { offers, offers_map },
@@ -53,11 +56,11 @@ export const FunctionProvider = ({ children }) => {
           dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
           dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
         }
-
-        if (offersMap?.data?.assistancesOffers) {
+        
+        if (offersMap?.data?.offers) {
           dispatchOffer({
             type: 'SET_OFFERS_MAP',
-            payload: offersMap.data.assistancesOffers
+            payload: offersMap.data.offers
           })
         }
 
@@ -85,10 +88,10 @@ export const FunctionProvider = ({ children }) => {
         fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
       ])
 
-      if (offersMap?.data?.assistancesOffers) {
+      if (offersMap?.data?.offers) {
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.assistancesOffers
+          payload: offersMap.data.offers
         })
       }
 
@@ -179,6 +182,23 @@ export const FunctionProvider = ({ children }) => {
 
   const handleCreateOffer = () => {}
 
+  const handleFormSubmit = async (formData) => {
+    const userReceiveId = activeOffer.userId._id;
+    const userReceiveData = await fetchUser(userReceiveId, dispatchLoad, token);
+
+    const newEmail = {
+      ...formData,
+      userSend: user,
+      userReceive: userReceiveData,
+    };
+
+    try {
+      await createEmail(newEmail, dispatchLoad, token)
+    } catch (error) {
+      console.error('Error in handleFormSubmit:', error);
+    }
+  };
+
   return (
     <FunctionContext.Provider
       value={{
@@ -189,7 +209,9 @@ export const FunctionProvider = ({ children }) => {
         filterOffers,
         handleLogin,
         handleRegister,
-        handleCreateOffer
+        handleCreateOffer,
+        handleFormSubmit,
+        setActiveOffer
       }}
     >
       {children}

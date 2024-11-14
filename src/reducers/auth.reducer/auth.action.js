@@ -84,3 +84,19 @@ export const resetPassword = async (formData, dispatchLoad, token) => {
     dispatchLoad({ type: 'LOAD_FALSE' })
   }
 }
+
+export const fetchUser = async (formData, dispatchLoad, token) => {
+  const uriApi = `user/get-user/${formData}`
+  try {
+    dispatchLoad({ type: 'LOAD_TRUE' })
+    const { response, data } = await fetchAuth(uriApi, formData, 'GET', token)
+    if (response.status !== 200) {
+      console.log('error:')
+    }
+    return data
+  } catch (error) {
+    console.log(error)
+  } finally {
+    dispatchLoad({ type: 'LOAD_FALSE' })
+  }
+}
