@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from '../button/Button'
 import whatsapp from '../../assets/icons/whatsapp-icon.svg'
 import './card.css'
 import CardCategory from './CardCategory'
+import ContactForm from '../contact-form/ContactForm'
+import Modal from '../modal/Modal'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId } = offer
+  const { setActiveOffer } = useContext(FunctionContext)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleShowPhone = (phone) => {
+  /* const handleShowPhone = (phone) => {
     const message = encodeURIComponent(
       `¡Hola! Estoy interesado en tu oferta: ${offer.title} en la web de Adopta un Valenciano⭐!`
     )
     const whatsappUrl = `https://wa.me/${phone}?text=${message}`
     window.open(whatsappUrl, '_blank')
+  } */
+
+  const handleOpenModal = () => {
+    setActiveOffer(offer)
+    setIsModalOpen(true)
+  }
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
   }
 
   return (
@@ -38,6 +52,7 @@ const Card = ({ offer }) => {
           ))}
       </div>
       <p>{description}</p>
+
       {typeof userId === 'object' &&
         userId !== null &&
         Object.keys(userId).length > 0 &&
@@ -49,10 +64,20 @@ const Card = ({ offer }) => {
               bgColor='white'
               textColor='var(--text-primary)'
               borderRadius='var(--spacing-l)'
-              action={() => handleShowPhone(userId.phone)}
+              action={handleOpenModal}
             />
           </div>
         )}
+
+        <Modal
+          isModalOpen={isModalOpen}
+          handleCloseModal={handleCloseModal}
+        >
+          <ContactForm
+            onSubmit={handleOpenModal}
+            onCancel={handleCloseModal}
+          />
+        </Modal>
     </div>
   )
 }
