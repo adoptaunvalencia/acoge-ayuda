@@ -53,6 +53,7 @@ const Home = () => {
         latitude,
         longitude,
       }));
+      handleSendFilter(); 
     });
   };
 
@@ -113,10 +114,7 @@ const Home = () => {
             bgColor="var(--bg-primary-red)"
             textColor="var(--text-primary-light)"
             borderRadius="50px"
-            action={() => {
-              selectPosition();
-              handleSendFilter();
-            }}
+            action={selectPosition}
           />
         </div>
         <hr></hr>
