@@ -4,151 +4,155 @@ import React, {
   useEffect,
   useState,
   useCallback,
-  useReducer
-} from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ReducerContext } from '../reducer.contexts/ReducerContext'
-import { fetchAuth } from '../../services/services'
-import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
-import { createEmail } from '../../reducers/emails.reducer/email.action'
-import { fetchUser } from '../../reducers/auth.reducer/auth.action'
+  useReducer,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import { ReducerContext } from "../reducer.contexts/ReducerContext";
+import { fetchAuth } from "../../services/services";
+import { fetchOffers } from "../../reducers/offers.reducer/offer.action";
+import { createEmail } from "../../reducers/emails.reducer/email.action";
+import { fetchUser } from "../../reducers/auth.reducer/auth.action";
 
-export const FunctionContext = createContext()
+export const FunctionContext = createContext();
 export const FunctionProvider = ({ children }) => {
-  const [userLocation, setUserLocation] = useState(null)
-  const [showPopup, setShowPopup] = useState(null)
+  const [userLocation, setUserLocation] = useState({
+    latitude: null,
+    longitude: null,
+    radius: null,
+  });
+  const [showPopup, setShowPopup] = useState(null);
   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
     accommodation: [],
     hygiene: [],
     food: [],
-    pet_fostering: []
-  })
-  const [ activeOffer, setActiveOffer ] = useState({});
+    pet_fostering: [],
+  });
+  const [activeOffer, setActiveOffer] = useState({});
 
   const {
     stateOffer: { offers, offers_map },
     stateIsAuth: { user },
     dispatchIsAuth,
     dispatchOffer,
-    dispatchLoad
-  } = useContext(ReducerContext)
+    dispatchLoad,
+  } = useContext(ReducerContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [existToken, setExistToken] = useState(token || null)
+  const token = localStorage.getItem("AUTH_VALIDATE_USER_TOKEN");
+  const [existToken, setExistToken] = useState(token || null);
   const getProfile = async () => {
-    const url = 'user'
-    const uriApi = 'assistance-offer/map-offers'
-    const uriApiOfferCard = 'assistance-offer/'
+    const url = "user";
+    const uriApi = "assistance-offer/map-offers";
+    const uriApiOfferCard = "assistance-offer/";
 
     if (existToken) {
-      dispatchLoad({ type: 'LOAD_TRUE' })
+      dispatchLoad({ type: "LOAD_TRUE" });
       try {
         const [user, offersMap, offersCard] = await Promise.all([
-          fetchAuth(url, {}, 'GET', existToken),
-          fetchAuth(uriApi, {}, 'GET', existToken),
-          fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
-        ])
+          fetchAuth(url, {}, "GET", existToken),
+          fetchAuth(uriApi, {}, "GET", existToken),
+          fetchAuth(uriApiOfferCard, {}, "GET", existToken),
+        ]);
 
         if (user?.data?.user) {
-          dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
-          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+          dispatchIsAuth({ type: "SET_USER", payload: user.data.user });
+          dispatchIsAuth({ type: "SET_AUTH_TRUE" });
         }
-        
+
         if (offersMap?.data?.offers) {
           dispatchOffer({
-            type: 'SET_OFFERS_MAP',
-            payload: offersMap.data.offers
-          })
+            type: "SET_OFFERS_MAP",
+            payload: offersMap.data.offers,
+          });
         }
 
         if (offersCard?.data) {
           dispatchOffer({
-            type: 'SET_OFFERS',
-            payload: offersCard.data
-          })
+            type: "SET_OFFERS",
+            payload: offersCard.data,
+          });
         }
       } catch (error) {
-        console.error('Error loading profile data:', error.message)
+        console.error("Error loading profile data:", error.message);
       } finally {
-        dispatchLoad({ type: 'LOAD_FALSE' })
+        dispatchLoad({ type: "LOAD_FALSE" });
       }
     }
-  }
+  };
 
   const getOffers = async () => {
-    const uriApi = 'assistance-offer/map-offers'
-    const uriApiOfferCard = 'assistance-offer/'
+    const uriApi = "assistance-offer/map-offers";
+    const uriApiOfferCard = "assistance-offer/";
 
     try {
       const [offersMap, offersCard] = await Promise.all([
-        fetchAuth(uriApi, {}, 'GET', existToken),
-        fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
-      ])
+        fetchAuth(uriApi, {}, "GET", existToken),
+        fetchAuth(uriApiOfferCard, {}, "GET", existToken),
+      ]);
 
       if (offersMap?.data?.offers) {
         dispatchOffer({
-          type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.offers
-        })
+          type: "SET_OFFERS_MAP",
+          payload: offersMap.data.offers,
+        });
       }
 
       if (offersCard?.data) {
         dispatchOffer({
-          type: 'SET_OFFERS',
-          payload: offersCard.data
-        })
+          type: "SET_OFFERS",
+          payload: offersCard.data,
+        });
       }
     } catch (error) {
-      console.error('Error loading offers:', error.message)
+      console.error("Error loading offers:", error.message);
     }
-  }
+  };
   useEffect(() => {
     if (token) {
-      getProfile()
+      getProfile();
     } else {
-      getOffers()
+      getOffers();
     }
-  }, [existToken])
+  }, [existToken]);
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371 // Radius of the earth in km
-    const dLat = ((lat2 - lat1) * Math.PI) / 180
-    const dLon = ((lon2 - lon1) * Math.PI) / 180
+    const R = 6371; // Radius of the earth in km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
         Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLon / 2) *
-        Math.sin(dLon / 2)
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    return R * c
-  }
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
 
   const filterOffers = useCallback(
     (selectedCity, maxDistance) => {
-      if (!offers_map) return
+      if (!offers_map) return;
 
-      let offersToFilter = offers_map
+      let offersToFilter = offers_map;
 
-      if (selectedCity && selectedCity !== 'all') {
+      if (selectedCity && selectedCity !== "all") {
         offersToFilter = offersToFilter.filter(
           (offer) => offer.city === selectedCity
-        )
+        );
       }
 
-      if (userLocation && maxDistance > 0) {
+      if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
         offersToFilter = offersToFilter.filter((offer) => {
           const distance = getDistanceFromLatLonInKm(
             userLocation.latitude,
             userLocation.longitude,
             offer.location.coordinates[1],
             offer.location.coordinates[0]
-          )
-          return distance <= maxDistance
-        })
+          );
+          return distance <= maxDistance;
+        });
       }
 
       const newCategorizedOffers = {
@@ -156,31 +160,31 @@ export const FunctionProvider = ({ children }) => {
         hygiene: [],
         food: [],
         pet_fostering: [],
-        all: []
-      }
+        all: [],
+      };
 
       offersToFilter.forEach((offer) => {
-        newCategorizedOffers.all.push(offer)
+        newCategorizedOffers.all.push(offer);
         offer.typeOffer.forEach((item) => {
           if (newCategorizedOffers[item.type]) {
-            newCategorizedOffers[item.type].push(offer)
+            newCategorizedOffers[item.type].push(offer);
           }
-        })
-      })
+        });
+      });
 
-      setCategorizedOffers(newCategorizedOffers)
+      setCategorizedOffers(newCategorizedOffers);
     },
     [offers_map, userLocation]
-  )
+  );
 
   const handleLogin = () => {
-    navigate('login')
-  }
+    navigate("login");
+  };
   const handleRegister = () => {
-    navigate('register')
-  }
+    navigate("register");
+  };
 
-  const handleCreateOffer = () => {}
+  const handleCreateOffer = () => {};
 
   const handleFormSubmit = async (formData) => {
     const userReceiveId = activeOffer.userId._id;
@@ -193,9 +197,9 @@ export const FunctionProvider = ({ children }) => {
     };
 
     try {
-      await createEmail(newEmail, dispatchLoad, token)
+      await createEmail(newEmail, dispatchLoad, token);
     } catch (error) {
-      console.error('Error in handleFormSubmit:', error);
+      console.error("Error in handleFormSubmit:", error);
     }
   };
 
@@ -203,6 +207,7 @@ export const FunctionProvider = ({ children }) => {
     <FunctionContext.Provider
       value={{
         userLocation,
+        setUserLocation,
         showPopup,
         setShowPopup,
         categorizedOffers,
@@ -211,10 +216,10 @@ export const FunctionProvider = ({ children }) => {
         handleRegister,
         handleCreateOffer,
         handleFormSubmit,
-        setActiveOffer
+        setActiveOffer,
       }}
     >
       {children}
     </FunctionContext.Provider>
-  )
-}
+  );
+};
