@@ -42,6 +42,7 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
     <MapContainer
       center={initialPosition}
       zoom={5}
+      maxZoom={13}
       scrollWheelZoom={false}
       style={{ height: '35vh', width: '100%' }}
     >
