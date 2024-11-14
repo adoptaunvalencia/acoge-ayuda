@@ -189,7 +189,7 @@ export const FunctionProvider = ({ children }) => {
     const newEmail = {
       ...formData,
       userSendId: user._id,
-      userReceiveId: userReceiveData._id,
+      userReceiveId: userReceiveId,
       userReceiveEmail: userReceiveData.email,
     };
 
