@@ -4,8 +4,7 @@ export const fetchAuth = async (
   method = 'GET',
   token = null
 ) => {
-  // const url = `${import.meta.env.VITE_URL_API}`
-  const url = "http://localhost:3000/secure/api/v1"
+  const url = `${import.meta.env.VITE_URL_API}`
 
   try {
     const headers = {
