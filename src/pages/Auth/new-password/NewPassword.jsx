@@ -28,7 +28,6 @@ const NewPassword = () => {
     try {
       const token = localStorage.getItem('FORGOT_TOKEN')
       const data = await resetPassword(formData, dispatchLoad, token)
-      console.log(data)
       const formDataUser = {
         email: data.user.email,
         password: formData.password

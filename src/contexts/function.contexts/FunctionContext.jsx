@@ -205,7 +205,6 @@ export const FunctionProvider = ({ children }) => {
       }
       const data = await createEmail(newEmail, dispatchLoad, existToken)
       setIsModalOpen(false)
-      console.log(data)
     } catch (error) {
       console.error('Error in handleFormSubmit:', error)
     } finally {

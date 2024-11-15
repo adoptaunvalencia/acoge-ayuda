@@ -26,7 +26,6 @@ const Forgot = () => {
 
   const handleFormSubmit = async (formData) => {
     const data = await forgotPassword(formData, dispatchLoad)
-    console.log(data)
     setTimeout(() => navigate('../send-code'), 2000)
   }
 
