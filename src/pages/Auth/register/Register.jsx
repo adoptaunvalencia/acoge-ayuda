@@ -3,6 +3,7 @@ import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContex
 import { registerUser } from '../../../reducers/auth.reducer/auth.action'
 import Form from '../../../components/form-group/Form'
 import './Register.css'
+import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 
 const Register = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -10,6 +11,7 @@ const Register = () => {
     stateLoad: { load },
     dispatchLoad
   } = useContext(ReducerContext)
+  const {handleRegisterFormSubmit} = useContext(FunctionContext)
 
   const fields = [
     { name: 'name', label: 'Nombre', type: 'text', required: true },
@@ -39,17 +41,12 @@ const Register = () => {
     { name: 'password', label: 'Contraseña', type: 'password', required: true }
   ]
 
-  const handleFormSubmit = async (formData) => {
-    const data = await registerUser(formData, dispatchLoad)
-    console.log(data)
-  }
-
   return (
     <div className='register-form fadeIn'>
       <h2>Registro de Usuario</h2>
       <Form
         fields={fields}
-        onSubmit={handleFormSubmit}
+        onSubmit={handleRegisterFormSubmit}
         buttonText='Registrarse'
       />
       {responseMessage && <p className='response-message'>{responseMessage}</p>}

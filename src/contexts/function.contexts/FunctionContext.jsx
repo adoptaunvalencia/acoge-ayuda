@@ -11,7 +11,11 @@ import { ReducerContext } from '../reducer.contexts/ReducerContext'
 import { fetchAuth } from '../../services/services'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import { createEmail } from '../../reducers/emails.reducer/email.action'
-import { fetchUser, loginUser } from '../../reducers/auth.reducer/auth.action'
+import {
+  fetchUser,
+  loginUser,
+  registerUser
+} from '../../reducers/auth.reducer/auth.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -228,6 +232,11 @@ export const FunctionProvider = ({ children }) => {
     }
   }
 
+  const handleRegisterFormSubmit = async (formData) => {
+    const data = await registerUser(formData, dispatchLoad)
+    await handleLoginSubmit(formData)
+  }
+
   return (
     <FunctionContext.Provider
       value={{
@@ -248,7 +257,8 @@ export const FunctionProvider = ({ children }) => {
         handleFormSubmit,
         activeOffer,
         setActiveOffer,
-        handleLoginSubmit
+        handleLoginSubmit,
+        handleRegisterFormSubmit
       }}
     >
       {children}
