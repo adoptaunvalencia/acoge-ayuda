@@ -10,7 +10,7 @@
 .header__content, .header__content-btns {
   display: flex;
   align-items: center;
-  
+  gap:20px
 }
 .header__content-btns{
   gap: var(--spacing-m);
@@ -24,7 +24,7 @@
 }
 
 .header__container > div > a > img {
-  width: 100px;
+  width: 80px;
   transition: all 0.3s;
 }
 .header__container > div > a > img:hover{
@@ -39,5 +39,11 @@
   }
   .header__content {
     gap:20px
+  }
+}
+
+@media (max-width:350px) {
+  .header__content{
+    flex-direction: column;
   }
 }

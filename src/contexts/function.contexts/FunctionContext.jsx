@@ -15,6 +15,7 @@ import { fetchUser, loginUser } from '../../reducers/auth.reducer/auth.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [userLocation, setUserLocation] = useState({
     latitude: null,
     longitude: null,
@@ -71,7 +72,9 @@ export const FunctionProvider = ({ children }) => {
       } catch (error) {
         console.error('Error loading profile data:', error.message)
       } finally {
-        dispatchLoad({ type: 'LOAD_FALSE' })
+        setTimeout(() => {
+          dispatchLoad({ type: 'LOAD_FALSE' })
+        }, 1000)
       }
     }
   }
@@ -163,23 +166,35 @@ export const FunctionProvider = ({ children }) => {
   const handleCreateOffer = () => {}
 
   const handleFormSubmit = async (formData) => {
-    const userReceiveId = activeOffer.userId._id
-    const userReceiveData = await fetchUser(userReceiveId, dispatchLoad, token)
-
-    const newEmail = {
-      ...formData,
-      userSend: user,
-      userReceive: userReceiveData
-    }
-
+    dispatchLoad({ type: 'LOAD_TRUE' })
     try {
-      await createEmail(newEmail, dispatchLoad, token)
+      const userReceiveId = activeOffer.userId._id
+      const userReceiveData = await fetchUser(
+        userReceiveId,
+        dispatchLoad,
+        token
+      )
+
+      const newEmail = {
+        ...formData,
+        userSend: user,
+        userReceive: userReceiveData
+      }
+      const data = await createEmail(newEmail, dispatchLoad, token)
+      setTimeout(() => {
+        setIsModalOpen(false)
+      }, 1000)
+      console.log(data)
     } catch (error) {
       console.error('Error in handleFormSubmit:', error)
+    } finally {
+      setTimeout(() => {
+        dispatchLoad({ type: 'LOAD_FALSE' })
+      }, 1000)
     }
   }
 
-  const handleLoginSubmit = async (formData) => {    
+  const handleLoginSubmit = async (formData) => {
     try {
       const data = await loginUser(formData, dispatchLoad)
       if (data && data.user) {
@@ -205,6 +220,8 @@ export const FunctionProvider = ({ children }) => {
   return (
     <FunctionContext.Provider
       value={{
+        isModalOpen,
+        setIsModalOpen,
         getProfile,
         getOffers,
         userLocation,
