@@ -75,8 +75,6 @@ export const verifyCode = async (formData, dispatchLoad) => {
 export const resetPassword = async (formData, dispatchLoad, token) => {
   const parsedToken = JSON.parse(token)
   formData.token = parsedToken.verificationCode
-  console.log(formData)
-
   const uriApi = 'user/create-password'
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
