@@ -6,7 +6,7 @@ export const collaborators = [
       "https://www.linkedin.com/in/judit-pe%C3%B1a-pe%C3%B1a-379a70167/",
     urlLinkedinImage:
       "https://media.licdn.com/dms/image/v2/D4D03AQHr1TfxQ2pvuQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1705824900015?e=1736985600&v=beta&t=QuWjeEV-9e9HOPLrOy2llpzmS_vdaQtf1WMg7ZUQoOc",
-    rol: "Fundadora",
+    rol: "Organizadora | Iniciativa",
     responsable: "no",
   },
   {
@@ -15,7 +15,7 @@ export const collaborators = [
     urlLinkedin: "https://www.linkedin.com/in/daniele-mazzola",
     urlLinkedinImage:
       "https://media.licdn.com/dms/image/v2/D4D03AQGAsTQU6Z38JQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1729594976892?e=1736985600&v=beta&t=Sn_BWGUZetP0HFHW_VFl1cn-sBil_bS1FTmSITNp63Y",
-    rol: "PM - Desarrollo: Frontend | Backend",
+    rol: "Full-Stack Team Lead & Product Manager",
     responsable: "si",
   },
   {
@@ -24,7 +24,7 @@ export const collaborators = [
     urlLinkedin: "http://www.linkedin.com/in/carlos-andres-rivera-valle",
     urlLinkedinImage:
       "https://media.licdn.com/dms/image/v2/D4D03AQG0TS2_QbjhOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728321759087?e=1736985600&v=beta&t=7s5aF9Ak_bZAZIBBXHaU8hFpZpL-t9fXX3dTnIZNsLc",
-    rol: "Diseño UX/UI | Desarollo Frontend",
+    rol: "Diseño UX/UI & Desarollo Frontend",
     responsable: "si",
   },
   {
@@ -40,7 +40,7 @@ export const collaborators = [
     name: "Roiber Avendaño",
     country: "Argentina",
     urlLinkedin: "https://www.linkedin.com/in/roiber-avendano/",
-    urlLinkedinImage: "https://media.licdn.com/dms/image/v2/D4D03AQG0TS2_QbjhOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728321759087?e=1736985600&v=beta&t=7s5aF9Ak_bZAZIBBXHaU8hFpZpL-t9fXX3dTnIZNsLc",
+    urlLinkedinImage: "https://media.licdn.com/dms/image/v2/D4D03AQFP9zsirJ6-qA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1674692322670?e=1736985600&v=beta&t=qmkWVuM9hGSalGxMy--fAOq-WwF55QxGjRpeLzgAM2U",
     rol: "Diseño UX/UI",
     responsable: "no",
   },
@@ -85,7 +85,7 @@ export const collaborators = [
     country: "España",
     urlLinkedin: "https://www.linkedin.com/in/enrique-paez/",
     urlLinkedinImage:
-      "https://media.licdn.com/dms/image/v2/D4D35AQHr3905dL0GPQ/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1641811854359?e=1732226400&v=beta&t=cxUEYuAtTmBKKSuWe2OFI5OpqNTmU9RS5esjxAm2w-U",
+      "https://media.licdn.com/dms/image/v2/D4D35AQHzQWWATRKdBQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1731621895746?e=1732312800&v=beta&t=5q4CdDJlCsCcGYpvTzM46nEAFtmlDloyDF95ibaaQDc",
     rol: "Desarrollo Frontend | Backend",
     responsable: "no",
   },
@@ -121,7 +121,7 @@ export const collaborators = [
     country: "España",
     urlLinkedin: "https://www.linkedin.com/in/annahico/",
     urlLinkedinImage:
-      "https://media.licdn.com/dms/image/v2/D5603AQE9vY2JfWvGzw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1720534371178?e=1736985600&v=beta&t=6nDfRpXc4bwDTEvYckl6aJrxqk0Obq1fB6_zmrn52Ww",
+      "https://media.licdn.com/dms/image/v2/D4E35AQGGYsa5oJhz9Q/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1719441934540?e=1732312800&v=beta&t=Wx7cQwniFAnS1ZQvsKK9l8eimUtEjNuvNs83lS0orr8",
     rol: "Desarrollo Frontend",
     responsable: "no",
   },
