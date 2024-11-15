@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './footer.css'
 import Logo from '../../assets/images/logo.webp'
 import InstallApp from '../install-app/InstallApp'
 import { Link } from 'react-router-dom'
+import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const Footer = () => {
+  const { scroll, headerRef } = useContext(RefContext)
+  const handleScroll = () => {
+    scroll(headerRef)
+  }
   return (
     <div className='footer-container'>
       <div className='footer-text'>
@@ -24,7 +29,12 @@ const Footer = () => {
         </div>
       </div>
       <div className='footer-content-img'>
-        <img src={Logo} alt='Adopta un Valenciano Logo' />
+        <img
+          style={{ cursor: 'pointer' }}
+          src={Logo}
+          alt='Adopta un Valenciano Logo'
+          onClick={handleScroll}
+        />
       </div>
     </div>
   )
