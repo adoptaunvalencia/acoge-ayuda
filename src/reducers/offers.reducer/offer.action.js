@@ -11,7 +11,9 @@ export const fetchOffers = async (uriApi, dispatchLoad, token = null) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 
@@ -31,6 +33,8 @@ export const createOffer = async (formData, dispatchLoad, token) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }

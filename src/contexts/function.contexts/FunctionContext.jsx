@@ -11,11 +11,20 @@ import { ReducerContext } from '../reducer.contexts/ReducerContext'
 import { fetchAuth } from '../../services/services'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
 import { createEmail } from '../../reducers/emails.reducer/email.action'
-import { fetchUser } from '../../reducers/auth.reducer/auth.action'
+import {
+  fetchUser,
+  loginUser,
+  registerUser
+} from '../../reducers/auth.reducer/auth.action'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
-  const [userLocation, setUserLocation] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [userLocation, setUserLocation] = useState({
+    latitude: null,
+    longitude: null,
+    radius: null
+  })
   const [showPopup, setShowPopup] = useState(null)
   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
@@ -24,69 +33,38 @@ export const FunctionProvider = ({ children }) => {
     food: [],
     pet_fostering: []
   })
-  const [ activeOffer, setActiveOffer ] = useState({});
+  const [activeOffer, setActiveOffer] = useState({})
 
   const {
     stateOffer: { offers, offers_map },
-    stateIsAuth: { user },
+    stateIsAuth: { user, isAuth },
     dispatchIsAuth,
     dispatchOffer,
     dispatchLoad
   } = useContext(ReducerContext)
 
   const navigate = useNavigate()
+  const [existToken, setExistToken] = useState(
+    localStorage.getItem('AUTH_VALIDATE_USER_TOKEN') || null
+  )
 
-  const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [existToken, setExistToken] = useState(token || null)
+  const [urlAPi, setUrlApi] = useState({
+    user: 'user',
+    offersMap: 'assistance-offer/map-offers',
+    offersCard: 'assistance-offer/'
+  })
   const getProfile = async () => {
-    const url = 'user'
-    const uriApi = 'assistance-offer/map-offers'
-    const uriApiOfferCard = 'assistance-offer/'
-
-    if (existToken) {
-      dispatchLoad({ type: 'LOAD_TRUE' })
-      try {
-        const [user, offersMap, offersCard] = await Promise.all([
-          fetchAuth(url, {}, 'GET', existToken),
-          fetchAuth(uriApi, {}, 'GET', existToken),
-          fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
-        ])
-
-        if (user?.data?.user) {
-          dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
-          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        }
-        
-        if (offersMap?.data?.offers) {
-          dispatchOffer({
-            type: 'SET_OFFERS_MAP',
-            payload: offersMap.data.offers
-          })
-        }
-
-        if (offersCard?.data) {
-          dispatchOffer({
-            type: 'SET_OFFERS',
-            payload: offersCard.data
-          })
-        }
-      } catch (error) {
-        console.error('Error loading profile data:', error.message)
-      } finally {
-        dispatchLoad({ type: 'LOAD_FALSE' })
-      }
-    }
-  }
-
-  const getOffers = async () => {
-    const uriApi = 'assistance-offer/map-offers'
-    const uriApiOfferCard = 'assistance-offer/'
-
+    dispatchLoad({ type: 'LOAD_TRUE' })
     try {
-      const [offersMap, offersCard] = await Promise.all([
-        fetchAuth(uriApi, {}, 'GET', existToken),
-        fetchAuth(uriApiOfferCard, {}, 'GET', existToken)
+      const [user, offersMap, offersCard] = await Promise.all([
+        fetchAuth(urlAPi.user, {}, 'GET', existToken),
+        fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
       ])
+
+      if (user?.data?.user) {
+        dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
+        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+      }
 
       if (offersMap?.data?.offers) {
         dispatchOffer({
@@ -94,23 +72,39 @@ export const FunctionProvider = ({ children }) => {
           payload: offersMap.data.offers
         })
       }
+    } catch (error) {
+      console.error('Error loading profile data:', error.message)
+    } finally {
+      setTimeout(() => {
+        dispatchLoad({ type: 'LOAD_FALSE' })
+      }, 1000)
+    }
+  }
 
-      if (offersCard?.data) {
+  const getOffers = async () => {
+    try {
+      const offersMap = await fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
+
+      if (offersMap?.data?.offers) {
         dispatchOffer({
-          type: 'SET_OFFERS',
-          payload: offersCard.data
+          type: 'SET_OFFERS_MAP',
+          payload: offersMap.data.offers
         })
       }
     } catch (error) {
       console.error('Error loading offers:', error.message)
     }
   }
+
   useEffect(() => {
-    if (token) {
-      getProfile()
-    } else {
-      getOffers()
+    const isUserAuth = async () => {
+      if (existToken) {
+        await getProfile()
+      } else {
+        await getOffers()
+      }
     }
+    isUserAuth()
   }, [existToken])
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
@@ -139,7 +133,7 @@ export const FunctionProvider = ({ children }) => {
         )
       }
 
-      if (userLocation && maxDistance > 0) {
+      if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
         offersToFilter = offersToFilter.filter((offer) => {
           const distance = getDistanceFromLatLonInKm(
             userLocation.latitude,
@@ -158,6 +152,8 @@ export const FunctionProvider = ({ children }) => {
         pet_fostering: [],
         all: []
       }
+
+      //!FRAN AQUI HAY UN ERROR
 
       offersToFilter.forEach((offer) => {
         newCategorizedOffers.all.push(offer)
@@ -179,39 +175,89 @@ export const FunctionProvider = ({ children }) => {
   const handleRegister = () => {
     navigate('register')
   }
+  const handleLogout = async () => {
+    dispatchLoad({ type: 'LOAD_TRUE' })
+    localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
+    setExistToken(null)
+    dispatchIsAuth({ type: 'SET_USER', payload: {} })
+    dispatchIsAuth({ type: 'SET_AUTH_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
+  }
 
   const handleCreateOffer = () => {}
 
   const handleFormSubmit = async (formData) => {
-    const userReceiveId = activeOffer.userId._id;
-    const userReceiveData = await fetchUser(userReceiveId, dispatchLoad, token);
-
-    const newEmail = {
-      ...formData,
-      userSend: user,
-      userReceive: userReceiveData,
-    };
-
+    dispatchLoad({ type: 'LOAD_TRUE' })
     try {
-      await createEmail(newEmail, dispatchLoad, token)
+      const userReceiveId = activeOffer.userId._id
+      const userReceiveData = await fetchUser(
+        userReceiveId,
+        dispatchLoad,
+        existToken
+      )
+
+      const newEmail = {
+        ...formData,
+        userSend: user,
+        userReceive: userReceiveData
+      }
+      const data = await createEmail(newEmail, dispatchLoad, existToken)
+      setIsModalOpen(false)
     } catch (error) {
-      console.error('Error in handleFormSubmit:', error);
+      console.error('Error in handleFormSubmit:', error)
+    } finally {
+      setTimeout(() => {
+        dispatchLoad({ type: 'LOAD_FALSE' })
+      }, 1000)
     }
-  };
+  }
+
+  const handleLoginSubmit = async (formData) => {
+    try {
+      const data = await loginUser(formData, dispatchLoad)
+      if (data && data.user) {
+        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
+        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
+        setExistToken(data.token)
+        navigate('../')
+      } else {
+        setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleRegisterFormSubmit = async (formData) => {
+    const data = await registerUser(formData, dispatchLoad)
+    await handleLoginSubmit(formData)
+  }
 
   return (
     <FunctionContext.Provider
       value={{
+        isModalOpen,
+        setIsModalOpen,
+        getProfile,
+        getOffers,
         userLocation,
+        setUserLocation,
         showPopup,
         setShowPopup,
         categorizedOffers,
         filterOffers,
         handleLogin,
         handleRegister,
+        handleLogout,
         handleCreateOffer,
         handleFormSubmit,
-        setActiveOffer
+        activeOffer,
+        setActiveOffer,
+        handleLoginSubmit,
+        handleRegisterFormSubmit
       }}
     >
       {children}

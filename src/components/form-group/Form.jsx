@@ -39,6 +39,7 @@ const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!validateForm()) return
+    
     onSubmit(formData)
   }
 

@@ -9,31 +9,33 @@ import { Map } from '../../components/map/Map'
 import CardList from '../../components/card/CardList'
 import './Home.css'
 import Select from '../../components/select/Select'
-import { fetchFiltersRadius } from '../../reducers/offers.reducer/offer.action'
 
 const Home = () => {
-  const [userLocation, setUserLocation] = useState({
-    lat: null,
-    lon: null,
-    location: null,
-    radius: null
-  })
   const {
     stateIsAuth: { user, isAuth },
     stateOffer: { offers, offers_map }
   } = useContext(ReducerContext)
 
-  const { showPopup, setShowPopup } = useContext(FunctionContext)
+  const {
+    showPopup,
+    setShowPopup,
+    filterOffers,
+    userLocation,
+    setUserLocation,
+    getProfile,
+    getOffers
+  } = useContext(FunctionContext)
+
+  useEffect(() => {
+    const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
+    if (token) getProfile()
+    else getOffers()
+  }, [])
 
   const selectOptionsObject = {
     1: '1km',
     2: '2km',
     3: '3km'
-  }
-
-  const selectOptionsLocation = {
-    home: 'Home',
-    location: 'Actually Location'
   }
 
   const allCategories = ['accommodation', 'food', 'hygiene', 'pet_fostering']
@@ -51,15 +53,24 @@ const Home = () => {
       const { latitude, longitude } = position.coords
       setUserLocation((prev) => ({
         ...prev,
-        lat: latitude,
-        lon: longitude,
-        location: 'location'
+        latitude,
+        longitude
       }))
+      handleSendFilter()
     })
   }
 
-  const handleSendFilter = async () => {
-    const data = await fetchFiltersRadius(userLocation)
+  const handleSendFilter = () => {
+    if (
+      !userLocation.latitude ||
+      !userLocation.longitude ||
+      !userLocation.radius
+    ) {
+      console.error('Error: Coordenadas o radio no definidos correctamente')
+      return
+    }
+
+    filterOffers(null, userLocation.radius)
   }
 
   const handleCategoryToggle = (category) => {
@@ -73,48 +84,41 @@ const Home = () => {
   }
 
   return (
-    <div className='home__container-sections'>
+    <div className='home__container-sections fadeIn'>
       <section className='home__container'>
         <div className='home__content-title'>
           <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
         </div>
         <div className='home__content-description'>
           <p>
-            Explora las opciones de ayuda cercanas para alojamiento, comida y
-            apoyo en situaciones de emergencia
+            Explora las opciones de ayuda cercanas a{' '}
+            <strong>"TU UBICACIÓN"</strong> para:{' '}
+            <strong>
+              Alojamiento, Comida y/o Apoyo en situaciones de Emergencia
+            </strong>
           </p>
         </div>
         <div className='home__content-buttons'>
-          <Select
-            label='Ubicación'
-            name='filer_location'
-            id='filer_location'
-            defaultOption={true}
-            options={selectOptionsLocation}
-            onChange={(value) => handleChangeSelect(value, 'location')}
-          />
-          <Select
-            label='Distancia máxima'
-            name='filer_offers'
-            id='filer_offers'
-            defaultOption={true}
-            options={selectOptionsObject}
-            onChange={(value) => handleChangeSelect(value, 'radius')}
-          />
+          <div className='width_full'>
+            <Select
+              label='Buscar por Radio'
+              name='filer_offers'
+              id='filer_offers'
+              defaultOption={true}
+              options={selectOptionsObject}
+              onChange={(value) => handleChangeSelect(value, 'radius')}
+            />
+          </div>
           <Button
             text='Buscar'
             bgColor='var(--bg-primary-red)'
             textColor='var(--text-primary-light)'
             borderRadius='50px'
-            action={() => {
-              handleSendFilter()
-              selectPosition()
-            }}
+            action={selectPosition}
           />
         </div>
-        <hr></hr>
       </section>
-      <section>
+      <section className='show'>
         <FilterServicer
           onCategoryToggle={handleCategoryToggle}
           activeTypes={activeTypes}
@@ -129,10 +133,10 @@ const Home = () => {
         </Modal>
       )}
       <section className='section__map'>
-        <Map activeTypes={activeTypes} />
+        <Map activeTypes={activeTypes} maxDistance={userLocation.radius} />
       </section>
       <section className='section_card-offers'>
-        <CardList offers={offers} activeTypes={activeTypes} />
+        <CardList activeTypes={activeTypes} />
       </section>
     </div>
   )

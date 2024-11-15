@@ -38,6 +38,10 @@
   --font-size-xl: 28px;
 }
 
+.width_full {
+  width:180px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -64,9 +68,9 @@ li {
 
 }
 
-ul,
-li {
-  list-style: none;
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }
 a {
   text-decoration: none;
@@ -86,7 +90,7 @@ button {
 }
 
 button:hover {
-  transform: scale(1.1);
+  transform: scale(0.98);
 }
 
 .button:disabled {
@@ -113,6 +117,10 @@ hr{
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: var(--bg-dark-gray-transparent);
+  z-index:4500;
 }
 
 /*MEDIA QUERY*/
@@ -164,4 +172,22 @@ hr{
 .fadeIn {
   opacity: 1;
   animation: fadeInUp 0.5s ease-in;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 50%;
+  }
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+.show {
+  animation-name: show;
+  view-timeline-name: --reveal;
+  animation-timeline: --reveal;
+  animation-range: 10% cover 20%;
+  animation-fill-mode: both;
 }

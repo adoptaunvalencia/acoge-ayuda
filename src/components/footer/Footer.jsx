@@ -17,8 +17,11 @@ const Footer = () => {
           a ofrecer alojamiento, comida, higiene y ayuda con mascotas. Aquí nos
           apoyamos unos a otros.
         </p>
-        <InstallApp />
-        <Link to='collaborators'>Colaboradores❤️</Link>
+        <div className='footer-content-link'>
+          <InstallApp />
+          <Link to='privacy-policy'>Politicas de privacidad</Link>
+          <Link to='collaborators'>Colaboradores❤️</Link>
+        </div>
       </div>
       <div className='footer-content-img'>
         <img src={Logo} alt='Adopta un Valenciano Logo' />
