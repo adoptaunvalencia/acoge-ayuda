@@ -12,7 +12,9 @@ export const registerUser = async (formData, dispatchLoad) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 export const loginUser = async (formData, dispatchLoad) => {
@@ -27,7 +29,9 @@ export const loginUser = async (formData, dispatchLoad) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 
@@ -43,7 +47,9 @@ export const forgotPassword = async (formData, dispatchLoad) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 
@@ -60,15 +66,17 @@ export const verifyCode = async (formData, dispatchLoad) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 
 export const resetPassword = async (formData, dispatchLoad, token) => {
   const parsedToken = JSON.parse(token)
   formData.token = parsedToken.verificationCode
-  console.log(formData);
-  
+  console.log(formData)
+
   const uriApi = 'user/create-password'
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
@@ -81,7 +89,9 @@ export const resetPassword = async (formData, dispatchLoad, token) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
 
@@ -97,6 +107,8 @@ export const fetchUser = async (formData, dispatchLoad, token) => {
   } catch (error) {
     console.log(error)
   } finally {
-    dispatchLoad({ type: 'LOAD_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }

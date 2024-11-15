@@ -17,7 +17,7 @@ const CardList = ({ activeTypes }) => {
   const closeModal = () => setIsLoading(false);
 
   return (
-    <div className='card-list show'>
+    <div className='card-list'>
       {activeTypes.map(
         (type) =>
           categorizedOffers[type] && (

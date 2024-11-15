@@ -8,11 +8,9 @@ import Modal from '../modal/Modal'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 
 const Card = ({ offer }) => {
-  console.log(offer);
-  
   const { title, description, city, typeOffer, userId } = offer
-  const { setActiveOffer } = useContext(FunctionContext)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, setIsModalOpen, setActiveOffer } =
+    useContext(FunctionContext)
 
   const handleOpenModal = () => {
     setActiveOffer(offer)

@@ -1,9 +1,7 @@
 .contact-form__container {
   width: 100%;
-  max-width: 500px;
-  padding: 20px 40px 40px;
+  padding: 20px 40px;
   border-radius: var(--spacing-l);
-  height: auto;
   background: #ffffff;
   text-align: center;
   display: flex;
@@ -16,12 +14,5 @@
 .contact-form__title {
   font-size: var(--font-size-l);
   color: var(--bg-dark-gray);
-  font-weight: bold;
-  max-width: 150px;
+  text-transform: uppercase;
 }
-
-.contact-form__container input[type='text'],
-.contact-form__container textarea {
-  width: 400px;
-}
-

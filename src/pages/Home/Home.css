@@ -1,6 +1,5 @@
 .home__container-sections{
   margin-top: 30px;
-  padding:10px;
   display: flex;
   flex-direction: column;
   gap:10px;
@@ -17,6 +16,7 @@
 }
 .home__content-description {
   width: 50%;
+  padding:10px;
 }
 .home__content-title > h2,
 .home__content-description > p {
