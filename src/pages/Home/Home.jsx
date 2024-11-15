@@ -78,13 +78,13 @@ const Home = () => {
   }
 
   const handleSendFilter = async () => {
-    console.log('handleSendFilter called');
+/*     console.log('handleSendFilter called');
     console.log('userLocation:', userLocation);
-    console.log('activeType:', activeType);
+    console.log('activeType:', activeType); */
   
-    console.log('Calling filterOffers with radius:', userLocation.radius);
+/*     console.log('Calling filterOffers with radius:', userLocation.radius); */
     const result = await filterOffers(null, userLocation.radius, activeType);
-    console.log('filterOffers result:', result);
+/*     console.log('filterOffers result:', result); */
   
     setFilteredOffers(result);
   }
