@@ -50,32 +50,30 @@ export const FunctionProvider = ({ children }) => {
     offersCard: 'assistance-offer/'
   })
   const getProfile = async () => {
-    if (existToken) {
-      dispatchLoad({ type: 'LOAD_TRUE' })
-      try {
-        const [user, offersMap, offersCard] = await Promise.all([
-          fetchAuth(urlAPi.user, {}, 'GET', existToken),
-          fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
-        ])
+    dispatchLoad({ type: 'LOAD_TRUE' })
+    try {
+      const [user, offersMap, offersCard] = await Promise.all([
+        fetchAuth(urlAPi.user, {}, 'GET', existToken),
+        fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
+      ])
 
-        if (user?.data?.user) {
-          dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
-          dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        }
-
-        if (offersMap?.data?.offers) {
-          dispatchOffer({
-            type: 'SET_OFFERS_MAP',
-            payload: offersMap.data.offers
-          })
-        }
-      } catch (error) {
-        console.error('Error loading profile data:', error.message)
-      } finally {
-        setTimeout(() => {
-          dispatchLoad({ type: 'LOAD_FALSE' })
-        }, 1000)
+      if (user?.data?.user) {
+        dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
+        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
       }
+
+      if (offersMap?.data?.offers) {
+        dispatchOffer({
+          type: 'SET_OFFERS_MAP',
+          payload: offersMap.data.offers
+        })
+      }
+    } catch (error) {
+      console.error('Error loading profile data:', error.message)
+    } finally {
+      setTimeout(() => {
+        dispatchLoad({ type: 'LOAD_FALSE' })
+      }, 1000)
     }
   }
 
@@ -93,6 +91,11 @@ export const FunctionProvider = ({ children }) => {
       console.error('Error loading offers:', error.message)
     }
   }
+
+  useEffect(() => {
+    if (existToken) getProfile()
+    else getOffers()
+  }, [])
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371 // Radius of the earth in km

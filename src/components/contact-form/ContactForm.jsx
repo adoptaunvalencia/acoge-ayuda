@@ -31,7 +31,7 @@ const ContactForm = () => {
       {load ? (
         <Spinner />
       ) : (
-        <div className='contact-form__container fadeIn'>
+        <div className='contact-form__container'>
           <h2 className='contact-form__title'>Contactar</h2>
           <p>
             Envía tu solicitud y el creador de la oferta te contactará pronto ❤️

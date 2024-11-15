@@ -3,7 +3,7 @@ import Button from '../button/Button';
 import './CreateOfferForm.css';
 
 const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState({});
   const [useUserAddress, setUseUserAddress] = useState(true);
   const [errors, setErrors] = useState({});
   const [typeOffer, setTypeOffer] = useState([]);
@@ -39,59 +39,56 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
 
   const validateForm = () => {
     const validationErrors = {};
-  
     fields.forEach(({ name, label, required, validate }) => {
       const value = String(formData[name] || '');
-
       if (useUserAddress && ['city', 'address', 'postalcode'].includes(name)) {
         return;
       }
-  
       if (required && !value.trim()) {
         validationErrors[name] = `${label} es obligatorio`;
       } else if (validate && !validate(value)) {
         validationErrors[name] = `${label} no es válido`;
       }
     });
-  
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!validateForm()) return
-    
-    const formDataToSubmit = useUserAddress ? {
-      ...formData,
-      city: user.city,
-      address: user.address,
-      postalcode:
-      user.postalcode
-    } : formData;
-
-    onSubmit(formDataToSubmit)
-  }
+    e.preventDefault();
+    if (!validateForm()) return;
+    const formDataToSubmit = useUserAddress
+      ? {
+          ...formData,
+          city: user.city,
+          address: user.address,
+          postalcode: user.postalcode,
+        }
+      : formData;
+    onSubmit(formDataToSubmit);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       {fields.map((field, index) => (
         <div key={index}>
           {field.type === 'textarea' ? (
-            <div className='form-input'>
+            <div className="form-input">
               <textarea
                 className={`input${fields.required ? ' input-required' : ''}`}
                 id={field.name}
                 name={field.name}
                 required={field.required}
-                value={formData[field.name]}
+                value={formData[field.name] || ''}
                 onChange={handleChange}
               />
-              <label className="input-label" htmlFor={field.name}>{field.label}</label>
+              <label className="input-label" htmlFor={field.name}>
+                {field.label}
+              </label>
               {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
             </div>
           ) : field.type === 'checkbox' ? (
-            <div className='form-checkbox'>
+            <div className="form-checkbox">
               <input
                 className={`checkbox-input${fields.required ? ' input-required' : ''}`}
                 id={field.name}
@@ -108,14 +105,14 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
             </div>
           ) : field.type === 'select' ? (
             <>
-              <div className='form-select'>
+              <div className="form-select">
                 <select
                   id="type"
                   name="type"
                   value={formData.type || ''}
                   onChange={handleChange}
                   required
-                > 
+                >
                   <option value="">Selecciona un tipo de ayuda</option>
                   {field.options.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -124,8 +121,7 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                   ))}
                 </select>
               </div>
-              
-              <div className='form-input'>
+              <div className="form-input">
                 <input
                   className={`input${fields.required ? ' input-required' : ''}`}
                   id="quantity"
@@ -136,56 +132,55 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                   onChange={handleChange}
                   required
                 />
-                <label className="input-label" htmlFor={field.name}>Cantidad</label>
+                <label className="input-label" htmlFor="quantity">
+                  Cantidad
+                </label>
                 {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
               </div>
-
               <Button
-                text='Añadir tipo de ayuda'
-                bgColor='var(--bg-primary-red)'
-                textColor='var(--text-primary-light)'
-                borderRadius='var(--spacing-m)'
+                text="Añadir tipo de ayuda"
+                bgColor="var(--bg-primary-red)"
+                textColor="var(--text-primary-light)"
+                borderRadius="var(--spacing-m)"
                 action={addTypeOffer}
               />
             </>
           ) : (
             <>
               {['city', 'address', 'postalcode'].includes(field.name) && !useUserAddress ? (
-              <div className='form-input'>
-              <input
-                className={`input${fields.required ? ' input-required' : ''}`}
-                id={field.name}
-                name={field.name}
-                type={field.type}
-                required={field.required}
-                value={formData[field.name]}
-                onChange={handleChange}
-              />
-              <label className="input-label" htmlFor={field.name}>{field.label}</label>
-              {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
-            </div>
-            ) : (
-              <>
-              {field.name === 'title' && (
-                <div className='form-input'>
-                <input
-                  className={`input${fields.required ? ' input-required' : ''}`}
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  required={field.required}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                />
-                <label className="input-label" htmlFor={field.name}>
-                  {field.label}
-                </label>
-                {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
-              </div>
-              )}
-              </>
-            )}
-           </>
+                <div className="form-input">
+                  <input
+                    className={`input${fields.required ? ' input-required' : ''}`}
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    required={field.required}
+                    value={formData[field.name] || ''}
+                    onChange={handleChange}
+                  />
+                  <label className="input-label" htmlFor={field.name}>
+                    {field.label}
+                  </label>
+                  {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+                </div>
+              ) : field.name === 'title' ? (
+                <div className="form-input">
+                  <input
+                    className={`input${fields.required ? ' input-required' : ''}`}
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    required={field.required}
+                    value={formData[field.name] || ''}
+                    onChange={handleChange}
+                  />
+                  <label className="input-label" htmlFor={field.name}>
+                    {field.label}
+                  </label>
+                  {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+                </div>
+              ) : null}
+            </>
           )}
           {errors[field.name] && <div>{errors[field.name]}</div>}
         </div>
