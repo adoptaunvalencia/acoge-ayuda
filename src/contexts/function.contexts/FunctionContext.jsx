@@ -184,9 +184,7 @@ export const FunctionProvider = ({ children }) => {
         userReceive: userReceiveData
       }
       const data = await createEmail(newEmail, dispatchLoad, token)
-      setTimeout(() => {
-        setIsModalOpen(false)
-      }, 1000)
+      setIsModalOpen(false)
       console.log(data)
     } catch (error) {
       console.error('Error in handleFormSubmit:', error)
@@ -237,6 +235,7 @@ export const FunctionProvider = ({ children }) => {
         handleRegister,
         handleCreateOffer,
         handleFormSubmit,
+        activeOffer,
         setActiveOffer,
         handleLoginSubmit
       }}

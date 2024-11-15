@@ -1,20 +1,19 @@
-import { useState, useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import Form from '../form-group/Form'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
-import './ContactForm.css'
 import Spinner from '../spinner/Spinner'
+import './ContactForm.css'
 
 const ContactForm = () => {
-  const [responseMessage, setResponseMessage] = useState('')
   const {
     stateLoad: { load },
-    dispatchLoad
   } = useContext(ReducerContext)
 
   const { handleFormSubmit } = useContext(FunctionContext)
 
-  const fields = [
+  // Uso de useMemo para evitar recrear los campos en cada renderizado
+  const fields = useMemo(() => [
     { name: 'subject', label: 'Asunto', type: 'text', required: true },
     {
       name: 'body',
@@ -24,7 +23,7 @@ const ContactForm = () => {
       rows: 4,
       required: true
     }
-  ]
+  ], [])
 
   return (
     <>
@@ -41,9 +40,6 @@ const ContactForm = () => {
             onSubmit={handleFormSubmit}
             buttonText='Enviar email'
           />
-          {responseMessage && (
-            <p className='response-message'>{responseMessage}</p>
-          )}
         </div>
       )}
     </>
