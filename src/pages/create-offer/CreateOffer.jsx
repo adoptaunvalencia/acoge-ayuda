@@ -55,14 +55,17 @@ const CreateOffer = () => {
 
   const handleFormSubmit = async (formData) => {
     const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-    const data = await createOffer(formData, dispatchLoad, token)
-    console.log(offers_map)
-    console.log(data)
-    dispatchOffer({
-      type: 'SET_OFFERS_MAP',
-      payload: [...offers_map, data.offers]
-    })
-    navigate('/')
+    const data = await createOffer(formData, dispatchLoad, token)    
+    if(data.offers) {
+      dispatchOffer({
+        type: 'SET_OFFERS_MAP',
+        payload: [...offers_map, data.offers]
+      })
+      navigate('/')
+    } else {
+      console.log('Hubo un problema con la dirección,');
+      
+    }
   }
 
   return (

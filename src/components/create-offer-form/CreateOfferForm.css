@@ -1,118 +1,106 @@
-.form {
+/* CreateOfferForm.css */
+
+.create__form-container {
   display: flex;
   flex-direction: column;
-}
-
-.form-input {
-  margin-bottom: 1rem;
-}
-
-.error-text {
-  color: red;
-  font-size: 0.9rem;
-}
-
-.form-checkbox {
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: #f9f9f9; /* Fondo del formulario */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  margin-bottom: 1rem;
+  max-width: 600px;
+  margin: auto;
 }
-.form-checkbox .checkbox-input {
-  transform: translateY(5px);
+
+.create__form-contain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.create__input, .create__form-input input, .create__form-select select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc; /* Borde de los inputs */
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fff; /* Fondo de los inputs */
+  color: #333; /* Color del texto */
+}
+
+.create__input-required {
+  border-color: #e74c3c; /* Color del borde para inputs requeridos */
+}
+
+.create__input-label, .input-label {
+  font-size: 0.9rem;
+  color: #666; /* Color del texto secundario */
+  margin-bottom: 0.2rem;
+}
+
+.create__input-tooltip, .input-tooltip {
+  font-size: 0.8rem;
+  color: #999; /* Color de los tooltips */
+}
+
+.create__form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.create__checkbox-input {
   width: 20px;
   height: 20px;
-  border: 1px solid #79747E;
-  accent-color: var(--bg-primary-red);
-  cursor: pointer;
-}
-.form-checkbox .checkbox-label {
-  margin-left: 15px;
-  font-size: var(--font-size-s);
-  cursor: pointer;
 }
 
-.form-select {
-  width: 100%;
-  position: relative;
-  cursor: pointer;
+.create__checkbox-label {
+  font-size: 0.9rem;
+  color: #333; /* Color del texto de las etiquetas */
 }
-.form-select .select-label {
-  position: absolute;
-  top: 18px;
-  left: 14px;
-  padding: 0px 4px;
-  font-size: var(--font-size-s);
-  transition: all 0.1s linear;
+
+.create__form-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
-.form-select .select-options {
-  position: absolute;
-  display: block;
-  width: 100%;
-  max-height: 300px;
-  top: 53px;
-  left: 0px;
-  overflow-y: auto;
-  background-color: white;
-  z-index: 2;
+
+.create__form-select select option {
+  color: #333; /* Color del texto de las opciones del select */
 }
-.form-select .select-options .select-option {
-  padding: 10px 5px;
-  transition: all 0.1s linear;
-}
-.form-select .select-options .select-option:hover {
-  background-color: lightgray;
-}
-.form-select .select-tooltip {
-  display: block;
-  width: 100%;
-  padding: 4px 16px;
-  padding-bottom: 0px;
-  font-size: var(--font-size-xs);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.form-select .select {
-  position: relative;
-  display: block;
-  outline: none;
+
+button[type="submit"], .create__form-container button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  color: #fff; /* Color del texto del botón */
+  background-color: #007bff; /* Fondo del botón */
   border: none;
-  background-image: none;
-  background-color: transparent;
-  box-shadow: none;
-  width: 100%;
-  height: 53px;
-  padding: 16px;
-  font-size: var(--font-size-s);
-  border: 1px solid #79747E;
-  border-radius: 4px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.form-select .select.opened:after {
-  transform: rotate(180deg);
-}
-.form-select .select:after {
-  position: absolute;
-  content: "";
-  top: 22px;
-  right: 1em;
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  border-top: 5px solid #79747E;
-  transition: transform 0.3s ease-in-out;
-}
-.form-select .select-input {
-  display: none;
-  visibility: hidden;
-}
-.form-select .select-input:valid + .select-label {
-  background-color: #FEF7FF;
-  transform: scale(0.85) translateY(-30px);
-}
-.form-select .select,
-.form-select .select-label {
-  pointer-events: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Fondo del botón al pasar el cursor */
+}
+
+.create__form-container button {
+  margin-top: 1rem;
+}
+
+.create__form-container h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333; /* Color del encabezado */
+}
+
+.create__form-container ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.create__form-container ul li {
+  font-size: 0.9rem;
+  color: #666; /* Color del texto de los elementos de la lista */
+}
