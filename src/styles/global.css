@@ -68,9 +68,9 @@ li {
 
 }
 
-ul,
-li {
-  list-style: none;
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }
 a {
   text-decoration: none;
