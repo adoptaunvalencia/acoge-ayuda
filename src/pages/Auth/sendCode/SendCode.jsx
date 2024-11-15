@@ -8,9 +8,7 @@ import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContex
 const SendCode = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const navigate = useNavigate()
-
-  const {dispatchLoad}= useContext(ReducerContext)
-
+  const { dispatchLoad } = useContext(ReducerContext)
   const fields = [
     {
       name: 'verificationCode',
@@ -20,34 +18,25 @@ const SendCode = () => {
       validate: (value) => /^[0-9]{8}$/.test(value)
     }
   ]
-
   const handleFormSubmit = async (formData) => {
-    console.log(formData);
-    
     try {
       const data = await verifyCode(formData, dispatchLoad)
-      if(data.status) {
+      if (data.status) {
         navigate('../new-password')
       }
-
-      
-      
     } catch (error) {
-      setResponseMessage(
-        'Error al enviar el código. Inténtalo de nuevo más tarde.'
-      )
+      console.log(error)
     }
   }
 
   return (
-    <div className='send-code'>
+    <div className='send-code fadeIn'>
       <h2>Verificación de Código</h2>
       <Form
         fields={fields}
         onSubmit={handleFormSubmit}
         buttonText='Enviar Código'
       />
-      {responseMessage && <p className='response-message'>{responseMessage}</p>}
     </div>
   )
 }

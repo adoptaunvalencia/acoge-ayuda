@@ -1,7 +1,11 @@
 .login-form {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
+  width:100%;
+  height:50svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
 }
 
 .login-form > h2 {

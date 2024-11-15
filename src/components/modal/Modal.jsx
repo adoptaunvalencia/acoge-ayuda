@@ -22,10 +22,7 @@ const Modal = ({ isModalOpen, handleCloseModal, children }) => {
           padding='10px 10px'
           action={handleCloseModal}
         />
-      </div>
-      {/* <button className='modal-close' onClick={handleCloseModal}>
-        
-      </button> */}
+      </div>{' '}
       {children}
     </div>
   )

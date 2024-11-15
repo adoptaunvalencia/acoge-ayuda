@@ -7,7 +7,6 @@ import Modal from '../modal/Modal';
 import './card.css';
 
 const CardList = ({ activeTypes }) => {
-  const { dispatchOffer } = useContext(ReducerContext);
   const { userLocation, filterOffers, categorizedOffers } = useContext(FunctionContext);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,7 +17,7 @@ const CardList = ({ activeTypes }) => {
   const closeModal = () => setIsLoading(false);
 
   return (
-    <div className='card-list'>
+    <div className='card-list show'>
       {activeTypes.map(
         (type) =>
           categorizedOffers[type] && (
