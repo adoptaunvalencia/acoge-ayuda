@@ -9,7 +9,7 @@ const Input = (props) => {
     return (
         <div className={`form-input ${className}`}>
             <input 
-                className={`input${required ? ' input-required' : ''}`}
+                className={`input ${required && 'input-required'}`}
                 id={id} 
                 name={name} 
                 type={type}

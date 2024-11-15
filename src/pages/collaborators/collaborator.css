@@ -1,0 +1,140 @@
+.collaborator__title {
+  text-align: center;
+}
+.collaborator {
+  width: 90%;
+  margin: var(--spacing-xl) auto 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.collaborator__about-container {
+  flex: 1;
+  gap: var(--spacing-m);
+  padding-right: var(--spacing-l);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--bg-medium-gray);
+}
+
+.collaborator__about-title {
+  font-size: var(--font-size-l);
+}
+
+.collaborator__cards-container {
+  flex: 3;
+  padding-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-xl);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xl);
+}
+
+.collaborator__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.collaborator__social {
+  width: max-content;
+  gap: var(--spacing-m);
+  padding: var(--spacing-s);
+  border: 2px solid var(--text-primary);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.collaborator__social-link {
+  display: flex;
+  transition: transform 0.3s;
+}
+
+
+.collaborator__social-link:hover {
+  transform: scale(1.1);
+}
+
+.collaborator__main {
+  width: 360px;
+  border-radius: 16px 0 16px 16px;
+  display: flex;
+  flex-direction: row;
+  background: var(--bg-dark-gray);
+}
+
+.collaborator__imagen {
+  max-width: 160px;
+  border-radius: 16px 0 0 16px;
+}
+
+.collaborator__info {
+  width: 100%;
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--bg-white);
+}
+
+.collaborator__name {
+  font-weight: bold;
+  font-size: var(--font-size-m);
+}
+
+.collaborator__separator {
+  width: 80px;
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-m);
+}
+
+.collaborator__rol {
+  font-size: var(--font-size-m);
+}
+
+@media (max-width: 768px) {
+  .collaborator {
+    flex-direction: column;
+  }
+
+  .collaborator__about-container {
+    padding-right: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--bg-medium-gray);
+    padding-bottom: var(--spacing-l);
+  }
+
+  .collaborator__cards-container {
+    padding: 0;
+    margin-top: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 400px) {
+  .collaborator__card {
+    width: 100%;
+  }
+  .collaborator__main {
+    width: 100%;
+    border-radius: 16px 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-dark-gray);
+  }
+
+  .collaborator__imagen {
+    max-width: 400px;
+    border-radius: 16px 0 0 0;
+  }
+
+  .collaborator__info {
+    padding: var(--spacing-l);
+  }
+}
