@@ -32,17 +32,6 @@ const FilterServices = ({ onCategoryToggle, activeTypes }) => {
 
   return (
     <section className='filter-services__container'>
-      <p className='filter__title'>
-        Filtros
-        <span>
-          <span role='img' aria-label='Activo'>
-            🟡Activo
-          </span>
-          <span role='img' aria-label='Desactivado'>
-            ⚪Desactivado
-          </span>
-        </span>
-      </p>
       <div className='filter__button-container'>
         {buttons.map((button) => (
           <Button
@@ -63,6 +52,17 @@ const FilterServices = ({ onCategoryToggle, activeTypes }) => {
           />
         ))}
       </div>
+      <p className='filter__title'>
+        Filtros
+        <span>
+          <span role='img' aria-label='Activo'>
+            🟡Activo
+          </span>
+          <span role='img' aria-label='Desactivado'>
+            ⚪Desactivado
+          </span>
+        </span>
+      </p>
     </section>
   )
 }
