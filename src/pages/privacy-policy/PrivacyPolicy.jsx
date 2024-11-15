@@ -1,8 +1,16 @@
+import { useContext, useEffect } from 'react'
 import './PrivacyPolicy.css'
+import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const PrivacyPolicy = () => {
+  const {scroll, privacyRef} = useContext(RefContext)
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(privacyRef)
+    }, 500);
+  },[])
   return (
-    <section className="privacy-policy">
+    <section ref={privacyRef} className="privacy-policy">
       <div className="content">
         <div className="header">
           <h2>Política de Privacidad - Proyecto Acoge y Ayuda</h2>

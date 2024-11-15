@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginUser } from '../../../reducers/auth.reducer/auth.action'
-import './login.css'
 import Form from '../../../components/form-group/Form'
-import { fetchAuth } from '../../../services/services'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
+import { RefContext } from '../../../contexts/ref.context/RefContext'
+import './login.css'
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -15,7 +14,8 @@ const Login = () => {
     dispatchIsAuth,
     dispatchOffer
   } = useContext(ReducerContext)
-  const {handleLoginSubmit} =useContext(FunctionContext)
+  const { handleLoginSubmit } = useContext(FunctionContext)
+  const { scroll, loginRef } = useContext(RefContext)
 
   const navigate = useNavigate()
   const fields = [
@@ -33,9 +33,14 @@ const Login = () => {
       required: true
     }
   ]
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(loginRef)
+    }, 500)
+  }, [])
 
   return (
-    <div className='login-form fadeIn'>
+    <div ref={loginRef} className='login-form fadeIn'>
       <h2>Iniciar Sesión</h2>
       <Form
         fields={fields}
