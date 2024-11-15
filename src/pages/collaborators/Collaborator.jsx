@@ -3,10 +3,18 @@ import linkedinIcon from "../../assets/icons/linkedin-icon.svg";
 import githubIcon from "../../assets/icons/github-icon.svg";
 import collaboratorImage from "../../assets/images/collaborator-img.jpg";
 import "./collaborator.css";
+import { useContext, useEffect } from "react";
+import { RefContext } from "../../contexts/ref.context/RefContext";
 
 const Collaborator = () => {
+  const {scroll, collaboratoresRef} = useContext(RefContext)
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(collaboratoresRef)
+    }, 500);
+  },[])
   return (
-    <>
+    <section ref={collaboratoresRef}>
       <h2 className="collaborator__title">Colaboradores</h2>
       <section className="collaborator">
         <aside className="collaborator__about-container">
@@ -55,7 +63,7 @@ const Collaborator = () => {
           ))}
         </div>
       </section>
-    </>
+    </section>
   );
 };
 
