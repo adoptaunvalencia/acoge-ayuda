@@ -165,6 +165,12 @@ export const FunctionProvider = ({ children }) => {
   const handleRegister = () => {
     navigate('register')
   }
+  const handleLogout = () => {
+    localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN');
+    dispatchIsAuth({ type: 'SET_USER', payload: null });
+    dispatchIsAuth({ type: 'SET_AUTH_FALSE' });
+    getOffers();
+  }
 
   const handleCreateOffer = () => {}
 
@@ -233,6 +239,7 @@ export const FunctionProvider = ({ children }) => {
         filterOffers,
         handleLogin,
         handleRegister,
+        handleLogout,
         handleCreateOffer,
         handleFormSubmit,
         activeOffer,
