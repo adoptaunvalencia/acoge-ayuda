@@ -75,7 +75,7 @@ const PrivacyPolicy = () => {
           <p>
             Tienes todo el derecho a solicitar acceso, modificación o eliminación de tu
             información en cualquier momento. Solo tienes que enviarnos un correo a 
-            <strong>adoptaunvalencia@gmail.com</strong> ¡y listo! Si en algún momento quieres saber qué
+            {' '}<strong>adoptaunvalencia@gmail.com</strong> ¡y listo! Si en algún momento quieres saber qué
             datos guardamos sobre ti o deseas que los eliminemos, solo tienes que
             escribirnos.
           </p>
@@ -93,7 +93,7 @@ const PrivacyPolicy = () => {
           <p>
             Si tienes alguna duda o quieres conversar con nosotros sobre esta política (o el
             proyecto en general), ¡no dudes en escribirnos! Puedes encontrarnos en 
-            <strong>adoptaunvalencia@gmail.com</strong>.
+            {' '}<strong>adoptaunvalencia@gmail.com</strong>.
           </p>
           <p>Gracias por confiar en nosotros y por ser parte de esta red solidaria.</p>
         </div>

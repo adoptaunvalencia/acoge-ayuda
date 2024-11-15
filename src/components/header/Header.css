@@ -19,8 +19,17 @@
 
 .header__contentinfo-user{
   display: flex;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap:20px;
+}
+.header__contentinfo-user > div{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
 }
 
 .header__container > div > a > img {
@@ -31,7 +40,7 @@
   transform: scale(1.1);
 }
 
-@media (max-width: 520px) {
+@media (max-width: 674px) {
   .header__container {
     justify-content: center;
     flex-direction: column;

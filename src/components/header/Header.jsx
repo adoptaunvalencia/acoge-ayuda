@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 
 const Header = () => {
-  const { handleLogin, handleRegister } = useContext(FunctionContext)
+  const { handleLogin, handleRegister, handleLogout } =
+    useContext(FunctionContext)
   const {
     stateIsAuth: { user, isAuth }
   } = useContext(ReducerContext)
@@ -24,10 +25,19 @@ const Header = () => {
       </div>
       {isAuth ? (
         <div className='header__contentinfo-user'>
-          <img src={user.avatar} width='40' alt={user.name} />
-          <p>
-            <span>{user.name}</span>
-          </p>
+          <div>
+            <img src={user.avatar} width='40' alt={user.name} />
+            <p>
+              <span>{user.name}</span>
+            </p>
+          </div>
+          <Button
+            text='Cerrar sesión'
+            bgColor='var(--bg-primary-red)'
+            textColor='var(--text-primary-light)'
+            borderRadius='var(--spacing-m)'
+            action={handleLogout}
+          />
         </div>
       ) : (
         <div className='header__content-btns'>
