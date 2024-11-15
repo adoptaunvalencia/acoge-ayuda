@@ -13,7 +13,7 @@ const Header = () => {
   } = useContext(ReducerContext)
 
   return (
-    <div className='header__container'>
+    <div className='header__container fadeIn'>
       <div className='header__content'>
         <Link to='/'>
           <img src={logo} alt='Logo' />

@@ -27,18 +27,17 @@ const Forgot = () => {
   const handleFormSubmit = async (formData) => {
     const data = await forgotPassword(formData, dispatchLoad)
     console.log(data)
-    setTimeout(() => navigate('../send-code'), 3000)
+    setTimeout(() => navigate('../send-code'), 2000)
   }
 
   return (
-    <div className='forgot-password-form'>
+    <div className='forgot-password-form fadeIn'>
       <h2>Recuperar Contraseña</h2>
       <Form
         fields={fields}
         onSubmit={handleFormSubmit}
         buttonText='Enviar Correo de Recuperación'
       />
-      {responseMessage && <p className='response-message'>{responseMessage}</p>}
       <Link to='../send-code'>Tengo mi código</Link>
     </div>
   )

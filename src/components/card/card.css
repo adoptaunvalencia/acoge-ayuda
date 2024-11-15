@@ -7,12 +7,11 @@
 }
 
 .card {
+  background-color: var(--bg-white);
   width: 276px;
   border-radius: 12px;
   border: 1px solid var(--bg-medium-gray);
-  padding: 16px;
-  overflow: hidden;
-  background-color: var(--bg-white);
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,7 +37,6 @@
 .card__user-info {
   display: flex;
   align-items: center;
-  padding-bottom: var(--spacing-l);
 }
 
 .card__user-info img {

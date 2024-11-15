@@ -45,7 +45,7 @@ const Register = () => {
   }
 
   return (
-    <div className='register-form'>
+    <div className='register-form fadeIn'>
       <h2>Registro de Usuario</h2>
       <Form
         fields={fields}
