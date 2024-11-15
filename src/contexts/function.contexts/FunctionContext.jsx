@@ -170,7 +170,7 @@ const filterOffers = useCallback(
       }
     });
 
-    console.log("Unique offers:", uniqueOffers);
+/*     console.log("Unique offers:", uniqueOffers); */
     setCategorizedOffers({ all: uniqueOffers });
     return uniqueOffers;
   },
@@ -247,6 +247,7 @@ const filterOffers = useCallback(
   return (
     <FunctionContext.Provider
       value={{
+        existToken,
         isModalOpen,
         setIsModalOpen,
         getProfile,

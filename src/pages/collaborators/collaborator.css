@@ -1,3 +1,7 @@
+.collaborator__container {
+  margin: 80px 0;
+}
+
 .collaborator__title {
   text-align: center;
 }
@@ -37,18 +41,17 @@
 }
 
 .collaborator__social {
-position: absolute;
-bottom:3px;
-left:110px;
-border-radius: 50%;
-overflow: hidden;
+  position: absolute;
+  bottom: 3px;
+  left: 110px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .collaborator__social-link {
   display: flex;
   transition: transform 0.3s;
 }
-
 
 .collaborator__social-link:hover {
   transform: scale(1.1);
@@ -59,8 +62,8 @@ overflow: hidden;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  border:1px solid var(--bg-dark-gray);
-  padding:5px;
+  border: 1px solid var(--bg-dark-gray);
+  padding: 5px;
   overflow: hidden;
 }
 
@@ -76,7 +79,6 @@ overflow: hidden;
   align-items: center;
   justify-content: center;
   text-align: center;
-
 }
 
 .collaborator__name {

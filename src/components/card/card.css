@@ -88,3 +88,49 @@
   border: 1px solid var(--text-primary);
   box-shadow: none;
 }
+
+.card__content-btn-options{
+  display: flex;
+  gap:7px;
+  justify-content: center;
+}
+
+.card__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  padding: var(--spacing-s);
+}
+
+.card__form label {
+  font-size: var(--font-size-s);
+  font-weight: bold;
+}
+
+.card__form input,
+.card__form textarea {
+  width: 100%;
+  padding: var(--spacing-xs);
+  font-size: var(--font-size-s);
+  border: 1px solid var(--bg-medium-gray);
+  border-radius: var(--spacing-xs);
+}
+
+.card__form input:focus,
+.card__form textarea:focus {
+  border-color: var(--bg-primary);
+  box-shadow: 0 0 5px var(--bg-primary);
+  outline: none;
+}
+
+.card__form textarea {
+  resize: vertical;
+  min-height: 50px;
+  max-height: 100px;
+}
+
+.card__form-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-s);
+}

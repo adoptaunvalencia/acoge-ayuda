@@ -9,7 +9,7 @@ const CardList = ({ activeTypes, offers }) => {
 
   const closeModal = () => setIsLoading(false);
 
-  console.log("offers", offers);
+/*   console.log("offers", offers); */
 
   return (
     <div className="card-list">
