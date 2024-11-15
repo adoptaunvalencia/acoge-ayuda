@@ -39,6 +39,7 @@
 .footer-content-link{
   display: flex;
   flex-direction: column;
+  gap:10px;
 }
 .footer-content-link > a {
   color:var(--text-tertiary);

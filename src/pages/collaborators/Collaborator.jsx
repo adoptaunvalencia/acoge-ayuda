@@ -22,7 +22,7 @@ const Collaborator = () => {
           <p>
             Somos un equipo internacional compuesto por desarrolladores y
             diseñadores. Ponemos nuestras habilidades al servicio de las
-            comunidades afectadas por la DANA en Valencia. Conectando
+            comunidades afectadas por la DANA. Conectando
             voluntarios con familias y personas damnificadas en su camino hacia
             la recuperación.
           </p>
@@ -38,13 +38,13 @@ const Collaborator = () => {
                     alt="Linkedin logo"
                   />
                 </a>
-                <a className="collaborator__social-link" href={collaborator.urlLinkedin} target="_blank">
+                {/* <a className="collaborator__social-link" href={collaborator.urlLinkedin} target="_blank">
                   <img
                     className="collaborator__social-image"
                     src={githubIcon}
                     alt="Github logo"
                   />
-                </a>
+                </a> */}
               </div>
               <div className="collaborator__main">
                 <img

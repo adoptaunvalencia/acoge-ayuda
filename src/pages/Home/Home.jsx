@@ -17,6 +17,7 @@ const Home = () => {
     stateOffer: { offers, offers_map }
   } = useContext(ReducerContext)
   const { scroll, homeRef, mapRef } = useContext(RefContext)
+  const [filteredOffers, setFilteredOffers] = useState([]);
 
   const {
     showPopup,
@@ -43,8 +44,15 @@ const Home = () => {
     3: '3km'
   }
 
-  const allCategories = ['accommodation', 'food', 'hygiene', 'pet_fostering']
-  const [activeTypes, setActiveTypes] = useState(allCategories)
+  const [activeType, setActiveType] = useState('')
+
+  useEffect(() => {
+    const fetchFilteredOffers = async () => {
+      const result = await filterOffers(null, userLocation.radius, activeType);
+      setFilteredOffers(result);
+    };
+    fetchFilteredOffers();
+  }, [userLocation, activeType, filterOffers])
 
   const handleChangeSelect = (value, type) => {
     setUserLocation((prev) => ({
@@ -62,37 +70,35 @@ const Home = () => {
       setUserLocation((prev) => ({
         ...prev,
         latitude,
-        longitude
+        longitude,
+        radius: prev.radius
       }))
       handleSendFilter()
     })
   }
 
-  const handleSendFilter = () => {
-    if (
-      !userLocation.latitude ||
-      !userLocation.longitude ||
-      !userLocation.radius
-    ) {
-      console.error('Error: Coordenadas o radio no definidos correctamente')
-      return
-    }
-
-    filterOffers(null, userLocation.radius)
+  const handleSendFilter = async () => {
+    console.log('handleSendFilter called');
+    console.log('userLocation:', userLocation);
+    console.log('activeType:', activeType);
+  
+    console.log('Calling filterOffers with radius:', userLocation.radius);
+    const result = await filterOffers(null, userLocation.radius, activeType);
+    console.log('filterOffers result:', result);
+  
+    setFilteredOffers(result);
   }
 
   const handleCategoryToggle = (category) => {
     setTimeout(() => {
       scroll(mapRef)
     }, 500)
-    setActiveTypes((prevTypes) => {
-      if (prevTypes.includes(category)) {
-        return prevTypes.filter((type) => type !== category)
-      } else {
-        return [...prevTypes, category]
-      }
-    })
+    setActiveType((prevType) => (prevType === category ? '' : category))
   }
+
+  useEffect(() => {
+    handleSendFilter();
+  }, [activeType]);
 
   return (
     <div className='home__container-sections fadeIn'>
@@ -132,7 +138,7 @@ const Home = () => {
       <section className='show'>
         <FilterServicer
           onCategoryToggle={handleCategoryToggle}
-          activeTypes={activeTypes}
+          activeTypes={activeType}
         />
       </section>
       {!isAuth && (
@@ -144,10 +150,10 @@ const Home = () => {
         </Modal>
       )}
       <section ref={mapRef} className='section__map'>
-        <Map activeTypes={activeTypes} maxDistance={userLocation.radius} />
+        <Map offers={filteredOffers} />
       </section>
       <section className='section_card-offers'>
-        <CardList activeTypes={activeTypes} />
+        <CardList activeType={activeType} offers={filteredOffers} />
       </section>
     </div>
   )
