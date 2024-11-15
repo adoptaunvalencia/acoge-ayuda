@@ -9,12 +9,14 @@ import { Map } from '../../components/map/Map'
 import CardList from '../../components/card/CardList'
 import './Home.css'
 import Select from '../../components/select/Select'
+import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const Home = () => {
   const {
     stateIsAuth: { user, isAuth },
     stateOffer: { offers, offers_map }
   } = useContext(ReducerContext)
+  const { scroll, homeRef, mapRef } = useContext(RefContext)
 
   const {
     showPopup,
@@ -27,6 +29,9 @@ const Home = () => {
   } = useContext(FunctionContext)
 
   useEffect(() => {
+    setTimeout(() => {
+      scroll(homeRef)
+    }, 500)
     const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
     if (token) getProfile()
     else getOffers()
@@ -49,6 +54,9 @@ const Home = () => {
   }
 
   const selectPosition = () => {
+    setTimeout(() => {
+      scroll(mapRef)
+    }, 500)
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords
       setUserLocation((prev) => ({
@@ -74,6 +82,9 @@ const Home = () => {
   }
 
   const handleCategoryToggle = (category) => {
+    setTimeout(() => {
+      scroll(mapRef)
+    }, 500)
     setActiveTypes((prevTypes) => {
       if (prevTypes.includes(category)) {
         return prevTypes.filter((type) => type !== category)
@@ -85,7 +96,7 @@ const Home = () => {
 
   return (
     <div className='home__container-sections fadeIn'>
-      <section className='home__container'>
+      <section ref={homeRef} className='home__container'>
         <div className='home__content-title'>
           <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
         </div>
@@ -132,7 +143,7 @@ const Home = () => {
           <WelcomePopUp />
         </Modal>
       )}
-      <section className='section__map'>
+      <section ref={mapRef} className='section__map'>
         <Map activeTypes={activeTypes} maxDistance={userLocation.radius} />
       </section>
       <section className='section_card-offers'>

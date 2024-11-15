@@ -1,15 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Form from '../../../components/form-group/Form'
 import { resetPassword } from '../../../reducers/auth.reducer/auth.action'
 import './NewPassword.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
+import { RefContext } from '../../../contexts/ref.context/RefContext'
 
 const NewPassword = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const { dispatchLoad } = useContext(ReducerContext)
   const { handleLoginSubmit } = useContext(FunctionContext)
+  const {scroll, newPasswordRef} = useContext(RefContext)
   const navigate = useNavigate()
 
   const { token } = useParams()
@@ -23,6 +25,11 @@ const NewPassword = () => {
       validate: (value) => value.length >= 8
     }
   ]
+  useEffect(() => {
+    setTimeout(() => {
+        scroll(newPasswordRef)
+    }, 500);
+  },[])
 
   const handleFormSubmit = async (formData) => {
     try {
@@ -41,7 +48,7 @@ const NewPassword = () => {
   }
 
   return (
-    <div className='new-password fadeIn'>
+    <div ref={newPasswordRef} className='new-password fadeIn'>
       <h2>Restablecer Contraseña</h2>
       <Form
         fields={fields}

@@ -1,10 +1,11 @@
-import Button from '../button/Button'
-import './Header.css'
-import logo from '../../assets/icons/Logo.svg'
-import { useContext } from 'react'
-import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
+import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import { RefContext } from '../../contexts/ref.context/RefContext'
+import Button from '../button/Button'
+import logo from '../../assets/icons/Logo.svg'
+import './Header.css'
 
 const Header = () => {
   const { handleLogin, handleRegister, handleLogout } =
@@ -12,9 +13,16 @@ const Header = () => {
   const {
     stateIsAuth: { user, isAuth }
   } = useContext(ReducerContext)
+  const { scroll, headerRef } = useContext(RefContext)
+
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(headerRef)
+    }, 500);
+  },[])
 
   return (
-    <div className='header__container fadeIn'>
+    <div ref={headerRef} className='header__container fadeIn'>
       <div className='header__content'>
         <Link to='/'>
           <img src={logo} alt='Logo' />

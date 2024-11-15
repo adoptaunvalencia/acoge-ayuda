@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { registerUser } from '../../../reducers/auth.reducer/auth.action'
 import Form from '../../../components/form-group/Form'
 import './Register.css'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
+import { RefContext } from '../../../contexts/ref.context/RefContext'
 
 const Register = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -11,7 +12,8 @@ const Register = () => {
     stateLoad: { load },
     dispatchLoad
   } = useContext(ReducerContext)
-  const {handleRegisterFormSubmit} = useContext(FunctionContext)
+  const { handleRegisterFormSubmit } = useContext(FunctionContext)
+  const { scroll, registerRef } = useContext(RefContext)
 
   const fields = [
     { name: 'name', label: 'Nombre', type: 'text', required: true },
@@ -41,8 +43,14 @@ const Register = () => {
     { name: 'password', label: 'Contraseña', type: 'password', required: true }
   ]
 
+  useEffect(() => {
+    setTimeout(() => {
+        scroll(registerRef)
+    }, 500);
+  },[])
+
   return (
-    <div className='register-form fadeIn'>
+    <div ref={registerRef} className='register-form fadeIn'>
       <h2>Registro de Usuario</h2>
       <Form
         fields={fields}

@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
 import { createOffer } from '../../reducers/offers.reducer/offer.action'
 import CreateOfferForm from '../../components/create-offer-form/CreateOfferForm'
 import './CreateOffer.css'
+import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const CreateOffer = () => {
   const navigate = useNavigate()
@@ -15,6 +16,8 @@ const CreateOffer = () => {
     dispatchOffer,
     stateOffer: { offers_map }
   } = useContext(ReducerContext)
+
+  const {scroll, createOfferRef} = useContext(RefContext)
 
   const fields = [
     { name: 'title', label: 'Título', type: 'text', required: true },
@@ -68,8 +71,14 @@ const CreateOffer = () => {
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(createOfferRef)
+    }, 500);
+  },[])
+
   return (
-    <div className='create-offer-form fadeIn'>
+    <div ref={createOfferRef} className='create-offer-form fadeIn'>
       <h2>Ofrecer mi ayuda</h2>
       <CreateOfferForm
         fields={fields}
