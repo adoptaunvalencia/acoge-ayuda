@@ -179,7 +179,7 @@ export const FunctionProvider = ({ children }) => {
     }
   }
 
-  const handleLoginSubmit = async (formData) => {
+  const handleLoginSubmit = async (formData) => {    
     try {
       const data = await loginUser(formData, dispatchLoad)
       if (data && data.user) {
