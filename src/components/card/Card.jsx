@@ -1,25 +1,28 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import Button from '../button/Button'
-import whatsapp from '../../assets/icons/whatsapp-icon.svg'
-import './card.css'
 import CardCategory from './CardCategory'
 import ContactForm from '../contact-form/ContactForm'
 import Modal from '../modal/Modal'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
+import './card.css'
 
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId } = offer
-  const { isModalOpen, setIsModalOpen, setActiveOffer } =
+  const { isModalOpen, setIsModalOpen, activeOffer, setActiveOffer } =
     useContext(FunctionContext)
 
-  const handleOpenModal = () => {
+  const handleOpenModal = useCallback((offer) => {
     setActiveOffer(offer)
     setIsModalOpen(true)
-  }
+  }, [offer, setIsModalOpen, setActiveOffer])
 
-  const handleCloseModal = () => {
+
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false)
-  }
+    setActiveOffer(null)
+  }, [setIsModalOpen, setActiveOffer])
+
+  
 
   return (
     <div className='card fadeIn'>
@@ -55,14 +58,19 @@ const Card = ({ offer }) => {
               bgColor='white'
               textColor='var(--text-primary)'
               borderRadius='var(--spacing-l)'
-              action={handleOpenModal}
+              action={() => handleOpenModal(offer)}
             />
           </div>
         )}
 
-      <Modal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal}>
-        <ContactForm onSubmit={handleOpenModal} onCancel={handleCloseModal} />
-      </Modal>
+      {activeOffer && activeOffer.id === offer.id && (
+        <Modal
+          isModalOpen={isModalOpen}
+          handleCloseModal={handleCloseModal}
+        >
+          <ContactForm onSubmit={handleOpenModal} />
+        </Modal>
+      )}
     </div>
   )
 }
