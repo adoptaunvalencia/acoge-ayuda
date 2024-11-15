@@ -69,28 +69,28 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="create__form-container">
       {fields.map((field, index) => (
-        <div key={index}>
+        <div key={index} className="create__form-contain">
           {field.type === 'textarea' ? (
-            <div className="form-input">
+            <div className="create__form-input">
               <textarea
-                className={`input${fields.required ? ' input-required' : ''}`}
+                className={`create__input${field.required ? ' create__input-required' : ''}`}
                 id={field.name}
                 name={field.name}
                 required={field.required}
                 value={formData[field.name] || ''}
                 onChange={handleChange}
               />
-              <label className="input-label" htmlFor={field.name}>
+              <label className="create__input-label" htmlFor={field.name}>
                 {field.label}
               </label>
-              {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+              {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
             </div>
           ) : field.type === 'checkbox' ? (
-            <div className="form-checkbox">
+            <div className="create__form-checkbox">
               <input
-                className={`checkbox-input${fields.required ? ' input-required' : ''}`}
+                className={`create__checkbox-input${field.required ? ' create__input-required' : ''}`}
                 id={field.name}
                 name={field.name}
                 type="checkbox"
@@ -98,14 +98,14 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                 onChange={handleCheckboxChange}
               />
               {field.label && (
-                <label className="checkbox-label" htmlFor={field.name}>
+                <label className="create__checkbox-label" htmlFor={field.name}>
                   {field.label}
                 </label>
               )}
             </div>
           ) : field.type === 'select' ? (
             <>
-              <div className="form-select">
+              <div className="create__form-select">
                 <select
                   id="type"
                   name="type"
@@ -121,9 +121,9 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                   ))}
                 </select>
               </div>
-              <div className="form-input">
+              <div className="create__form-input">
                 <input
-                  className={`input${fields.required ? ' input-required' : ''}`}
+                  className={`create__input${field.required ? ' create__input-required' : ''}`}
                   id="quantity"
                   name="quantity"
                   type="number"
@@ -132,10 +132,10 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                   onChange={handleChange}
                   required
                 />
-                <label className="input-label" htmlFor="quantity">
+                <label className="create__input-label" htmlFor="quantity">
                   Cantidad
                 </label>
-                {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+                {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
               </div>
               <Button
                 text="Añadir tipo de ayuda"
@@ -148,9 +148,9 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
           ) : (
             <>
               {['city', 'address', 'postalcode'].includes(field.name) && !useUserAddress ? (
-                <div className="form-input">
+                <div className="create__form-input">
                   <input
-                    className={`input${fields.required ? ' input-required' : ''}`}
+                    className={`create__input${field.required ? ' create__input-required' : ''}`}
                     id={field.name}
                     name={field.name}
                     type={field.type}
@@ -158,15 +158,15 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                     value={formData[field.name] || ''}
                     onChange={handleChange}
                   />
-                  <label className="input-label" htmlFor={field.name}>
+                  <label className="create__input-label" htmlFor={field.name}>
                     {field.label}
                   </label>
-                  {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+                  {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
                 </div>
               ) : field.name === 'title' ? (
-                <div className="form-input">
+                <div className="create__form-input">
                   <input
-                    className={`input${fields.required ? ' input-required' : ''}`}
+                    className={`create__input${field.required ? ' create__input-required' : ''}`}
                     id={field.name}
                     name={field.name}
                     type={field.type}
@@ -174,10 +174,10 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                     value={formData[field.name] || ''}
                     onChange={handleChange}
                   />
-                  <label className="input-label" htmlFor={field.name}>
+                  <label className="create__input-label" htmlFor={field.name}>
                     {field.label}
                   </label>
-                  {field.tooltip && <span className="input-tooltip">{field.tooltip}</span>}
+                  {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
                 </div>
               ) : null}
             </>
@@ -199,7 +199,9 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
         </div>
       )}
 
-      <button type="submit">{buttonText}</button>
+      <button type="submit" className="create__form-container button">
+        {buttonText}
+      </button>
     </form>
   );
 };
