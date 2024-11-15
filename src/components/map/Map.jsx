@@ -16,7 +16,7 @@ import Card from '../card/Card'
 
 const defaultIcon = new L.Icon({
   iconUrl: def,
-  iconSize: [32, 32],
+  iconSize: [72, 72],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32]
 })
@@ -31,10 +31,10 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
   } = useContext(ReducerContext)
 
   useEffect(() => {
-    filterOffers(selectedCity, maxDistance)
-  }, [selectedCity, maxDistance, filterOffers])
+    filterOffers(selectedCity, maxDistance, activeTypes);
+  }, [selectedCity, maxDistance, activeTypes, filterOffers]);
 
-  const initialPosition = userLocation
+  const initialPosition = userLocation.latitude && userLocation.longitude
     ? [userLocation.latitude, userLocation.longitude]
     : [40.42372525496708, -3.678864358280353] // MADRID
 
@@ -42,6 +42,7 @@ export const Map = ({ activeTypes, selectedCity, maxDistance }) => {
     <MapContainer
       center={initialPosition}
       zoom={5}
+      maxZoom={13}
       scrollWheelZoom={false}
       style={{ height: '35vh', width: '100%' }}
     >

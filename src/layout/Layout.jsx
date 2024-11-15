@@ -14,24 +14,21 @@ const Layout = () => {
 
   return (
     <>
-      {load ? (
+      {load && (
         <div className='spinner'>
           <Spinner />
         </div>
-      ) : (
-        <>
-          <header>
-            <Header isAuth={isAuth} user={user} />
-          </header>
-          {isAuth && <FloatButton />}
-          <main>
-            <Outlet />
-          </main>
-          <footer>
-            <Footer />
-          </footer>
-        </>
       )}
+      <header>
+        <Header isAuth={isAuth} user={user} />
+      </header>
+      {isAuth && <FloatButton />}
+      <main>
+        <Outlet />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   )
 }

@@ -11,21 +11,6 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
     setUseUserAddress(checked);
-    if (checked) {
-      setFormData({
-        ...formData,
-        city: user.city,
-        address: user.address,
-        postalcode: user.postalcode,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        city: '',
-        address: '',
-        postalcode: '',
-      });
-    }
   };
 
   const handleChange = (e) => {
@@ -57,6 +42,10 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
   
     fields.forEach(({ name, label, required, validate }) => {
       const value = String(formData[name] || '');
+
+      if (useUserAddress && ['city', 'address', 'postalcode'].includes(name)) {
+        return;
+      }
   
       if (required && !value.trim()) {
         validationErrors[name] = `${label} es obligatorio`;
@@ -72,7 +61,16 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!validateForm()) return
-    onSubmit(formData)
+    
+    const formDataToSubmit = useUserAddress ? {
+      ...formData,
+      city: user.city,
+      address: user.address,
+      postalcode:
+      user.postalcode
+    } : formData;
+
+    onSubmit(formDataToSubmit)
   }
 
   return (

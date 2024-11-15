@@ -25,7 +25,7 @@ const CardCategory = ({ category }) => {
   const label = categoryLabels[type];
 
   return (
-    <div className='card__offer-category'>
+    <div className='card__offer-category show'>
       <img src={iconUrl} alt={category} className="card__offer-category-icon" />
       <span className="card__offer-category-text">
         {type === 'pet_fostering' ? label : `${quantity} ${label}`}

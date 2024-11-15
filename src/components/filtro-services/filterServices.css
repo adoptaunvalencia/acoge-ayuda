@@ -1,7 +1,8 @@
 .filter-services__container {
+  margin-top: 40px;;
   padding: var(--spacing-m);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: var(--spacing-l);
@@ -10,7 +11,15 @@
 .filter__title {
   font-size: var(--font-size-s);
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 400;
+  text-align: center;
+}
+
+.filter__title, .filter__title > span  {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
 }
 
 .filter__button-container {
@@ -18,6 +27,7 @@
   flex-direction: row;
   gap: var(--spacing-m);
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 :root {

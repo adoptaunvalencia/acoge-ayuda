@@ -5,6 +5,7 @@ import { loginUser } from '../../../reducers/auth.reducer/auth.action'
 import './login.css'
 import Form from '../../../components/form-group/Form'
 import { fetchAuth } from '../../../services/services'
+import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -14,6 +15,7 @@ const Login = () => {
     dispatchIsAuth,
     dispatchOffer
   } = useContext(ReducerContext)
+  const {handleLoginSubmit} =useContext(FunctionContext)
 
   const navigate = useNavigate()
   const fields = [
@@ -32,38 +34,14 @@ const Login = () => {
     }
   ]
 
-  const handleFormSubmit = async (formData) => {
-    const uriApi = `assistance-offer`
-    try {
-      const data = await loginUser(formData, dispatchLoad)
-      if (data && data.user) {
-        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
-        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        const token = data.token
-       localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', token)
-        const offers = await fetchAuth(uriApi, {}, 'GET', token)        
-        dispatchOffer({
-          type: 'SET_OFFERS',
-          payload: offers.data.assistancesOffers
-        })
-        navigate('../dashboard')
-      } else {
-        setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
-    <div className='login-form'>
+    <div className='login-form fadeIn'>
       <h2>Iniciar Sesión</h2>
       <Form
         fields={fields}
-        onSubmit={handleFormSubmit}
+        onSubmit={handleLoginSubmit}
         buttonText='Iniciar Sesión'
       />
-      {responseMessage && <p className='response-message'>{responseMessage}</p>}
       <Link to='../forgot-password'>Restablecer contraseña</Link>
     </div>
   )
