@@ -38,11 +38,6 @@ const Home = () => {
     3: '3km'
   }
 
-  /*  const selectOptionsLocation = {
-    home: 'Desde mi Casa',
-    location: 'Ubicación Actual'
-  } */
-
   const allCategories = ['accommodation', 'food', 'hygiene', 'pet_fostering']
   const [activeTypes, setActiveTypes] = useState(allCategories)
 
@@ -104,16 +99,6 @@ const Home = () => {
           </p>
         </div>
         <div className='home__content-buttons'>
-          {/* <Select
-            label='Ubicación'
-            name='filer_location'
-            id='filer_location'
-            defaultOption={true}
-            options={selectOptionsLocation}
-            onChange={(value) => {
-              handleChangeSelect(value, 'location')
-            }}
-          /> */}
           <div className='width_full'>
             <Select
               label='Buscar por Radio'
