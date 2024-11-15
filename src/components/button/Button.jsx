@@ -10,7 +10,7 @@ const Button = ({
   borderRadius,
   action = () => {},
   disabled = false,
-  type = 'button'
+  type = 'submit'
 }) => {
   return (
     <button
