@@ -71,7 +71,7 @@ const Home = () => {
         ...prev,
         latitude,
         longitude,
-        radius
+        radius: prev.radius
       }))
       handleSendFilter()
     })

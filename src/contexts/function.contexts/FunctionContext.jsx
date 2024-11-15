@@ -126,56 +126,56 @@ export const FunctionProvider = ({ children }) => {
     return R * c;
   };
 
-  const filterOffers = useCallback(
-    (selectedCity, maxDistance, activeType) => {
-      if (!offers_map) {
-        return;
-      }
-  
-      let offersToFilter = offers_map;
-  
-      if (selectedCity && selectedCity !== "all") {
-        offersToFilter = offersToFilter.filter(
-          (offer) => offer.city === selectedCity
+const filterOffers = useCallback(
+  (selectedCity, maxDistance, activeType) => {
+    if (!offers_map) {
+      return;
+    }
+
+    let offersToFilter = offers_map;
+
+    if (selectedCity && selectedCity !== "all") {
+      offersToFilter = offersToFilter.filter(
+        (offer) => offer.city === selectedCity
+      );
+    }
+
+    if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
+      offersToFilter = offersToFilter.filter((offer) => {
+        const distance = getDistanceFromLatLonInKm(
+          userLocation.latitude,
+          userLocation.longitude,
+          offer.location.coordinates[1],
+          offer.location.coordinates[0]
         );
-      }
-  
-      if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
-        offersToFilter = offersToFilter.filter((offer) => {
-          const distance = getDistanceFromLatLonInKm(
-            userLocation.latitude,
-            userLocation.longitude,
-            offer.location.coordinates[1],
-            offer.location.coordinates[0]
-          );
-          return distance <= maxDistance;
-        });
-      }
-  
-      if (activeType && activeType !== '') {
-        offersToFilter = offersToFilter.filter((offer) => {
-          return offer.typeOffer.some((typeObj) => {
-            return typeObj.type === activeType;
-          });
-        });
-      }
-  
-      const uniqueOffers = [];
-      const seen = new Set();
-  
-      offersToFilter.forEach((offer) => {
-        if (!seen.has(offer._id)) {
-          uniqueOffers.push(offer);
-          seen.add(offer._id);
-        }
+        return distance <= maxDistance;
       });
-  
-      console.log("Unique offers:", uniqueOffers);
-      setCategorizedOffers({ all: uniqueOffers });
-      return uniqueOffers;
-    },
-    [offers_map, userLocation]
-  );
+    }
+
+    if (activeType && activeType !== '') {
+      offersToFilter = offersToFilter.filter((offer) => {
+        return offer.typeOffer.some((typeObj) => {
+          return typeObj.type === activeType;
+        });
+      });
+    }
+
+    const uniqueOffers = [];
+    const seen = new Set();
+
+    offersToFilter.forEach((offer) => {
+      if (!seen.has(offer._id)) {
+        uniqueOffers.push(offer);
+        seen.add(offer._id);
+      }
+    });
+
+    console.log("Unique offers:", uniqueOffers);
+    setCategorizedOffers({ all: uniqueOffers });
+    return uniqueOffers;
+  },
+  [offers_map, userLocation]
+);
 
   const handleLogin = () => {
     navigate("login");
