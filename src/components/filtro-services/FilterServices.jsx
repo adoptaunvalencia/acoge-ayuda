@@ -53,13 +53,12 @@ const FilterServices = ({ onCategoryToggle, activeTypes }) => {
         ))}
       </div>
       <p className='filter__title'>
-        Filtros
         <span>
           <span role='img' aria-label='Activo'>
-            🟡Activo
+            Activo🟡
           </span>
           <span role='img' aria-label='Desactivado'>
-            Inactivo
+            ⚪Inactivo
           </span>
         </span>
       </p>
