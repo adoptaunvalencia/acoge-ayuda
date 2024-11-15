@@ -23,9 +23,9 @@ const Footer = () => {
           apoyamos unos a otros.
         </p>
         <div className='footer-content-link'>
-          <InstallApp />
           <Link to='privacy-policy'>Politicas de privacidad</Link>
           <Link to='collaborators'>Colaboradores❤️</Link>
+          <InstallApp />
         </div>
       </div>
       <div className='footer-content-img'>
