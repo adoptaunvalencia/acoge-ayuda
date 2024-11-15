@@ -59,7 +59,7 @@ const FilterServices = ({ onCategoryToggle, activeTypes }) => {
             🟡Activo
           </span>
           <span role='img' aria-label='Desactivado'>
-            ⚪Desactivado
+            Inactivo
           </span>
         </span>
       </p>
