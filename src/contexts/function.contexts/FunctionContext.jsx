@@ -40,9 +40,9 @@ export const FunctionProvider = ({ children }) => {
   } = useContext(ReducerContext)
 
   const navigate = useNavigate()
-
-  const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-  const [existToken, setExistToken] = useState(token || null)
+  const [existToken, setExistToken] = useState(
+    localStorage.getItem('AUTH_VALIDATE_USER_TOKEN') || null
+  )
 
   const [urlAPi, setUrlApi] = useState({
     user: 'user',
@@ -93,9 +93,15 @@ export const FunctionProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (existToken) getProfile()
-    else getOffers()
-  }, [])
+    const isUserAuth = async () => {
+      if (existToken) {
+        await getProfile()
+      } else {
+        await getOffers()
+      }
+    }
+    isUserAuth()
+  }, [existToken])
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371 // Radius of the earth in km
@@ -165,11 +171,15 @@ export const FunctionProvider = ({ children }) => {
   const handleRegister = () => {
     navigate('register')
   }
-  const handleLogout = () => {
-    localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN');
-    dispatchIsAuth({ type: 'SET_USER', payload: null });
-    dispatchIsAuth({ type: 'SET_AUTH_FALSE' });
-    getOffers();
+  const handleLogout = async () => {
+    dispatchLoad({ type: 'LOAD_TRUE' })
+    localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
+    setExistToken(null)
+    dispatchIsAuth({ type: 'SET_USER', payload: {} })
+    dispatchIsAuth({ type: 'SET_AUTH_FALSE' })
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 
   const handleCreateOffer = () => {}
@@ -181,7 +191,7 @@ export const FunctionProvider = ({ children }) => {
       const userReceiveData = await fetchUser(
         userReceiveId,
         dispatchLoad,
-        token
+        existToken
       )
 
       const newEmail = {
@@ -189,7 +199,7 @@ export const FunctionProvider = ({ children }) => {
         userSend: user,
         userReceive: userReceiveData
       }
-      const data = await createEmail(newEmail, dispatchLoad, token)
+      const data = await createEmail(newEmail, dispatchLoad, existToken)
       setIsModalOpen(false)
       console.log(data)
     } catch (error) {
@@ -207,14 +217,8 @@ export const FunctionProvider = ({ children }) => {
       if (data && data.user) {
         dispatchIsAuth({ type: 'SET_USER', payload: data.user })
         dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        const token = data.token
-        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', token)
-        const offersMap = await fetchAuth(urlAPi.offersMap, {}, 'GET', token)
-        dispatchOffer({ type: 'SET_OFFERS_MAP', payload: [] })
-        dispatchOffer({
-          type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.offers
-        })
+        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
+        setExistToken(data.token)
         navigate('../')
       } else {
         setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
