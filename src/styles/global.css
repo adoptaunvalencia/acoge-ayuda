@@ -7,15 +7,14 @@
   --bg-light-gray: #ebebeb;
   --bg-lighter-gray: #f7f7f7;
   --bg-primary-red: #da121a;
+  --bg-primary-yellow: #fcdd09;
   --bg-light-red: #fe353d;
   --bg-lighter-red: #ffe1e2;
   --bg-inactive: #b0b0b0;
   --bg-dark-gray-transparent: #8d6c6c8f;
 
-
-
   /*FONT*/
-  --font-main: "Fira Sans", sans-serif;
+  --font-main: 'Fira Sans', sans-serif;
 
   /*COLOR TEXT*/
   --text-primary: #222222;
@@ -39,7 +38,7 @@
 }
 
 .width_full {
-  width:180px;
+  width: 180px;
 }
 
 * {
@@ -65,7 +64,6 @@ p,
 button,
 li {
   font-size: var(--font-size-m);
-
 }
 
 ul {
@@ -81,7 +79,7 @@ button {
   padding: var(--spacing-xs) var(--spacing-s);
   text-transform: capitalize;
   border: none;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.384);
   display: flex;
   justify-content: center;
@@ -100,8 +98,8 @@ button:hover {
   pointer-events: none;
 }
 
-hr{
-  width:100%;
+hr {
+  width: 100%;
   margin-top: 50px;
 }
 
@@ -110,17 +108,17 @@ hr{
   align-items: center;
 }
 
-.spinner{
+.spinner {
   position: fixed;
   height: 100svh;
-  width:100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: var(--bg-dark-gray-transparent);
-  z-index:4500;
+  z-index: 4500;
 }
 
 /*MEDIA QUERY*/
