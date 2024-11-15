@@ -1,41 +1,28 @@
-import { useState, useEffect, useContext, Fragment } from 'react'
-import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
-import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
-import Card from './Card'
-import Spinner from '../spinner/Spinner'
-import Modal from '../modal/Modal'
-import './card.css'
+import { useState } from "react";
+import Card from "./Card";
+import Spinner from "../spinner/Spinner";
+import Modal from "../modal/Modal";
+import "./card.css";
 
-const CardList = ({ activeTypes }) => {
-  const { userLocation, filterOffers, categorizedOffers } =
-    useContext(FunctionContext)
-  const [isLoading, setIsLoading] = useState(false)
+const CardList = ({ activeTypes, offers }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    filterOffers(null, userLocation.radius, activeTypes)
-  }, [userLocation, activeTypes, filterOffers])
+  const closeModal = () => setIsLoading(false);
 
-  const closeModal = () => setIsLoading(false)
+  console.log("offers", offers);
 
   return (
-    <div className='card-list'>
-      {activeTypes.map(
-        (type) =>
-          categorizedOffers[type] && (
-            <Fragment key={type}>
-              {categorizedOffers[type].map((offer, index) => (
-                <Card key={`${offer._id}-${index}`} offer={offer} />
-              ))}
-            </Fragment>
-          )
-      )}
+    <div className="card-list">
+      {offers?.map((offer, index) => (
+        <Card key={`${offer._id}-${index}`} offer={offer} />
+      ))}
       {isLoading && (
         <Modal isModalOpen={isLoading} handleCloseModal={closeModal}>
           <Spinner />
         </Modal>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CardList
+export default CardList;

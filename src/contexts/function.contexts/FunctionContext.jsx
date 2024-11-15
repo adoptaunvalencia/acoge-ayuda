@@ -4,237 +4,245 @@ import React, {
   useEffect,
   useState,
   useCallback,
-  useReducer
-} from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ReducerContext } from '../reducer.contexts/ReducerContext'
-import { fetchAuth } from '../../services/services'
-import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
-import { createEmail } from '../../reducers/emails.reducer/email.action'
+  useReducer,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import { ReducerContext } from "../reducer.contexts/ReducerContext";
+import { fetchAuth } from "../../services/services";
+import { fetchOffers } from "../../reducers/offers.reducer/offer.action";
+import { createEmail } from "../../reducers/emails.reducer/email.action";
 import {
   fetchUser,
   loginUser,
-  registerUser
-} from '../../reducers/auth.reducer/auth.action'
+  registerUser,
+} from "../../reducers/auth.reducer/auth.action";
 
-export const FunctionContext = createContext()
+export const FunctionContext = createContext();
 export const FunctionProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userLocation, setUserLocation] = useState({
     latitude: null,
     longitude: null,
-    radius: null
-  })
-  const [showPopup, setShowPopup] = useState(null)
+    radius: null,
+  });
+  const [showPopup, setShowPopup] = useState(null);
   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
     accommodation: [],
     hygiene: [],
     food: [],
-    pet_fostering: []
-  })
-  const [activeOffer, setActiveOffer] = useState({})
+    pet_fostering: [],
+  });
+  const [activeOffer, setActiveOffer] = useState({});
 
   const {
     stateOffer: { offers, offers_map },
     stateIsAuth: { user, isAuth },
     dispatchIsAuth,
     dispatchOffer,
-    dispatchLoad
-  } = useContext(ReducerContext)
+    dispatchLoad,
+  } = useContext(ReducerContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [existToken, setExistToken] = useState(
-    localStorage.getItem('AUTH_VALIDATE_USER_TOKEN') || null
-  )
+    localStorage.getItem("AUTH_VALIDATE_USER_TOKEN") || null
+  );
 
   const [urlAPi, setUrlApi] = useState({
-    user: 'user',
-    offersMap: 'assistance-offer/map-offers',
-    offersCard: 'assistance-offer/'
-  })
+    user: "user",
+    offersMap: "assistance-offer/map-offers",
+    offersCard: "assistance-offer/",
+  });
   const getProfile = async () => {
-    dispatchLoad({ type: 'LOAD_TRUE' })
+    dispatchLoad({ type: "LOAD_TRUE" });
     try {
       const [user, offersMap, offersCard] = await Promise.all([
-        fetchAuth(urlAPi.user, {}, 'GET', existToken),
-        fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
-      ])
+        fetchAuth(urlAPi.user, {}, "GET", existToken),
+        fetchAuth(urlAPi.offersMap, {}, "GET", existToken),
+      ]);
 
       if (user?.data?.user) {
-        dispatchIsAuth({ type: 'SET_USER', payload: user.data.user })
-        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
+        dispatchIsAuth({ type: "SET_USER", payload: user.data.user });
+        dispatchIsAuth({ type: "SET_AUTH_TRUE" });
       }
 
       if (offersMap?.data?.offers) {
         dispatchOffer({
-          type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.offers
-        })
+          type: "SET_OFFERS_MAP",
+          payload: offersMap.data.offers,
+        });
       }
     } catch (error) {
-      console.error('Error loading profile data:', error.message)
+      console.error("Error loading profile data:", error.message);
     } finally {
       setTimeout(() => {
-        dispatchLoad({ type: 'LOAD_FALSE' })
-      }, 1000)
+        dispatchLoad({ type: "LOAD_FALSE" });
+      }, 1000);
     }
-  }
+  };
 
   const getOffers = async () => {
     try {
-      const offersMap = await fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
+      const offersMap = await fetchAuth(
+        urlAPi.offersMap,
+        {},
+        "GET",
+        existToken
+      );
 
       if (offersMap?.data?.offers) {
         dispatchOffer({
-          type: 'SET_OFFERS_MAP',
-          payload: offersMap.data.offers
-        })
+          type: "SET_OFFERS_MAP",
+          payload: offersMap.data.offers,
+        });
       }
     } catch (error) {
-      console.error('Error loading offers:', error.message)
+      console.error("Error loading offers:", error.message);
     }
-  }
+  };
 
   useEffect(() => {
     const isUserAuth = async () => {
       if (existToken) {
-        await getProfile()
+        await getProfile();
       } else {
-        await getOffers()
+        await getOffers();
       }
-    }
-    isUserAuth()
-  }, [existToken])
+    };
+    isUserAuth();
+  }, [existToken]);
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371 // Radius of the earth in km
-    const dLat = ((lat2 - lat1) * Math.PI) / 180
-    const dLon = ((lon2 - lon1) * Math.PI) / 180
+    const R = 6371; // Radius of the earth in km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
         Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLon / 2) *
-        Math.sin(dLon / 2)
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    return R * c
-  }
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
 
-  const filterOffers = useCallback(
-    (selectedCity, maxDistance) => {
-      if (!offers_map) return
+const filterOffers = useCallback(
+  (selectedCity, maxDistance, activeType) => {
+    if (!offers_map) {
+      return;
+    }
 
-      let offersToFilter = offers_map
+    let offersToFilter = offers_map;
 
-      if (selectedCity && selectedCity !== 'all') {
-        offersToFilter = offersToFilter.filter(
-          (offer) => offer.city === selectedCity
-        )
+    if (selectedCity && selectedCity !== "all") {
+      offersToFilter = offersToFilter.filter(
+        (offer) => offer.city === selectedCity
+      );
+    }
+
+    if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
+      offersToFilter = offersToFilter.filter((offer) => {
+        const distance = getDistanceFromLatLonInKm(
+          userLocation.latitude,
+          userLocation.longitude,
+          offer.location.coordinates[1],
+          offer.location.coordinates[0]
+        );
+        return distance <= maxDistance;
+      });
+    }
+
+    if (activeType && activeType !== '') {
+      offersToFilter = offersToFilter.filter((offer) => {
+        return offer.typeOffer.some((typeObj) => {
+          return typeObj.type === activeType;
+        });
+      });
+    }
+
+    const uniqueOffers = [];
+    const seen = new Set();
+
+    offersToFilter.forEach((offer) => {
+      if (!seen.has(offer._id)) {
+        uniqueOffers.push(offer);
+        seen.add(offer._id);
       }
+    });
 
-      if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
-        offersToFilter = offersToFilter.filter((offer) => {
-          const distance = getDistanceFromLatLonInKm(
-            userLocation.latitude,
-            userLocation.longitude,
-            offer.location.coordinates[1],
-            offer.location.coordinates[0]
-          )
-          return distance <= maxDistance
-        })
-      }
-
-      const newCategorizedOffers = {
-        accommodation: [],
-        hygiene: [],
-        food: [],
-        pet_fostering: [],
-        all: []
-      }
-
-      //!FRAN AQUI HAY UN ERROR
-
-      offersToFilter.forEach((offer) => {
-        newCategorizedOffers.all.push(offer)
-        offer.typeOffer.forEach((item) => {
-          if (newCategorizedOffers[item.type]) {
-            newCategorizedOffers[item.type].push(offer)
-          }
-        })
-      })
-
-      setCategorizedOffers(newCategorizedOffers)
-    },
-    [offers_map, userLocation]
-  )
+    console.log("Unique offers:", uniqueOffers);
+    setCategorizedOffers({ all: uniqueOffers });
+    return uniqueOffers;
+  },
+  [offers_map, userLocation]
+);
 
   const handleLogin = () => {
-    navigate('login')
-  }
+    navigate("login");
+  };
   const handleRegister = () => {
-    navigate('register')
-  }
+    navigate("register");
+  };
   const handleLogout = async () => {
-    dispatchLoad({ type: 'LOAD_TRUE' })
-    localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
-    setExistToken(null)
-    dispatchIsAuth({ type: 'SET_USER', payload: {} })
-    dispatchIsAuth({ type: 'SET_AUTH_FALSE' })
+    dispatchLoad({ type: "LOAD_TRUE" });
+    localStorage.removeItem("AUTH_VALIDATE_USER_TOKEN");
+    setExistToken(null);
+    dispatchIsAuth({ type: "SET_USER", payload: {} });
+    dispatchIsAuth({ type: "SET_AUTH_FALSE" });
     setTimeout(() => {
-      dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
-  }
+      dispatchLoad({ type: "LOAD_FALSE" });
+    }, 1000);
+  };
 
-  const handleCreateOffer = () => {}
+  const handleCreateOffer = () => {};
 
   const handleFormSubmit = async (formData) => {
-    dispatchLoad({ type: 'LOAD_TRUE' })
+    dispatchLoad({ type: "LOAD_TRUE" });
     try {
-      const userReceiveId = activeOffer.userId._id
+      const userReceiveId = activeOffer.userId._id;
       const userReceiveData = await fetchUser(
         userReceiveId,
         dispatchLoad,
         existToken
-      )
+      );
 
       const newEmail = {
         ...formData,
         userSend: user,
-        userReceive: userReceiveData
-      }
-      const data = await createEmail(newEmail, dispatchLoad, existToken)
-      setIsModalOpen(false)
+        userReceive: userReceiveData,
+      };
+      const data = await createEmail(newEmail, dispatchLoad, existToken);
+      setIsModalOpen(false);
     } catch (error) {
-      console.error('Error in handleFormSubmit:', error)
+      console.error("Error in handleFormSubmit:", error);
     } finally {
       setTimeout(() => {
-        dispatchLoad({ type: 'LOAD_FALSE' })
-      }, 1000)
+        dispatchLoad({ type: "LOAD_FALSE" });
+      }, 1000);
     }
-  }
+  };
 
   const handleLoginSubmit = async (formData) => {
     try {
-      const data = await loginUser(formData, dispatchLoad)
+      const data = await loginUser(formData, dispatchLoad);
       if (data && data.user) {
-        dispatchIsAuth({ type: 'SET_USER', payload: data.user })
-        dispatchIsAuth({ type: 'SET_AUTH_TRUE' })
-        localStorage.setItem('AUTH_VALIDATE_USER_TOKEN', data.token)
-        setExistToken(data.token)
-        navigate('../')
+        dispatchIsAuth({ type: "SET_USER", payload: data.user });
+        dispatchIsAuth({ type: "SET_AUTH_TRUE" });
+        localStorage.setItem("AUTH_VALIDATE_USER_TOKEN", data.token);
+        setExistToken(data.token);
+        navigate("../");
       } else {
-        setResponseMessage('Error al iniciar sesión. Inténtalo de nuevo.')
+        setResponseMessage("Error al iniciar sesión. Inténtalo de nuevo.");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleRegisterFormSubmit = async (formData) => {
-    const data = await registerUser(formData, dispatchLoad)
-    await handleLoginSubmit(formData)
-  }
+    const data = await registerUser(formData, dispatchLoad);
+    await handleLoginSubmit(formData);
+  };
 
   return (
     <FunctionContext.Provider
@@ -257,10 +265,10 @@ export const FunctionProvider = ({ children }) => {
         activeOffer,
         setActiveOffer,
         handleLoginSubmit,
-        handleRegisterFormSubmit
+        handleRegisterFormSubmit,
       }}
     >
       {children}
     </FunctionContext.Provider>
-  )
-}
+  );
+};
