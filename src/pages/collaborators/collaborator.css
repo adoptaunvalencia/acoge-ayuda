@@ -60,10 +60,6 @@
   transform: scale(1.1);
 }
 
-
-.collaborator__social-link:hover {
-}
-
 .collaborator__main {
   width: 360px;
   border-radius: 16px 0 16px 16px;
