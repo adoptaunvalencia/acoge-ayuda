@@ -1,14 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Form from '../../../components/form-group/Form'
 import { verifyCode } from '../../../reducers/auth.reducer/auth.action'
 import './sendCode.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
+import { RefContext } from '../../../contexts/ref.context/RefContext'
 
 const SendCode = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const navigate = useNavigate()
   const { dispatchLoad } = useContext(ReducerContext)
+  const { scroll, sendCodeRef } = useContext(RefContext)
   const fields = [
     {
       name: 'verificationCode',
@@ -29,8 +31,14 @@ const SendCode = () => {
     }
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(sendCodeRef)
+    }, 500)
+  }, [])
+
   return (
-    <div className='send-code fadeIn'>
+    <div ref={sendCodeRef} className='send-code fadeIn'>
       <h2>Verificación de Código</h2>
       <Form
         fields={fields}

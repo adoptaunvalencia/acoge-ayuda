@@ -1,7 +1,38 @@
-import { createContext } from 'react'
+import { createContext, useRef } from 'react'
+import useScrollToRef from '../../hooks/useScrollToRef'
 
 export const RefContext = createContext()
 
 export const RefProvider = ({ children }) => {
-  return <RefContext.Provider value={{}}>{children}</RefContext.Provider>
+  const headerRef = useRef(null)
+  const loginRef = useRef(null)
+  const forgotRef = useRef(null)
+  const newPasswordRef = useRef(null)
+  const registerRef = useRef(null)
+  const sendCodeRef = useRef(null)
+  const homeRef = useRef(null)
+  const createOfferRef = useRef(null)
+  const privacyRef = useRef(null)
+  const mapRef = useRef(null)
+
+  const scroll = useScrollToRef()
+  return (
+    <RefContext.Provider
+      value={{
+        scroll,
+        headerRef,
+        loginRef,
+        forgotRef,
+        sendCodeRef,
+        newPasswordRef,
+        registerRef,
+        homeRef,
+        createOfferRef,
+        privacyRef,
+        mapRef
+      }}
+    >
+      {children}
+    </RefContext.Provider>
+  )
 }

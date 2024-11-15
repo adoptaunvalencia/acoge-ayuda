@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { Link, useNavigate } from 'react-router-dom'
 import Form from '../../../components/form-group/Form'
 import { forgotPassword } from '../../../reducers/auth.reducer/auth.action'
 import './Forgot.css'
+import { RefContext } from '../../../contexts/ref.context/RefContext'
 
 const Forgot = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -11,6 +12,7 @@ const Forgot = () => {
     stateLoad: { load },
     dispatchLoad
   } = useContext(ReducerContext)
+  const { scroll, forgotRef } = useContext(RefContext)
 
   const navigate = useNavigate()
 
@@ -25,12 +27,17 @@ const Forgot = () => {
   ]
 
   const handleFormSubmit = async (formData) => {
-    const data = await forgotPassword(formData, dispatchLoad)
+    await forgotPassword(formData, dispatchLoad)
     setTimeout(() => navigate('../send-code'), 2000)
   }
+  useEffect(() => {
+    setTimeout(() => {
+      scroll(forgotRef)
+    }, 500)
+  }, [])
 
   return (
-    <div className='forgot-password-form fadeIn'>
+    <div ref={forgotRef} className='forgot-password-form fadeIn'>
       <h2>Recuperar Contraseña</h2>
       <Form
         fields={fields}

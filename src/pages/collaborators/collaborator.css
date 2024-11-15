@@ -51,8 +51,15 @@
 }
 
 .collaborator__social-link {
-  transition: 1;
+  display: flex;
+  transition: transform 0.3s;
 }
+
+
+.collaborator__social-link:hover {
+  transform: scale(1.1);
+}
+
 
 .collaborator__social-link:hover {
 }

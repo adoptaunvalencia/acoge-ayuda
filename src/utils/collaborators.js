@@ -40,7 +40,7 @@ export const collaborators = [
     name: "Roiber Avendaño",
     country: "Argentina",
     urlLinkedin: "https://www.linkedin.com/in/roiber-avendano/",
-    urlLinkedinImage: "",
+    urlLinkedinImage: "https://media.licdn.com/dms/image/v2/D4D03AQG0TS2_QbjhOw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1728321759087?e=1736985600&v=beta&t=7s5aF9Ak_bZAZIBBXHaU8hFpZpL-t9fXX3dTnIZNsLc",
     rol: "Diseño UX/UI",
     responsable: "no",
   },
