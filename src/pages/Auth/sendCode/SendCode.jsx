@@ -25,7 +25,7 @@ const SendCode = () => {
   const handleFormSubmit = async (formData) => {
     try {
       const data = await verifyCode(formData, dispatchLoad, showToast)
-      if (data.status) {
+      if (data?.status) {
         navigate('../new-password')
       } else return
     } catch (error) {
