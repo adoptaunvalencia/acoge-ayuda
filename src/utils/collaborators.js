@@ -14,7 +14,7 @@ export const collaborators = [
     country: "España",
     urlLinkedin: "https://www.linkedin.com/in/daniele-mazzola",
     urlLinkedinImage:
-      "https://media.licdn.com/dms/image/v2/D4D03AQGAsTQU6Z38JQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1729594976892?e=1736985600&v=beta&t=Sn_BWGUZetP0HFHW_VFl1cn-sBil_bS1FTmSITNp63Y",
+      "https://media.licdn.com/dms/image/v2/D4D03AQEG6n2Ph0qUNg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731706614406?e=1736985600&v=beta&t=I8OOtklQyV680KGH8LDBt98UB6UK-t3zZCzNf8_PmR0",
     rol: "Full-Stack Team Lead & Product Manager",
     responsable: "si",
   },
