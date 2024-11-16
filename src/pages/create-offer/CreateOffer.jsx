@@ -5,6 +5,7 @@ import { createOffer } from '../../reducers/offers.reducer/offer.action'
 import CreateOfferForm from '../../components/create-offer-form/CreateOfferForm'
 import './CreateOffer.css'
 import { RefContext } from '../../contexts/ref.context/RefContext'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 
 const CreateOffer = () => {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ const CreateOffer = () => {
     dispatchOffer,
     stateOffer: { offers_map }
   } = useContext(ReducerContext)
+  const {showToast} = useContext(FunctionContext)
 
   const {scroll, createOfferRef} = useContext(RefContext)
 

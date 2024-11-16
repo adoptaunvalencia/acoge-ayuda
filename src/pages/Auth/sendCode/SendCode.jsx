@@ -5,12 +5,14 @@ import { verifyCode } from '../../../reducers/auth.reducer/auth.action'
 import './sendCode.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
+import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 
 const SendCode = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const navigate = useNavigate()
   const { dispatchLoad } = useContext(ReducerContext)
   const { scroll, sendCodeRef } = useContext(RefContext)
+  const { showToast } = useContext(FunctionContext)
   const fields = [
     {
       name: 'verificationCode',
@@ -22,12 +24,12 @@ const SendCode = () => {
   ]
   const handleFormSubmit = async (formData) => {
     try {
-      const data = await verifyCode(formData, dispatchLoad)
+      const data = await verifyCode(formData, dispatchLoad, showToast)
       if (data.status) {
         navigate('../new-password')
-      }
+      } else return
     } catch (error) {
-      console.log(error)
+      showToast('error', error.message)
     }
   }
 

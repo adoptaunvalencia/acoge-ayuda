@@ -5,6 +5,7 @@ import Form from '../../../components/form-group/Form'
 import { forgotPassword } from '../../../reducers/auth.reducer/auth.action'
 import './Forgot.css'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
+import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 
 const Forgot = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -13,7 +14,7 @@ const Forgot = () => {
     dispatchLoad
   } = useContext(ReducerContext)
   const { scroll, forgotRef } = useContext(RefContext)
-
+  const {showToast} = useContext(FunctionContext)
   const navigate = useNavigate()
 
   const fields = [
@@ -27,7 +28,7 @@ const Forgot = () => {
   ]
 
   const handleFormSubmit = async (formData) => {
-    await forgotPassword(formData, dispatchLoad)
+    await forgotPassword(formData, dispatchLoad, showToast)
     setTimeout(() => navigate('../send-code'), 2000)
   }
   useEffect(() => {
