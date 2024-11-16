@@ -17,9 +17,9 @@ export const fetchOffers = async (uriApi, dispatchLoad, token = null) => {
   }
 }
 
-export const fetchFiltersRadius = async () => {
+/* export const fetchFiltersRadius = async () => {
   const response = await fetch()
-}
+} */
 
 export const createOffer = async (formData, dispatchLoad, token, showToast) => {
   const uriApi = 'assistance-offer/create-assitances'
@@ -27,11 +27,13 @@ export const createOffer = async (formData, dispatchLoad, token, showToast) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'POST', token)
     if (response.status !== 201) {
-      console.log('error')
+      return showToast('error', data.message)
+    } else {
+      showToast('success', 'Oferta de asistencia creada❤️')
+      return data
     }
-    return data
   } catch (error) {
-    console.log(error)
+    return showToast('error', data.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
