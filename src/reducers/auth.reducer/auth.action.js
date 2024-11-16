@@ -1,33 +1,38 @@
 import { fetchAuth } from '../../services/services'
 
-export const registerUser = async (formData, dispatchLoad) => {
+export const registerUser = async (formData, dispatchLoad, showToast) => {
   const uriApi = 'user/register-user'
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'POST')
+    console.log(response);
+    
     if (response.status !== 201) {
-      console.log('error')
+      return showToast('error', data.message)
+    } else {
+      showToast('success', '¡Registro completado!')
+      return data
     }
-    return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
     }, 1000)
   }
 }
-export const loginUser = async (formData, dispatchLoad) => {
+export const loginUser = async (formData, dispatchLoad, showToast) => {
   const uriApi = 'user/login-user'
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'POST')
+
     if (response.status !== 200) {
-      console.log('error')
+      showToast('error', data.message)
     }
     return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
@@ -41,11 +46,11 @@ export const forgotPassword = async (formData, dispatchLoad) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'POST')
     if (response.status !== 201) {
-      console.log('error')
+      showToast('error', data.message)
     }
     return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
@@ -59,12 +64,12 @@ export const verifyCode = async (formData, dispatchLoad) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'POST')
     if (response.status !== 200) {
-      console.log('error')
+      showToast('error', data.message)
     }
     localStorage.setItem('FORGOT_TOKEN', JSON.stringify(formData))
     return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
@@ -80,12 +85,12 @@ export const resetPassword = async (formData, dispatchLoad, token) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
     const { response, data } = await fetchAuth(uriApi, formData, 'PUT')
     if (response.status !== 200) {
-      console.log('error')
+      showToast('error', data.message)
     }
     localStorage.removeItem('FORGOT_TOKEN')
     return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
@@ -103,7 +108,7 @@ export const fetchUser = async (formData, dispatchLoad, token) => {
     }
     return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })

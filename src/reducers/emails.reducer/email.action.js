@@ -1,14 +1,21 @@
 import { fetchAuth } from '../../services/services'
 
-export const createEmail = async (formData, dispatchLoad, token) => {
+export const createEmail = async (formData, dispatchLoad, token, showToast) => {
   const uriApi = 'contact-email/create-email'
+  dispatchLoad({ type: 'LOAD_TRUE' })
   try {
     const { response, data } = await fetchAuth(uriApi, formData, 'POST', token)
     if (response.status !== 201) {
-      console.log('error')
+      return showToast('error', data.message)
+    } else {
+      showToast('success', 'Solicitud enviada correctamente.')
+      return data
     }
-    return data
   } catch (error) {
-    console.log(error)
+    showToast('error', error.message)
+  } finally {
+    setTimeout(() => {
+      dispatchLoad({ type: 'LOAD_FALSE' })
+    }, 1000)
   }
 }
