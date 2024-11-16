@@ -13,6 +13,7 @@ const NewPassword = () => {
   const { handleLoginSubmit } = useContext(FunctionContext)
   const {scroll, newPasswordRef} = useContext(RefContext)
   const navigate = useNavigate()
+  const {showToast} = useContext(FunctionContext)
 
   const { token } = useParams()
 
@@ -34,7 +35,7 @@ const NewPassword = () => {
   const handleFormSubmit = async (formData) => {
     try {
       const token = localStorage.getItem('FORGOT_TOKEN')
-      const data = await resetPassword(formData, dispatchLoad, token)
+      const data = await resetPassword(formData, dispatchLoad, token, showToast)
       const formDataUser = {
         email: data.user.email,
         password: formData.password
