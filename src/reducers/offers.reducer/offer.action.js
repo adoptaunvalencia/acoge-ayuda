@@ -21,7 +21,7 @@ export const fetchFiltersRadius = async () => {
   const response = await fetch()
 }
 
-export const createOffer = async (formData, dispatchLoad, token) => {
+export const createOffer = async (formData, dispatchLoad, token, showToast) => {
   const uriApi = 'assistance-offer/create-assitances'
   try {
     dispatchLoad({ type: 'LOAD_TRUE' })
