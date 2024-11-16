@@ -200,31 +200,35 @@ const Card = ({ offer }) => {
           </div>
           <p>{description}</p>
           <div className='card__button-container show'>
-            {userId?._id !== user._id ? (
-              <Button
-                text='Contactar'
-                bgColor='var(--bg-primary-yellow)'
-                textColor='var(--text-primary)'
-                borderRadius='var(--spacing-l)'
-                action={() => handleOpenModal(offer)}
-              />
-            ) : (
-              <div className='card__content-btn-options'>
-                <Button
-                  text='Modificar'
-                  bgColor='var(--bg-primary-yellow)'
-                  textColor='var(--text-primary)'
-                  borderRadius='var(--spacing-l)'
-                  action={() => setIsEditing(true)}
-                />
-                <Button
-                  text='Eliminar'
-                  bgColor='var(--bg-light-red)'
-                  textColor='var(--text-primary-light)'
-                  borderRadius='var(--spacing-l)'
-                  action={() => handleDeleteOffer(offer)}
-                />
-              </div>
+            {typeof userId === 'object' && Object.keys(userId).length > 0 && (
+              <>
+                {userId?._id !== user._id ? (
+                  <Button
+                    text='Contactar'
+                    bgColor='var(--bg-primary-yellow)'
+                    textColor='var(--text-primary)'
+                    borderRadius='var(--spacing-l)'
+                    action={() => handleOpenModal(offer)}
+                  />
+                ) : (
+                  <div className='card__content-btn-options'>
+                    <Button
+                      text='Modificar'
+                      bgColor='var(--bg-primary-yellow)'
+                      textColor='var(--text-primary)'
+                      borderRadius='var(--spacing-l)'
+                      action={() => setIsEditing(true)}
+                    />
+                    <Button
+                      text='Eliminar'
+                      bgColor='var(--bg-light-red)'
+                      textColor='var(--text-primary-light)'
+                      borderRadius='var(--spacing-l)'
+                      action={() => handleDeleteOffer(offer)}
+                    />
+                  </div>
+                )}
+              </>
             )}
           </div>
         </>
