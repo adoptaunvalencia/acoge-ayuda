@@ -105,8 +105,6 @@ const Card = ({ offer }) => {
         }
       )
       const result = await response.json()
-      console.log(result)
-
       if (!response.ok) {
         console.log(result.message)
       } else {
@@ -132,9 +130,17 @@ const Card = ({ offer }) => {
 
   return (
     <div className='card fadeIn'>
-      {load && (
+      {!load && (
         <Modal>
           <Spinner />
+        </Modal>
+      )}
+      {activeOffer && (
+        <Modal
+          isModalOpen={isModalOpen}
+          handleCloseModal={() => setIsModalOpen(false)}
+        >
+          <ContactForm />
         </Modal>
       )}
       <div className='card__user-info show'>
@@ -192,14 +198,14 @@ const Card = ({ offer }) => {
             <h4>{title}</h4>
             <p>{city}</p>
           </div>
-          <div className='card__offer-categories'>
+          <div className='card__offer-categories show'>
             {typeOffer &&
               typeOffer.map((category, index) => (
                 <CardCategory key={index} category={category} />
               ))}
           </div>
           <p>{description}</p>
-          <div className='card__button-container show'>
+          <div className='card__button-container'>
             {typeof userId === 'object' && Object.keys(userId).length > 0 && (
               <>
                 {userId?._id !== user._id ? (
