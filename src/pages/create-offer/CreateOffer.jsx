@@ -60,7 +60,7 @@ const CreateOffer = () => {
 
   const handleFormSubmit = async (formData) => {
     const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-    const data = await createOffer(formData, dispatchLoad, token)    
+    const data = await createOffer(formData, dispatchLoad, token, showToast)    
     if(data.offers) {
       dispatchOffer({
         type: 'SET_OFFERS_MAP',

@@ -22,7 +22,8 @@ const Card = ({ offer }) => {
     isModalOpen,
     setIsModalOpen,
     activeOffer,
-    setActiveOffer
+    setActiveOffer,
+    showToast
   } = useContext(FunctionContext)
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
@@ -67,15 +68,15 @@ const Card = ({ offer }) => {
       )
       const result = await response.json()
       if (!response.ok) {
-        console.error('Error updating offer:', result.message)
+        showToast('error', result.message)
       } else {
-        console.log('Offer updated successfully:', result.message)
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
           payload: offers_map.map((off) =>
             off._id === offer._id ? { ...off, ...updatedFormData } : off
           )
         })
+        showToast('success', result.message)
         setIsEditing(false)
       }
     } catch (error) {
@@ -106,13 +107,14 @@ const Card = ({ offer }) => {
       )
       const result = await response.json()
       if (!response.ok) {
-        console.log(result.message)
+        showToast('error', data.message)
       } else {
         const updateOffers = offers_map.filter((off) => off._id !== offer._id)
         dispatchOffer({ type: 'SET_OFFERS_MAP', payload: updateOffers })
+        showToast('success', result.message)
       }
     } catch (error) {
-      console.log(error)
+      showToast('error', error.message)
     } finally {
       setTimeout(() => {
         dispatchLoad({ type: 'LOAD_FALSE' })
