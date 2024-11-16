@@ -1,21 +1,39 @@
-import { useContext } from 'react'
-import { Outlet } from 'react-router-dom'
-import { ReducerContext } from '../contexts/reducer.contexts/ReducerContext'
-import Footer from '../components/footer/Footer'
-import Header from '../components/header/Header'
-import FloatButton from '../components/float-button/FloatButton'
-import Spinner from '../components/spinner/Spinner'
+import { useContext, useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { ReducerContext } from '../contexts/reducer.contexts/ReducerContext';
+import Footer from '../components/footer/Footer';
+import Header from '../components/header/Header';
+import FloatButton from '../components/float-button/FloatButton';
+import Spinner from '../components/spinner/Spinner';
+import ReCAPTCHA from "react-google-recaptcha";
+import './Layout.css';
 
 const Layout = () => {
   const {
     stateIsAuth: { user, isAuth },
     stateLoad: { load }
-  } = useContext(ReducerContext)
+  } = useContext(ReducerContext);
+
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+
+  useEffect(() => {
+    const captchaVerified = sessionStorage.getItem('isCaptchaVerified');
+    if (captchaVerified) {
+      setIsCaptchaVerified(true);
+    }
+  }, []);
+
+  const handleCaptchaVerification = (value) => {
+    if (value) {
+      setIsCaptchaVerified(true);
+      sessionStorage.setItem('isCaptchaVerified', 'true');
+    }
+  };
 
   return (
     <>
       {load && (
-        <div className='spinner'>
+        <div className="spinner">
           <Spinner />
         </div>
       )}
@@ -29,8 +47,21 @@ const Layout = () => {
       <footer>
         <Footer />
       </footer>
-    </>
-  )
-}
 
-export default Layout
+      {!isCaptchaVerified && (
+        <div className="captcha-overlay">
+          <div className="captcha-container">
+            <p>Por favor, verifica el CAPTCHA para continuar...</p>
+            <ReCAPTCHA
+              sitekey={`${import.meta.env.VITE_CAPTCHA_SITE_KEY}`}
+              onChange={handleCaptchaVerification}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Layout;
+
