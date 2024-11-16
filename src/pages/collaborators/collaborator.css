@@ -42,9 +42,9 @@
 
 .collaborator__social {
   position: absolute;
-  bottom: 3px;
-  left: 110px;
-  border-radius: 50%;
+  top: 120px;
+  left: 130px;
+  border-radius: 100%;
   overflow: hidden;
 }
 
@@ -68,7 +68,8 @@
 }
 
 .collaborator__imagen {
-  max-width: 160px;
+  width: 160px;
+  height: 160px;
   border-radius: 100%;
 }
 
@@ -100,16 +101,11 @@
   .collaborator {
     flex-direction: column;
   }
-
   .collaborator__about-container {
-    padding-right: 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--bg-medium-gray);
     padding-bottom: var(--spacing-l);
   }
 
   .collaborator__cards-container {
-    padding: 0;
     margin-top: var(--spacing-xl);
   }
 }
@@ -120,18 +116,17 @@
   }
   .collaborator__main {
     width: 100%;
-    border-radius: 16px 0 16px 16px;
     display: flex;
     flex-direction: column;
-    background: var(--bg-dark-gray);
-  }
-
-  .collaborator__imagen {
-    max-width: 400px;
-    border-radius: 16px 0 0 0;
+    align-items: center;
   }
 
   .collaborator__info {
     padding: var(--spacing-l);
+  }
+  .collaborator__social {
+    position: absolute;
+    top: 5px;
+    left: 5px;
   }
 }
