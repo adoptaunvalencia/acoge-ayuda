@@ -115,7 +115,7 @@ export const collaborators = [
     urlLinkedin: 'https://www.linkedin.com/in/jorge-g%C3%B3mez-gonz%C3%A1lez/',
     urlLinkedinImage:
       'https://res.cloudinary.com/dylazw28d/image/upload/v1731840620/Colllaborators/tbcuxbmqizactvfpyc07.jpg',
-    rol: 'analista S.O.C',
+    rol: 'Full Stack',
     responsable: 'no'
   },
   {
