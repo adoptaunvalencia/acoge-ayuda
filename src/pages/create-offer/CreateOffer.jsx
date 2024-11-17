@@ -17,18 +17,24 @@ const CreateOffer = () => {
     dispatchOffer,
     stateOffer: { offers_map }
   } = useContext(ReducerContext)
-  const {showToast} = useContext(FunctionContext)
+  const { showToast } = useContext(FunctionContext)
 
-  const {scroll, createOfferRef} = useContext(RefContext)
+  const { scroll, createOfferRef } = useContext(RefContext)
 
   const fields = [
-    { name: 'title', label: 'Título', type: 'text', required: true },
+    {
+      name: 'title',
+      label: 'Título',
+      type: 'text',
+      maxLength: 50,
+      required: true
+    },
     {
       name: 'description',
       label: 'Descripción',
       type: 'textarea',
-      maxLenght: 256,
-      rows: 4,
+      maxLength: '256',
+      rows: 3,
       required: true
     },
     {
@@ -48,40 +54,48 @@ const CreateOffer = () => {
       name: 'typeOffer',
       label: 'Tipo de ayuda',
       type: 'select',
-      options: [
-        { value: 'accommodation', label: 'Alojamiento' },
-        { value: 'hygiene', label: 'Higiene' },
-        { value: 'food', label: 'Comida' },
-        { value: 'pet_fostering', label: 'Cuidado de Mascotas' }
-      ],
+      options: {
+        accommodation: 'Alojamiento',
+        hygiene: 'Higiene',
+        food: 'Comida',
+        pet_fostering: 'Cuidado de Mascotas'
+      },
       required: true
     }
   ]
 
   const handleFormSubmit = async (formData) => {
     const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-    const data = await createOffer(formData, dispatchLoad, token, showToast)    
-    if(data.offers) {
+    const data = await createOffer(formData, dispatchLoad, token, showToast)
+    if (data.offers) {
       dispatchOffer({
         type: 'SET_OFFERS_MAP',
         payload: [...offers_map, data.offers]
       })
       navigate('/')
     } else {
-      console.log('Hubo un problema con la dirección,');
-      
+      console.log('Hubo un problema con la dirección,')
     }
   }
 
   useEffect(() => {
     setTimeout(() => {
       scroll(createOfferRef)
-    }, 500);
-  },[])
+    }, 500)
+  }, [])
 
   return (
     <div ref={createOfferRef} className='create-offer-form fadeIn'>
-      <h2>Ofrecer mi ayuda</h2>
+      <div>
+        <h2>¡Quiero ayudar!</h2>
+        <p>Vamos a crear tu oferta de asistencia.</p>
+        <i style={{ color: 'red' }}>
+          Es muy importante no incluir{' '}
+          <strong>
+            números de teléfono, direcciones o cualquier información sensible.
+          </strong>
+        </i>
+      </div>
       <CreateOfferForm
         fields={fields}
         user={user}
