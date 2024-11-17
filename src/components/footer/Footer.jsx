@@ -18,7 +18,7 @@ const Footer = () => {
           <span>Valenciano</span>
         </h4>
         <p>
-          Conectamos a personas afectadas por el DANA con voluntarios dispuestos
+          Conectamos a personas afectadas por la DANA con voluntarios dispuestos
           a ofrecer alojamiento, comida, higiene y ayuda con mascotas. Aquí nos
           apoyamos unos a otros.
         </p>
