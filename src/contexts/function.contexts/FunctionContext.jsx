@@ -17,6 +17,7 @@ import {
   loginUser,
   registerUser
 } from '../../reducers/auth.reducer/auth.action'
+import useScrollToRef from '../../hooks/useScrollToRef'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -27,13 +28,15 @@ export const FunctionProvider = ({ children }) => {
     radius: null
   })
   const [showPopup, setShowPopup] = useState(null)
-  const [categorizedOffers, setCategorizedOffers] = useState({
+  const [filteredOffers, setFilteredOffers] = useState([])
+  /*   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
     accommodation: [],
     hygiene: [],
     food: [],
-    pet_fostering: []
-  })
+    pet_fostering: [],
+    my_offers:[]
+  }) */
   const [activeOffer, setActiveOffer] = useState({})
 
   const {
@@ -120,7 +123,7 @@ export const FunctionProvider = ({ children }) => {
   }, [existToken])
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    const R = 6371 // Radius of the earth in km
+    const R = 6378.1 // Radius of the earth in km
     const dLat = ((lat2 - lat1) * Math.PI) / 180
     const dLon = ((lon2 - lon1) * Math.PI) / 180
     const a =
@@ -132,21 +135,17 @@ export const FunctionProvider = ({ children }) => {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     return R * c
   }
-
   const filterOffers = useCallback(
     (selectedCity, maxDistance, activeType) => {
       if (!offers_map) {
         return
       }
-
       let offersToFilter = offers_map
-
       if (selectedCity && selectedCity !== 'all') {
         offersToFilter = offersToFilter.filter(
           (offer) => offer.city === selectedCity
         )
       }
-
       if (userLocation.latitude && userLocation.longitude && maxDistance > 0) {
         offersToFilter = offersToFilter.filter((offer) => {
           const distance = getDistanceFromLatLonInKm(
@@ -158,7 +157,6 @@ export const FunctionProvider = ({ children }) => {
           return distance <= maxDistance
         })
       }
-
       if (activeType && activeType !== '') {
         offersToFilter = offersToFilter.filter((offer) => {
           return offer.typeOffer.some((typeObj) => {
@@ -166,23 +164,32 @@ export const FunctionProvider = ({ children }) => {
           })
         })
       }
-
       const uniqueOffers = []
       const seen = new Set()
-
       offersToFilter.forEach((offer) => {
         if (!seen.has(offer._id)) {
           uniqueOffers.push(offer)
           seen.add(offer._id)
         }
       })
-
-      /*     console.log("Unique offers:", uniqueOffers); */
-      setCategorizedOffers({ all: uniqueOffers })
       return uniqueOffers
     },
     [offers_map, userLocation]
   )
+
+  const [myOffers, setMyOffers] = useState([])
+  const handleFilterMyOffers = () => {
+    if (isAuth) {
+      const offers = offers_map.filter(
+        (offer) => offer.userId._id.toString() === user._id.toString()
+      )
+      if (offers.length > 0) {
+        setMyOffers(offers)
+      } else {
+        return showToast('', 'No tienes ofertas creadas.')
+      }
+    }
+  }
 
   const handleLogin = () => {
     navigate('login')
@@ -264,7 +271,7 @@ export const FunctionProvider = ({ children }) => {
         setUserLocation,
         showPopup,
         setShowPopup,
-        categorizedOffers,
+        //categorizedOffers,
         filterOffers,
         handleLogin,
         handleRegister,
@@ -275,7 +282,12 @@ export const FunctionProvider = ({ children }) => {
         setActiveOffer,
         handleLoginSubmit,
         handleRegisterFormSubmit,
-        showToast
+        showToast,
+        handleFilterMyOffers,
+        filteredOffers,
+        setFilteredOffers,
+        myOffers,
+        setMyOffers
       }}
     >
       {children}

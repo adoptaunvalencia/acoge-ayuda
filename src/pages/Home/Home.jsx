@@ -13,11 +13,9 @@ import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const Home = () => {
   const {
-    stateIsAuth: { user, isAuth },
-    stateOffer: { offers, offers_map }
+    stateIsAuth: { isAuth }
   } = useContext(ReducerContext)
-  const { scroll, homeRef, mapRef } = useContext(RefContext)
-  const [filteredOffers, setFilteredOffers] = useState([]);
+  const { scroll, homeRef, mapRef, myOfferRef } = useContext(RefContext)
 
   const {
     showPopup,
@@ -26,7 +24,12 @@ const Home = () => {
     userLocation,
     setUserLocation,
     getProfile,
-    getOffers
+    getOffers,
+    handleFilterMyOffers,
+    filteredOffers,
+    setFilteredOffers,
+    myOffers,
+    setMyOffers
   } = useContext(FunctionContext)
 
   useEffect(() => {
@@ -48,10 +51,10 @@ const Home = () => {
 
   useEffect(() => {
     const fetchFilteredOffers = async () => {
-      const result = await filterOffers(null, userLocation.radius, activeType);
-      setFilteredOffers(result);
-    };
-    fetchFilteredOffers();
+      const result = await filterOffers(null, userLocation.radius, activeType)
+      setFilteredOffers(result)
+    }
+    fetchFilteredOffers()
   }, [userLocation, activeType, filterOffers])
 
   const handleChangeSelect = (value, type) => {
@@ -78,15 +81,15 @@ const Home = () => {
   }
 
   const handleSendFilter = async () => {
-/*     console.log('handleSendFilter called');
+    /*     console.log('handleSendFilter called');
     console.log('userLocation:', userLocation);
     console.log('activeType:', activeType); */
-  
-/*     console.log('Calling filterOffers with radius:', userLocation.radius); */
-    const result = await filterOffers(null, userLocation.radius, activeType);
-/*     console.log('filterOffers result:', result); */
-  
-    setFilteredOffers(result);
+
+    /*     console.log('Calling filterOffers with radius:', userLocation.radius); */
+    const result = await filterOffers(null, userLocation.radius, activeType)
+    /*     console.log('filterOffers result:', result); */
+
+    setFilteredOffers(result)
   }
 
   const handleCategoryToggle = (category) => {
@@ -97,8 +100,15 @@ const Home = () => {
   }
 
   useEffect(() => {
-    handleSendFilter();
-  }, [activeType]);
+    handleSendFilter()
+  }, [activeType])
+
+  const filterMyOffers = () => {
+    setTimeout(() => {
+      scroll(myOfferRef)
+    }, 500)
+    handleFilterMyOffers()
+  }
 
   return (
     <div className='home__container-sections fadeIn'>
@@ -141,6 +151,17 @@ const Home = () => {
           activeTypes={activeType}
         />
       </section>
+      {isAuth && (
+        <section className='home__my-offers-btn'>
+          <Button
+            text='Mis ofertas de asistencia'
+            bgColor='var(--bg-primary)'
+            textColor='var(--text-primary)'
+            borderRadius='50px'
+            action={filterMyOffers}
+          />
+        </section>
+      )}
       {!isAuth && (
         <Modal
           isModalOpen={showPopup}
@@ -152,6 +173,24 @@ const Home = () => {
       <section ref={mapRef} className='section__map'>
         <Map offers={filteredOffers} />
       </section>
+      {myOffers.length > 0 && (
+        <section ref={myOfferRef} className='home__my-offers fadeIn'>
+          <h3>Mis Ofertas de asistencia</h3>
+          <CardList activeType={activeType} offers={myOffers} />
+          <Button
+            text='Cerrar'
+            bgColor='var(--bg-primary-red)'
+            textColor='var(--text-primary-light)'
+            action={() => {
+              setMyOffers([])
+              setTimeout(() => {
+                scroll(mapRef)
+              }, 500)
+            }}
+          />
+          <hr></hr>
+        </section>
+      )}
       <section className='section_card-offers'>
         <CardList activeType={activeType} offers={filteredOffers} />
       </section>
