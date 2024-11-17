@@ -1,9 +1,18 @@
 .create-offer-form {
   max-width: 800px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
-.create-offer-form > h2 {
+
+.create-offer-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.create-offer-form > div > h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;

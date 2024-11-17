@@ -1,106 +1,48 @@
-/* CreateOfferForm.css */
-
-.create__form-container {
+.form {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 2rem;
-  background-color: #f9f9f9; /* Fondo del formulario */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
+  gap: 10px;
 }
-
-.create__form-contain {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.create__input, .create__form-input input, .create__form-select select {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ccc; /* Borde de los inputs */
-  border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fff; /* Fondo de los inputs */
-  color: #333; /* Color del texto */
-}
-
-.create__input-required {
-  border-color: #e74c3c; /* Color del borde para inputs requeridos */
-}
-
-.create__input-label, .input-label {
-  font-size: 0.9rem;
-  color: #666; /* Color del texto secundario */
-  margin-bottom: 0.2rem;
-}
-
-.create__input-tooltip, .input-tooltip {
-  font-size: 0.8rem;
-  color: #999; /* Color de los tooltips */
-}
-
 .create__form-checkbox {
   display: flex;
+  gap: 10px;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  border-radius: 10px;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  background-color: white;
+}
+.modal-content > h4 {
+  font-weight: 200;
+  font-size: var(--font-size-l);
 }
 
-.create__checkbox-input {
-  width: 20px;
-  height: 20px;
+.modal-content > input {
+  margin: 20px 0;
+  padding: 10px 10px 10px 15px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: var(--font-size-l);
 }
-
-.create__checkbox-label {
-  font-size: 0.9rem;
-  color: #333; /* Color del texto de las etiquetas */
+.modal-content-btns {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
-
-.create__form-select select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+.selected-options {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  gap: 20px;
 }
-
-.create__form-select select option {
-  color: #333; /* Color del texto de las opciones del select */
-}
-
-button[type="submit"], .create__form-container button {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  color: #fff; /* Color del texto del botón */
-  background-color: #007bff; /* Fondo del botón */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3; /* Fondo del botón al pasar el cursor */
-}
-
-.create__form-container button {
-  margin-top: 1rem;
-}
-
-.create__form-container h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #333; /* Color del encabezado */
-}
-
-.create__form-container ul {
-  padding-left: 1.5rem;
-  list-style: disc;
-}
-
-.create__form-container ul li {
-  font-size: 0.9rem;
-  color: #666; /* Color del texto de los elementos de la lista */
+.selected-options > ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }

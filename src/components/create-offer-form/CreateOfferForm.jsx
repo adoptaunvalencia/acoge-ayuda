@@ -1,209 +1,303 @@
-import { useState } from 'react';
-import Button from '../button/Button';
-import './CreateOfferForm.css';
+import { useState } from 'react'
+import Button from '../button/Button'
+import './CreateOfferForm.css'
+import Textarea from '../textarea/Textarea'
+import Input from '../input/Input'
+import Select from '../select/Select'
+import Modal from '../modal/Modal'
 
 const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
-  const [formData, setFormData] = useState({});
-  const [useUserAddress, setUseUserAddress] = useState(true);
-  const [errors, setErrors] = useState({});
-  const [typeOffer, setTypeOffer] = useState([]);
+  const [formData, setFormData] = useState({})
+  const [useUserAddress, setUseUserAddress] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [selectedOptions, setSelectedOptions] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedNumber, setSelectedNumber] = useState(1)
+  const [currentType, setCurrentType] = useState('')
+  const [typeOffer, setTypeOffer] = useState([])
 
   const handleCheckboxChange = (e) => {
-    const { checked } = e.target;
-    setUseUserAddress(checked);
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const addTypeOffer = (e) => {
-    e.preventDefault();
-    const { type, quantity } = formData;
-    if (type && quantity) {
-      const updatedTypeOffer = [...typeOffer, { type, quantity }];
-      setTypeOffer(updatedTypeOffer);
-      setFormData({
-        ...formData,
-        typeOffer: updatedTypeOffer,
-      });
-      setErrors({});
+    const { checked } = e.target
+    setUseUserAddress(checked)
+    if (checked) {
+      setFormData((prev) => ({
+        ...prev,
+        city: user.city,
+        address: user.address,
+        postalcode: user.postalcode
+      }))
     } else {
-      setErrors({ ...errors, type: 'Selecciona un tipo y una cantidad' });
+      setFormData((prev) => ({
+        ...prev,
+        city: '',
+        address: '',
+        postalcode: ''
+      }))
     }
-  };
+  }
+
+  const handleInputChange = (field) => (value) => {
+    setFormData({ ...formData, [field]: value })
+  }
 
   const validateForm = () => {
-    const validationErrors = {};
+    const validationErrors = {}
     fields.forEach(({ name, label, required, validate }) => {
-      const value = String(formData[name] || '');
-      if (useUserAddress && ['city', 'address', 'postalcode'].includes(name)) {
-        return;
+      let value
+
+      // Si es dirección, evalúa según el estado de `useUserAddress`
+      if (
+        useUserAddress &&
+        (name === 'city' || name === 'address' || name === 'postalcode')
+      ) {
+        value = user[name]
+      } else {
+        value = formData[name]
       }
-      if (required && !value.trim()) {
-        validationErrors[name] = `${label} es obligatorio`;
+      if (required && (!value || value === '')) {
+        validationErrors[name] = `${label} es obligatorio`
       } else if (validate && !validate(value)) {
-        validationErrors[name] = `${label} no es válido`;
+        validationErrors[name] = `${label} no es válido`
       }
-    });
-    setErrors(validationErrors);
-    return Object.keys(validationErrors).length === 0;
-  };
+    })
+    setErrors(validationErrors)
+    return Object.keys(validationErrors).length === 0
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    const formDataToSubmit = useUserAddress
-      ? {
-          ...formData,
-          city: user.city,
-          address: user.address,
-          postalcode: user.postalcode,
+    e.preventDefault()
+    if (!validateForm()) return
+    const formDataToSubmit = {
+      ...formData,
+      ...(useUserAddress && {
+        city: user.city,
+        address: user.address,
+        postalcode: user.postalcode
+      }),
+      typeOffer
+    }
+    onSubmit(formDataToSubmit)
+  }
+
+  const handleInputSelect = (value) => {
+    setCurrentType(value)
+    const existingOffer = typeOffer.find((offer) => offer.type === value)
+    if (existingOffer) {
+      setSelectedNumber(existingOffer.quantity)
+    } else {
+      setSelectedNumber(1)
+    }
+    setModalOpen(true)
+  }
+
+  const handleDeleteOption = (option) => {
+    const updatedTypeOffer = typeOffer.filter(
+      (offer) => offer.type !== option.type
+    )
+    setSelectedOptions(updatedTypeOffer)
+    setTypeOffer(updatedTypeOffer)
+    setFormData((prev) => ({
+      ...prev,
+      typeOffer: updatedTypeOffer
+    }))
+  }
+
+  const handleAddTypeOffer = () => {
+    if (currentType && selectedNumber >= 1 && selectedNumber <= 9) {
+      const existingOfferIndex = typeOffer.findIndex(
+        (offer) => offer.type === currentType
+      )
+      let updatedTypeOffer
+      if (existingOfferIndex >= 0) {
+        updatedTypeOffer = [...typeOffer]
+        updatedTypeOffer[existingOfferIndex] = {
+          ...updatedTypeOffer[existingOfferIndex],
+          quantity: selectedNumber
         }
-      : formData;
-    onSubmit(formDataToSubmit);
-  };
+      } else {
+        updatedTypeOffer = [
+          ...typeOffer,
+          { type: currentType, quantity: selectedNumber }
+        ]
+      }
+      setTypeOffer(updatedTypeOffer)
+      setSelectedOptions(updatedTypeOffer)
+      setFormData({ ...formData, typeOffer: updatedTypeOffer })
+      setModalOpen(false)
+    } else {
+      setErrors({ type: 'Selecciona un tipo y una cantidad válida' })
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="create__form-container">
-      {fields.map((field, index) => (
-        <div key={index} className="create__form-contain">
-          {field.type === 'textarea' ? (
-            <div className="create__form-input">
-              <textarea
-                className={`create__input${field.required ? ' create__input-required' : ''}`}
-                id={field.name}
-                name={field.name}
-                required={field.required}
-                value={formData[field.name] || ''}
-                onChange={handleChange}
-              />
-              <label className="create__input-label" htmlFor={field.name}>
-                {field.label}
-              </label>
-              {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
-            </div>
-          ) : field.type === 'checkbox' ? (
-            <div className="create__form-checkbox">
-              <input
-                className={`create__checkbox-input${field.required ? ' create__input-required' : ''}`}
-                id={field.name}
-                name={field.name}
-                type="checkbox"
-                checked={useUserAddress}
-                onChange={handleCheckboxChange}
-              />
-              {field.label && (
-                <label className="create__checkbox-label" htmlFor={field.name}>
-                  {field.label}
-                </label>
+    <form onSubmit={handleSubmit} className='form'>
+      {fields?.map(
+        ({ name, label, type, maxLength, required, rows, options }) => (
+          <div key={name}>
+            {name === 'city' || name === 'address' || name === 'postalcode' ? (
+              useUserAddress ? (
+                <div className='create__form-input'>
+                  <Input
+                    id={name}
+                    type='text'
+                    label={label}
+                    name={name}
+                    value={user[name]}
+                    disabled={true}
+                  />
+                </div>
+              ) : (
+                <div className='create__form-input'>
+                  <Input
+                    id={name}
+                    type='text'
+                    label={label}
+                    name={name}
+                    value={formData[name] || ''}
+                    onChange={handleInputChange(name)}
+                  />
+                </div>
+              )
+            ) : (
+              <div>
+                {type === 'checkbox' ? (
+                  <div className='create__form-checkbox'>
+                    <input
+                      id={name}
+                      name={name}
+                      type='checkbox'
+                      className={`create__checkbox-input${
+                        required ? ' create__input-required' : ''
+                      }`}
+                      checked={useUserAddress}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label>
+                      <strong>Utilizar mi dirección</strong>
+                    </label>
+                  </div>
+                ) : type === 'textarea' ? (
+                  <div className='create__form-input'>
+                    <Textarea
+                      id={name}
+                      label={label}
+                      name={name}
+                      value={formData[name] || ''}
+                      maxLength={maxLength || 599}
+                      rows={rows}
+                      onChange={handleInputChange(name)}
+                    />
+                  </div>
+                ) : type === 'select' ? (
+                  <>
+                    <Select
+                      id={name}
+                      label={label}
+                      name={name}
+                      tooltip='Selecciona el tipo de asistencia'
+                      defaultOption={false}
+                      options={options}
+                      onChange={handleInputSelect}
+                    />
+                    {selectedOptions.length > 0 && (
+                      <div className='selected-options fadeIn'>
+                        <div>
+                          <h4>Opciones seleccionadas:</h4>
+                          <i style={{ color: 'red' }}>
+                            En caso de necesitar eliminar una opción{' '}
+                            <strong>tan solo haz click sobre ella.</strong>
+                          </i>
+                        </div>
+                        <ul>
+                          {selectedOptions
+                            ?.map((option, index) => {
+                              return (
+                                <li key={index}>
+                                  <button
+                                    type='button'
+                                    onClick={() => handleDeleteOption(option)}
+                                  >
+                                    {option.type} | Per: {option.quantity}
+                                  </button>
+                                </li>
+                              )
+                            })
+                            .reverse()}
+                        </ul>
+                      </div>
+                    )}
+                    <Modal
+                      isModalOpen={modalOpen}
+                      handleCloseModal={() => setModalOpen(false)}
+                    >
+                      <div className='create__modal fadeIn'>
+                        <div className='modal-content'>
+                          <h4>¿A cuántas personas puedes ayudar?</h4>
+                          <input
+                            type='number'
+                            value={selectedNumber}
+                            min='1'
+                            max='9'
+                            onChange={(e) => setSelectedNumber(e.target.value)}
+                          />
+                          <div className='modal-content-btns'>
+                            <Button
+                              text='Seleccionar'
+                              bgColor='var(--bg-primary-yellow)'
+                              textColor='var(--text-primary)'
+                              action={handleAddTypeOffer}
+                              type='button'
+                            />
+                            <Button
+                              text='Cancelar'
+                              bgColor='var(--bg-primary-red)'
+                              textColor='var(--text-primary-light)'
+                              action={() => setModalOpen(false)}
+                              type='button'
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </Modal>
+                  </>
+                ) : (
+                  <div className='create__form-input'>
+                    <Input
+                      id={name}
+                      maxLength={maxLength}
+                      type={type}
+                      label={label}
+                      name={name}
+                      value={formData[name] || ''}
+                      onChange={handleInputChange(name)}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+            {errors[name] &&
+              ((useUserAddress &&
+                !(
+                  name === 'city' ||
+                  name === 'address' ||
+                  name === 'postalcode'
+                )) ||
+                (!useUserAddress &&
+                  (name === 'city' ||
+                    name === 'address' ||
+                    name === 'postalcode'))) && (
+                <div className='error-text'>{errors[name]}</div>
               )}
-            </div>
-          ) : field.type === 'select' ? (
-            <>
-              <div className="create__form-select">
-                <select
-                  id="type"
-                  name="type"
-                  value={formData.type || ''}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Selecciona un tipo de ayuda</option>
-                  {field.options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="create__form-input">
-                <input
-                  className={`create__input${field.required ? ' create__input-required' : ''}`}
-                  id="quantity"
-                  name="quantity"
-                  type="number"
-                  min="1"
-                  value={formData.quantity || ''}
-                  onChange={handleChange}
-                  required
-                />
-                <label className="create__input-label" htmlFor="quantity">
-                  Cantidad
-                </label>
-                {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
-              </div>
-              <Button
-                text="Añadir tipo de ayuda"
-                bgColor="var(--bg-primary-red)"
-                textColor="var(--text-primary-light)"
-                borderRadius="var(--spacing-m)"
-                action={addTypeOffer}
-              />
-            </>
-          ) : (
-            <>
-              {['city', 'address', 'postalcode'].includes(field.name) && !useUserAddress ? (
-                <div className="create__form-input">
-                  <input
-                    className={`create__input${field.required ? ' create__input-required' : ''}`}
-                    id={field.name}
-                    name={field.name}
-                    type={field.type}
-                    required={field.required}
-                    value={formData[field.name] || ''}
-                    onChange={handleChange}
-                  />
-                  <label className="create__input-label" htmlFor={field.name}>
-                    {field.label}
-                  </label>
-                  {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
-                </div>
-              ) : field.name === 'title' ? (
-                <div className="create__form-input">
-                  <input
-                    className={`create__input${field.required ? ' create__input-required' : ''}`}
-                    id={field.name}
-                    name={field.name}
-                    type={field.type}
-                    required={field.required}
-                    value={formData[field.name] || ''}
-                    onChange={handleChange}
-                  />
-                  <label className="create__input-label" htmlFor={field.name}>
-                    {field.label}
-                  </label>
-                  {field.tooltip && <span className="create__input-tooltip">{field.tooltip}</span>}
-                </div>
-              ) : null}
-            </>
-          )}
-          {errors[field.name] && <div>{errors[field.name]}</div>}
-        </div>
-      ))}
-
-      {typeOffer.length > 0 && (
-        <div>
-          <h3>Tipos y Cantidades Seleccionados:</h3>
-          <ul>
-            {typeOffer.map((selection, index) => (
-              <li key={index}>
-                Tipo: {selection.type} - Cantidad: {selection.quantity}
-              </li>
-            ))}
-          </ul>
-        </div>
+          </div>
+        )
       )}
-
-      <button type="submit" className="create__form-container button">
-        {buttonText}
-      </button>
+      <Button
+        text={buttonText || 'Crear'}
+        bgColor='var(--bg-lighter-gray)'
+        textColor='var(--text-tertiary)'
+      />
     </form>
-  );
-};
+  )
+}
 
-export default CreateOfferForm;
+export default CreateOfferForm
