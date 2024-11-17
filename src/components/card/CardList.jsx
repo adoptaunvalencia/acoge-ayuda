@@ -1,18 +1,14 @@
-import { useState } from "react";
-import Card from "./Card";
-import Spinner from "../spinner/Spinner";
-import Modal from "../modal/Modal";
-import "./card.css";
+import { useState } from 'react'
+import Card from './Card'
+import Spinner from '../spinner/Spinner'
+import Modal from '../modal/Modal'
+import './card.css'
 
 const CardList = ({ activeTypes, offers }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const closeModal = () => setIsLoading(false);
-
-/*   console.log("offers", offers); */
-
+  const [isLoading, setIsLoading] = useState(false)
+  const closeModal = () => setIsLoading(false)
   return (
-    <div className="card-list">
+    <div className='card-list'>
       {offers?.map((offer, index) => (
         <Card key={`${offer._id}-${index}`} offer={offer} />
       ))}
@@ -22,7 +18,7 @@ const CardList = ({ activeTypes, offers }) => {
         </Modal>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CardList;
+export default CardList

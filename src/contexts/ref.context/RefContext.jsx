@@ -15,6 +15,8 @@ export const RefProvider = ({ children }) => {
   const privacyRef = useRef(null)
   const mapRef = useRef(null)
   const collaboratoresRef = useRef(null)
+  const myOfferRef = useRef(null)
+  
 
   const scroll = useScrollToRef()
   return (
@@ -31,7 +33,8 @@ export const RefProvider = ({ children }) => {
         createOfferRef,
         privacyRef,
         mapRef,
-        collaboratoresRef
+        collaboratoresRef,
+        myOfferRef
       }}
     >
       {children}
