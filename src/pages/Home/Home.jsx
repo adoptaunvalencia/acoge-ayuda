@@ -1,21 +1,19 @@
-import { useContext, useEffect, useState } from "react";
-import { ReducerContext } from "../../contexts/reducer.contexts/ReducerContext";
-import { FunctionContext } from "../../contexts/function.contexts/FunctionContext";
-import Button from "../../components/button/Button";
-import FilterServicer from "../../components/filtro-services/FilterServices";
-import Modal from "../../components/modal/Modal";
-import WelcomePopUp from "../../components/welcome-pop-up/WelcomePopUp";
-import { Map } from "../../components/map/Map";
-import CardList from "../../components/card/CardList";
-import "./Home.css";
-import Select from "../../components/select/Select";
-import { RefContext } from "../../contexts/ref.context/RefContext";
+import { useContext, useEffect, useState } from 'react'
+import { ReducerContext } from '../../contexts/reducer.contexts/ReducerContext'
+import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
+import Button from '../../components/button/Button'
+import FilterServicer from '../../components/filtro-services/FilterServices'
+import { Map } from '../../components/map/Map'
+import CardList from '../../components/card/CardList'
+import './Home.css'
+import Select from '../../components/select/Select'
+import { RefContext } from '../../contexts/ref.context/RefContext'
 
 const Home = () => {
   const {
-    stateIsAuth: { isAuth },
-  } = useContext(ReducerContext);
-  const { scroll, homeRef, mapRef, myOfferRef } = useContext(RefContext);
+    stateIsAuth: { isAuth }
+  } = useContext(ReducerContext)
+  const { scroll, homeRef, mapRef, myOfferRef } = useContext(RefContext)
 
   const {
     showPopup,
@@ -29,167 +27,159 @@ const Home = () => {
     filteredOffers,
     setFilteredOffers,
     myOffers,
-    setMyOffers,
-  } = useContext(FunctionContext);
+    setMyOffers
+  } = useContext(FunctionContext)
 
   useEffect(() => {
     setTimeout(() => {
-      scroll(homeRef);
-    }, 500);
-    const token = localStorage.getItem("AUTH_VALIDATE_USER_TOKEN");
-    if (token) getProfile();
-    else getOffers();
-  }, []);
+      scroll(homeRef)
+    }, 500)
+    const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
+    if (token) getProfile()
+    else getOffers()
+  }, [])
 
   const selectOptionsObject = {
-    1: "1km",
-    2: "2km",
-    3: "3km",
-  };
+    1: '1km',
+    2: '2km',
+    3: '3km'
+  }
 
-  const [activeType, setActiveType] = useState("");
+  const [activeType, setActiveType] = useState('')
 
   useEffect(() => {
     const fetchFilteredOffers = async () => {
-      const result = await filterOffers(null, userLocation.radius, activeType);
-      setFilteredOffers(result);
-    };
-    fetchFilteredOffers();
-  }, [userLocation, activeType, filterOffers]);
+      const result = await filterOffers(null, userLocation.radius, activeType)
+      setFilteredOffers(result)
+    }
+    fetchFilteredOffers()
+  }, [userLocation, activeType, filterOffers])
 
   const handleChangeSelect = (value, type) => {
     setUserLocation((prev) => ({
       ...prev,
-      [type]: value,
-    }));
-  };
+      [type]: value
+    }))
+  }
 
   const selectPosition = () => {
     setTimeout(() => {
-      scroll(mapRef);
-    }, 500);
+      scroll(mapRef)
+    }, 500)
     navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+      const { latitude, longitude } = position.coords
       setUserLocation((prev) => ({
         ...prev,
         latitude,
         longitude,
-        radius: prev.radius,
-      }));
-      handleSendFilter();
-    });
-  };
+        radius: prev.radius
+      }))
+      handleSendFilter()
+    })
+  }
 
   const handleSendFilter = async () => {
-    const result = await filterOffers(null, userLocation.radius, activeType);
+    const result = await filterOffers(null, userLocation.radius, activeType)
 
-    setFilteredOffers(result);
-  };
+    setFilteredOffers(result)
+  }
 
   const handleCategoryToggle = (category) => {
     setTimeout(() => {
-      scroll(mapRef);
-    }, 500);
-    setActiveType((prevType) => (prevType === category ? "" : category));
-  };
+      scroll(mapRef)
+    }, 500)
+    setActiveType((prevType) => (prevType === category ? '' : category))
+  }
 
   useEffect(() => {
-    handleSendFilter();
-  }, [activeType]);
+    handleSendFilter()
+  }, [activeType])
 
   const filterMyOffers = () => {
     setTimeout(() => {
-      scroll(myOfferRef);
-    }, 500);
-    handleFilterMyOffers();
-  };
+      scroll(myOfferRef)
+    }, 500)
+    handleFilterMyOffers()
+  }
 
   return (
-    <div className="home__container-sections fadeIn">
-      <section ref={homeRef} className="home__container">
-        <div className="home__content-title">
+    <div className='home__container-sections fadeIn'>
+      <section ref={homeRef} className='home__container'>
+        <div className='home__content-title'>
           <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
         </div>
-        <div className="home__content-description">
+        <div className='home__content-description'>
           <p>
-            Explora las opciones de ayuda cercanas a{" "}
-            <strong>"TU UBICACIÓN"</strong> para:{" "}
+            Explora las opciones de ayuda cercanas a{' '}
+            <strong>"TU UBICACIÓN"</strong> para:{' '}
             <strong>
               Alojamiento, Comida y/o Apoyo en situaciones de Emergencia
             </strong>
           </p>
         </div>
-        <div className="home__content-buttons">
-          <div className="width_full">
+        <div className='home__content-buttons'>
+          <div className='width_full'>
             <Select
-              label="Buscar por Radio"
-              name="filer_offers"
-              id="filer_offers"
+              label='Buscar por Radio'
+              name='filer_offers'
+              id='filer_offers'
               defaultOption={true}
               options={selectOptionsObject}
-              onChange={(value) => handleChangeSelect(value, "radius")}
+              onChange={(value) => handleChangeSelect(value, 'radius')}
             />
           </div>
           <Button
-            text="Buscar"
-            bgColor="var(--bg-primary-red)"
-            textColor="var(--text-primary-light)"
-            borderRadius="50px"
+            text='Buscar'
+            bgColor='var(--bg-primary-red)'
+            textColor='var(--text-primary-light)'
+            borderRadius='50px'
             action={selectPosition}
           />
         </div>
       </section>
-      <section className="show">
+      <section className='show'>
         <FilterServicer
           onCategoryToggle={handleCategoryToggle}
           activeTypes={activeType}
         />
       </section>
       {isAuth && (
-        <section className="home__my-offers-btn">
+        <section className='home__my-offers-btn'>
           <Button
-            text="Mis ofertas de asistencia"
-            bgColor="var(--bg-primary)"
-            textColor="var(--text-primary)"
-            borderRadius="50px"
+            text='Mis ofertas de asistencia'
+            bgColor='var(--bg-primary)'
+            textColor='var(--text-primary)'
+            borderRadius='50px'
             action={filterMyOffers}
           />
         </section>
       )}
-      {!isAuth && (
-        <Modal
-          isModalOpen={showPopup}
-          handleCloseModal={() => setShowPopup(false)}
-        >
-          <WelcomePopUp />
-        </Modal>
-      )}
-      <section ref={mapRef} className="section__map">
+      <section ref={mapRef} className='section__map'>
         <Map offers={filteredOffers} />
       </section>
       {myOffers.length > 0 && (
-        <section ref={myOfferRef} className="home__my-offers fadeIn">
+        <section ref={myOfferRef} className='home__my-offers fadeIn'>
           <h3>Mis Ofertas de asistencia</h3>
           <CardList activeType={activeType} offers={myOffers} />
           <Button
-            text="Cerrar"
-            bgColor="var(--bg-primary-red)"
-            textColor="var(--text-primary-light)"
+            text='Cerrar'
+            bgColor='var(--bg-primary-red)'
+            textColor='var(--text-primary-light)'
             action={() => {
-              setMyOffers([]);
+              setMyOffers([])
               setTimeout(() => {
-                scroll(mapRef);
-              }, 500);
+                scroll(mapRef)
+              }, 500)
             }}
           />
           <hr></hr>
         </section>
       )}
-      <section className="section_card-offers">
+      <section className='section_card-offers'>
         <CardList activeType={activeType} offers={filteredOffers} />
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

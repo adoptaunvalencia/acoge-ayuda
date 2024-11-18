@@ -7,20 +7,7 @@ import logoAdopta from '../../assets/images/logo.webp'
 import { Link } from 'react-router-dom'
 
 const WelcomePopUp = () => {
-  const { showPopup, setShowPopup } = useContext(FunctionContext)
-  const localShow = localStorage.getItem('SHOW_POPUP')
-  useEffect(() => {
-    const isRegister = () => {
-      if (!localShow) {
-        setTimeout(() => {
-          setShowPopup(true)
-        }, 1500)
-      } else {
-        setShowPopup(false)
-      }
-    }
-    isRegister()
-  }, [])
+  const { showPopup, setShowPopup, localShow } = useContext(FunctionContext)
 
   const handleCreateCount = () => {
     if (!localShow) {
@@ -32,7 +19,7 @@ const WelcomePopUp = () => {
   return (
     <>
       {showPopup && (
-        <section className='welcome__container'>
+        <section className='welcome__container fadeIn'>
           <div className='welcome__brand'>
             <img
               className='welcome__brand-image'
@@ -59,6 +46,14 @@ const WelcomePopUp = () => {
                 text='Registrarme'
                 bgColor='var(--bg-primary-red)'
                 textColor='white'
+                borderRadius='var(--spacing-l)'
+                action={handleCreateCount}
+              />
+            </Link>
+            <Link to='login'>
+              <Button
+                text='Login'
+                bgColor='var(--bg-primary-yellow)'
                 borderRadius='var(--spacing-l)'
                 action={handleCreateCount}
               />
