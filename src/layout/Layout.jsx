@@ -18,7 +18,7 @@ const Layout = () => {
     stateIsAuth: { user, isAuth },
     stateLoad: { load }
   } = useContext(ReducerContext)
-  const {showPopup, setShowPopup}=useContext(FunctionContext)
+  const { showPopup, setShowPopup } = useContext(FunctionContext)
 
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false)
 
@@ -34,7 +34,7 @@ const Layout = () => {
       setIsCaptchaVerified(true)
       sessionStorage.setItem('isCaptchaVerified', 'true')
     }
-  }  
+  }
 
   return (
     <>
@@ -49,13 +49,14 @@ const Layout = () => {
       {isAuth && <FloatButton />}
       <main>
         <Outlet />
-        <Modal
-          isModalOpen={showPopup}
-          handleCloseModal={() => setShowPopup(false)}
-        >
-          <WelcomePopUp />
-        </Modal>
-      
+        {!isAuth && (
+          <Modal
+            isModalOpen={showPopup}
+            handleCloseModal={() => setShowPopup(false)}
+          >
+            <WelcomePopUp />
+          </Modal>
+        )}
       </main>
       <footer>
         <Footer />
