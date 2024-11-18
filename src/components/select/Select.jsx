@@ -56,7 +56,7 @@ const Select = (props) => {
                 type="text"
                 value={selectedValue}
                 onChange={(e) => onChange(e.target.value)}
-                required 
+                required ={required}
             />
             <label className="select-label" htmlFor={id}>{label}</label>
             <span className="select-tooltip">{tooltip}</span>

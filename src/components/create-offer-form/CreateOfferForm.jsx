@@ -44,8 +44,6 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
     const validationErrors = {}
     fields.forEach(({ name, label, required, validate }) => {
       let value
-
-      // Si es dirección, evalúa según el estado de `useUserAddress`
       if (
         useUserAddress &&
         (name === 'city' || name === 'address' || name === 'postalcode')
@@ -56,10 +54,15 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
       }
       if (required && (!value || value === '')) {
         validationErrors[name] = `${label} es obligatorio`
-      } else if (validate && !validate(value)) {
+      } 
+      if (validate && !validate(value)) {
         validationErrors[name] = `${label} no es válido`
       }
     })
+    if (!formData?.typeOffer || formData?.typeOffer.length === 0) {
+      validationErrors.typeOffer =
+        'Selecciona al menos un tipo de oferta de asistencia'
+    }
     setErrors(validationErrors)
     return Object.keys(validationErrors).length === 0
   }
@@ -136,15 +139,13 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
           <div key={name}>
             {name === 'city' || name === 'address' || name === 'postalcode' ? (
               useUserAddress ? (
-                <div className='create__form-input'>
-                  <Input
-                    id={name}
-                    type='text'
-                    label={label}
-                    name={name}
-                    value={user[name]}
-                    disabled={true}
-                  />
+                <div>
+                  <p>
+                    {(name === 'city' && 'Ciudad') ||
+                      (name === 'address' && 'Dirección') ||
+                      (name === 'postalcode' && 'Cod. Postal')}
+                    : {formData[name]}
+                  </p>
                 </div>
               ) : (
                 <div className='create__form-input'>
@@ -186,6 +187,7 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                       maxLength={maxLength || 599}
                       rows={rows}
                       onChange={handleInputChange(name)}
+
                     />
                   </div>
                 ) : type === 'select' ? (
@@ -198,6 +200,7 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
                       defaultOption={false}
                       options={options}
                       onChange={handleInputSelect}
+                      required={false}
                     />
                     {selectedOptions.length > 0 && (
                       <div className='selected-options fadeIn'>

@@ -102,7 +102,6 @@ const CreateOffer = () => {
         onSubmit={handleFormSubmit}
         buttonText='Ofrecer mi ayuda'
       />
-      {responseMessage && <p className='response-message'>{responseMessage}</p>}
     </div>
   )
 }
