@@ -39,11 +39,12 @@
 .footer-content-link{
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
   gap:10px;
 }
 .footer-content-link > a {
   color:var(--text-tertiary);
-  text-shadow: 0 0.6px 1px var(--text-tertiary);
   transition: all 0.3s;
 }
 .footer-content-link > a:hover{

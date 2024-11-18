@@ -143,20 +143,21 @@ const Home = () => {
           activeTypes={activeType}
         />
       </section>
+      
+      <section ref={mapRef} className='section__map'>
+        <Map offers={filteredOffers} />
+      </section>
       {isAuth && (
         <section className='home__my-offers-btn'>
           <Button
             text='Mis ofertas de asistencia'
-            bgColor='var(--bg-primary)'
-            textColor='var(--text-primary)'
-            borderRadius='50px'
+            bgColor='var(--bg-primary-red)'
+            textColor='var(--text-primary-light)'
+            borderRadius='var(--spacing-xs)'
             action={filterMyOffers}
           />
         </section>
       )}
-      <section ref={mapRef} className='section__map'>
-        <Map offers={filteredOffers} />
-      </section>
       {myOffers.length > 0 && (
         <section ref={myOfferRef} className='home__my-offers fadeIn'>
           <h3>Mis Ofertas de asistencia</h3>
