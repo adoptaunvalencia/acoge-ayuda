@@ -1,5 +1,5 @@
 .card-list {
-  padding:10px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -50,7 +50,7 @@
 .card__title-container {
   display: flex;
   flex-direction: column;
-  gap:20px;
+  gap: 20px;
 }
 
 .card__offer-categories {
@@ -64,8 +64,8 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  width:110px;
-  gap:10px;
+  width: 110px;
+  gap: 10px;
 }
 
 .card__offer-category-icon {
@@ -74,7 +74,7 @@
 }
 
 .card__offer-category-text {
-  color: var(--text-secondary)
+  color: var(--text-secondary);
 }
 
 .card__button-container {
@@ -84,14 +84,9 @@
   flex-direction: column;
 }
 
-.card Button {
-  border: 1px solid var(--text-primary);
-  box-shadow: none;
-}
-
-.card__content-btn-options{
+.card__content-btn-options {
   display: flex;
-  gap:7px;
+  gap: 7px;
   justify-content: center;
 }
 
