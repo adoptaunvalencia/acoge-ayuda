@@ -9,12 +9,16 @@ import Spinner from '../components/spinner/Spinner'
 import ReCAPTCHA from 'react-google-recaptcha'
 import './Layout.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { FunctionContext } from '../contexts/function.contexts/FunctionContext'
+import Modal from '../components/modal/Modal'
+import WelcomePopUp from '../components/welcome-pop-up/WelcomePopUp'
 
 const Layout = () => {
   const {
     stateIsAuth: { user, isAuth },
     stateLoad: { load }
   } = useContext(ReducerContext)
+  const {showPopup, setShowPopup}=useContext(FunctionContext)
 
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false)
 
@@ -30,7 +34,7 @@ const Layout = () => {
       setIsCaptchaVerified(true)
       sessionStorage.setItem('isCaptchaVerified', 'true')
     }
-  }
+  }  
 
   return (
     <>
@@ -45,6 +49,13 @@ const Layout = () => {
       {isAuth && <FloatButton />}
       <main>
         <Outlet />
+        <Modal
+          isModalOpen={showPopup}
+          handleCloseModal={() => setShowPopup(false)}
+        >
+          <WelcomePopUp />
+        </Modal>
+      
       </main>
       <footer>
         <Footer />

@@ -27,7 +27,7 @@ export const FunctionProvider = ({ children }) => {
     longitude: null,
     radius: null
   })
-  const [showPopup, setShowPopup] = useState(null)
+  const [showPopup, setShowPopup] = useState(false)
   const [filteredOffers, setFilteredOffers] = useState([])
   /*   const [categorizedOffers, setCategorizedOffers] = useState({
     all: [],
@@ -259,6 +259,20 @@ export const FunctionProvider = ({ children }) => {
     }
   }
 
+  const localShow = localStorage.getItem('SHOW_POPUP')
+  useEffect(() => {
+    const isRegister = () => {
+      if (!localShow) {
+        setTimeout(() => {
+          setShowPopup(true)
+        }, 2500)
+      } else {
+        setShowPopup(false)
+      }
+    }
+    isRegister()
+  }, [])
+
   return (
     <FunctionContext.Provider
       value={{
@@ -287,7 +301,8 @@ export const FunctionProvider = ({ children }) => {
         filteredOffers,
         setFilteredOffers,
         myOffers,
-        setMyOffers
+        setMyOffers,
+        localShow
       }}
     >
       {children}
