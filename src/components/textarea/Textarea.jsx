@@ -16,7 +16,7 @@ const Textarea = (props) => {
                 {...(maxLength && { maxLength })}
                 {...(rows && { rows })} 
                 onChange={handleChange}
-                required 
+                required={required}
             />
             <label className="textarea-label" htmlFor={id}>{label}</label>
             <span className="textarea-tooltip">{tooltip}</span>
