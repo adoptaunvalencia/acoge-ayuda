@@ -22,6 +22,7 @@ import useScrollToRef from '../../hooks/useScrollToRef'
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [myOffers, setMyOffers] = useState([])
   const [userLocation, setUserLocation] = useState({
     latitude: null,
     longitude: null,
@@ -177,7 +178,7 @@ export const FunctionProvider = ({ children }) => {
     [offers_map, userLocation]
   )
 
-  const [myOffers, setMyOffers] = useState([])
+
   const handleFilterMyOffers = () => {
     if (isAuth) {
       const offers = offers_map.filter(
@@ -186,7 +187,7 @@ export const FunctionProvider = ({ children }) => {
       if (offers.length > 0) {
         setMyOffers(offers)
       } else {
-        return showToast('', 'No tienes ofertas creadas.')
+        return showToast('error', 'No tienes ofertas creadas.')
       }
     }
   }
