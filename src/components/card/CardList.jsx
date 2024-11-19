@@ -19,6 +19,7 @@ const CardList = ({ activeTypes, offers }) => {
             if (user?._id !== off?.userId?._id) {
               return off.status !== false
             }
+            
             return true
           })
           .map((offer, index) => (
