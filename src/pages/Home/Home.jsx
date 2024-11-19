@@ -166,6 +166,7 @@ const Home = () => {
             text='Cerrar'
             bgColor='var(--bg-primary-red)'
             textColor='var(--text-primary-light)'
+            borderRadius='var(--spacing-xs)'
             action={() => {
               setMyOffers([])
               setTimeout(() => {
