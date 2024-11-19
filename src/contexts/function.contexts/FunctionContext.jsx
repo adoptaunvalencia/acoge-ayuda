@@ -89,6 +89,7 @@ export const FunctionProvider = ({ children }) => {
         })
       }
     } catch (error) {
+      localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
       console.error('Error loading profile data:', error.message)
     } finally {
       setTimeout(() => {
@@ -108,6 +109,7 @@ export const FunctionProvider = ({ children }) => {
         })
       }
     } catch (error) {
+      localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
       console.error('Error loading offers:', error.message)
     }
   }
