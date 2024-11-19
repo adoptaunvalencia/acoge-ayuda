@@ -11,7 +11,7 @@
   width: 276px;
   border-radius: 12px;
   border: 1px solid var(--bg-medium-gray);
-  padding: 10px 10px 20px;
+  padding:15px 10px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

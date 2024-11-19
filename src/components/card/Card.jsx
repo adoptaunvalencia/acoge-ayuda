@@ -175,19 +175,18 @@ const Card = ({ offer }) => {
           type: 'SET_OFFERS_MAP',
           payload: offers_map.map((off) =>
             off._id === offer._id ? { ...off, ...updatedFormData } : off
-        )
-      })
-      setStatusOffer(result.assistanceOffer.status)
-      
-      
-      if (myOffers.length > 0) {
-        const update = myOffers.map((off) =>
-          off._id === offer._id ? { ...off, ...updatedFormData } : off
-        )
-        console.log(update);
-        setMyOffers(update)
-        console.log(myOffers);
-      }
+          )
+        })
+        setStatusOffer(result.assistanceOffer.status)
+
+        if (myOffers.length > 0) {
+          const update = myOffers.map((off) =>
+            off._id === offer._id ? { ...off, ...updatedFormData } : off
+          )
+          console.log(update)
+          setMyOffers(update)
+          console.log(myOffers)
+        }
       }
     } catch (error) {
       showToast('error', 'Hubo un error al actualizar el estado.')
@@ -197,7 +196,7 @@ const Card = ({ offer }) => {
 
   return (
     <div className='card fadeIn'>
-      {isAuth && (
+      {isAuth && userId?._id === user?._id && (
         <div className='card__creator'>
           <div className='card__creator-switch'>
             <label className='switch'>
@@ -210,7 +209,7 @@ const Card = ({ offer }) => {
             </label>
             <span>{status ? 'Visible' : 'No visible'}</span>
           </div>
-          {userId?._id === user?._id && <span>autor</span>}
+          <span>autor</span>
         </div>
       )}
       {!load && (
