@@ -10,8 +10,9 @@ import Spinner from '../spinner/Spinner'
 
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId, status } = offer
+  const [statusOffer, setStatusOffer] = useState(status)
   const {
-    stateIsAuth: { user },
+    stateIsAuth: { user, isAuth },
     dispatchOffer,
     stateOffer: { offers_map },
     stateLoad: { load },
@@ -31,9 +32,10 @@ const Card = ({ offer }) => {
   const [formData, setFormData] = useState({
     title,
     description,
-    status
+    status,
+    lat: offer.location.coordinates[1],
+    lon: offer.location.coordinates[0]
   })
-
   const handleOpenModal = useCallback(
     (offer) => {
       setActiveOffer(offer)
@@ -51,9 +53,7 @@ const Card = ({ offer }) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
     try {
       const updatedFormData = {
-        ...formData,
-        lat: offer.location.coordinates[1],
-        lon: offer.location.coordinates[0]
+        ...formData
       }
       const response = await fetch(
         `${import.meta.env.VITE_URL_API}/assistance-offer/update-assistance/${
@@ -144,8 +144,75 @@ const Card = ({ offer }) => {
     }))
   }
 
+  const handleChangeStatusOffer = async (offer) => {
+    const newStatus = !statusOffer
+    setStatusOffer(newStatus)
+    const updatedFormData = {
+      ...formData,
+      status: newStatus
+    }
+    setFormData(updatedFormData)
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_URL_API}/assistance-offer/update-assistance/${
+          offer._id
+        }`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${existToken}`
+          },
+          body: JSON.stringify(updatedFormData)
+        }
+      )
+      const result = await response.json()
+      if (!response.ok) {
+        showToast('error', result.message)
+      } else {
+        //showToast('success', result.message)
+        dispatchOffer({
+          type: 'SET_OFFERS_MAP',
+          payload: offers_map.map((off) =>
+            off._id === offer._id ? { ...off, ...updatedFormData } : off
+        )
+      })
+      setStatusOffer(result.assistanceOffer.status)
+      
+      
+      if (myOffers.length > 0) {
+        const update = myOffers.map((off) =>
+          off._id === offer._id ? { ...off, ...updatedFormData } : off
+        )
+        console.log(update);
+        setMyOffers(update)
+        console.log(myOffers);
+      }
+      }
+    } catch (error) {
+      showToast('error', 'Hubo un error al actualizar el estado.')
+      setStatusOffer(!newStatus)
+    }
+  }
+
   return (
     <div className='card fadeIn'>
+      {isAuth && (
+        <div className='card__creator'>
+          <div className='card__creator-switch'>
+            <label className='switch'>
+              <input
+                type='checkbox'
+                checked={status}
+                onChange={() => handleChangeStatusOffer(offer)}
+              />
+              <span className='slider'></span>
+            </label>
+            <span>{status ? 'Visible' : 'No visible'}</span>
+          </div>
+          {userId?._id === user?._id && <span>autor</span>}
+        </div>
+      )}
       {!load && (
         <Modal>
           <Spinner />
@@ -220,7 +287,7 @@ const Card = ({ offer }) => {
                 <CardCategory key={index} category={category} />
               ))}
           </div>
-          <p>{description}</p>
+          <p className='show'>{description}</p>
           <div className='card__button-container'>
             {typeof userId === 'object' && Object.keys(userId).length > 0 && (
               <>
