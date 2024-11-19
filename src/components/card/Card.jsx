@@ -195,133 +195,140 @@ const Card = ({ offer }) => {
   }
 
   return (
-    <div className='card fadeIn'>
-      {isAuth && userId?._id === user?._id && (
-        <div className='card__creator'>
-          <div className='card__creator-switch'>
-            <label className='switch'>
+    <>
+      <div className='card fadeIn'>
+        {isAuth && userId?._id === user?._id && (
+          <div className='card__creator'>
+            <div className='card__creator-switch'>
+              <label className='switch'>
+                <input
+                  type='checkbox'
+                  checked={status}
+                  onChange={() => handleChangeStatusOffer(offer)}
+                />
+                <span className='slider'></span>
+              </label>
+              <span>{status ? 'Visible' : 'No visible'}</span>
+            </div>
+            <span>autor</span>
+          </div>
+        )}
+        {!load && (
+          <Modal>
+            <Spinner />
+          </Modal>
+        )}
+        {activeOffer && (
+          <Modal
+            isModalOpen={isModalOpen}
+            handleCloseModal={() => setIsModalOpen(false)}
+          >
+            <ContactForm />
+          </Modal>
+        )}
+        {isAuth && (
+          <div className='card__user-info show'>
+            {userId?.avatar && <img src={userId.avatar} alt='User avatar' />}
+            <span>
+              {userId?.name} {userId?.lastname}
+            </span>
+          </div>
+        )}
+        {isEditing ? (
+          <form
+            className='card__form'
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleUpdateOffer(offer)
+            }}
+          >
+            <div>
+              <label htmlFor='title'>Título</label>
               <input
-                type='checkbox'
-                checked={status}
-                onChange={() => handleChangeStatusOffer(offer)}
+                id='title'
+                name='title'
+                value={formData.title}
+                onChange={handleChange}
               />
-              <span className='slider'></span>
-            </label>
-            <span>{status ? 'Visible' : 'No visible'}</span>
-          </div>
-          <span>autor</span>
-        </div>
-      )}
-      {!load && (
-        <Modal>
-          <Spinner />
-        </Modal>
-      )}
-      {activeOffer && (
-        <Modal
-          isModalOpen={isModalOpen}
-          handleCloseModal={() => setIsModalOpen(false)}
-        >
-          <ContactForm />
-        </Modal>
-      )}
-      <div className='card__user-info show'>
-        {userId?.avatar && <img src={userId.avatar} alt='User avatar' />}
-        <span>
-          {userId?.name} {userId?.lastname}
-        </span>
-      </div>
-      {isEditing ? (
-        <form
-          className='card__form'
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleUpdateOffer(offer)
-          }}
-        >
-          <div>
-            <label htmlFor='title'>Título</label>
-            <input
-              id='title'
-              name='title'
-              value={formData.title}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor='description'>Descripción</label>
-            <textarea
-              id='description'
-              name='description'
-              value={formData.description}
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          <div className='card__form-actions'>
-            <Button
-              text='Guardar'
-              bgColor='var(--bg-primary-yellow)'
-              textColor='var(--text-light)'
-              borderRadius='var(--spacing-l)'
-              type='submit'
-            />
-            <Button
-              text='Cancelar'
-              bgColor='var(--bg-light-red)'
-              textColor='var(--text-primary-light)'
-              borderRadius='var(--spacing-l)'
-              action={() => setIsEditing(false)}
-            />
-          </div>
-        </form>
-      ) : (
-        <>
-          <div className='card__title-container show'>
-            <h4>{title}</h4>
-            <p>{city}</p>
-          </div>
-          <div className='card__offer-categories show'>
-            {typeOffer &&
-              typeOffer.map((category, index) => (
-                <CardCategory key={index} category={category} />
-              ))}
-          </div>
-          <p className='show'>{description}</p>
-          <div className='card__button-container'>
-            {typeof userId === 'object' && Object.keys(userId).length > 0 && (
-              <>
-                {userId?._id !== user._id ? (
-                  <Button
-                    text='Contactar'
-                    bgColor='var(--bg-primary-yellow)'
-                    textColor='var(--text-primary)'
-                    borderRadius='var(--spacing-l)'
-                    action={() => handleOpenModal(offer)}
-                  />
-                ) : (
-                  <div className='card__content-btn-options'>
-                    <Button
-                      text='Modificar'
-                      bgColor='var(--bg-primary-yellow)'
-                      textColor='var(--text-primary)'
-                      borderRadius='var(--spacing-l)'
-                      action={() => setIsEditing(true)}
-                    />
-                    <Button
-                      text='Eliminar'
-                      bgColor='var(--bg-light-red)'
-                      textColor='var(--text-primary-light)'
-                      borderRadius='var(--spacing-l)'
-                      action={() => handleDeleteOffer(offer)}
-                    />
-                  </div>
-                )}
-              </>
+            </div>
+            <div>
+              <label htmlFor='description'>Descripción</label>
+              <textarea
+                id='description'
+                name='description'
+                value={formData.description}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <div className='card__form-actions'>
+              <Button
+                text='Guardar'
+                bgColor='var(--bg-primary-yellow)'
+                textColor='var(--text-light)'
+                borderRadius='var(--spacing-l)'
+                type='submit'
+              />
+              <Button
+                text='Cancelar'
+                bgColor='var(--bg-light-red)'
+                textColor='var(--text-primary-light)'
+                borderRadius='var(--spacing-l)'
+                action={() => setIsEditing(false)}
+              />
+            </div>
+          </form>
+        ) : (
+          <>
+            <div className='card__title-container show'>
+              <h4>{title}</h4>
+              <p>{city}</p>
+            </div>
+            <div className='card__offer-categories show'>
+              {typeOffer &&
+                typeOffer.map((category, index) => (
+                  <CardCategory key={index} category={category} />
+                ))}
+            </div>
+            <p className='show'>{description}</p>
+            {isAuth && (
+              <div className='card__button-container'>
+                {typeof userId === 'object' &&
+                  Object.keys(userId).length > 0 && (
+                    <>
+                      {userId?._id !== user._id ? (
+                        <Button
+                          text='Contactar'
+                          bgColor='var(--bg-primary-yellow)'
+                          textColor='var(--text-primary)'
+                          borderRadius='var(--spacing-l)'
+                          action={() => handleOpenModal(offer)}
+                        />
+                      ) : (
+                        <div className='card__content-btn-options'>
+                          <Button
+                            text='Modificar'
+                            bgColor='var(--bg-primary-yellow)'
+                            textColor='var(--text-primary)'
+                            borderRadius='var(--spacing-l)'
+                            action={() => setIsEditing(true)}
+                          />
+                          <Button
+                            text='Eliminar'
+                            bgColor='var(--bg-light-red)'
+                            textColor='var(--text-primary-light)'
+                            borderRadius='var(--spacing-l)'
+                            action={() => handleDeleteOffer(offer)}
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
+              </div>
             )}
-          </div>
-        </>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </>
   )
 }
 
