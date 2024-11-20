@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-l);
 }
 
 .card {
