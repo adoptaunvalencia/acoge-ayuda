@@ -194,6 +194,17 @@ const Card = ({ offer }) => {
     }
   }
 
+  const convertUrlsToLinks = (text) => {
+    if (!text) return ''
+
+    const urlRegex = /((https?:\/\/)?([\w.-]+)\.([a-z]{2,})([^\s]*)?)/gi
+
+    return text.replace(urlRegex, (url) => {
+      const hyperlink = url.startsWith('http') ? url : `https://${url}` // Asegura el prefijo http/https
+      return `<br><a href="${hyperlink}" target="_blank" rel="noopener noreferrer">Más info👈</a>`
+    })
+  }
+
   return (
     <>
       <div className='card fadeIn'>
@@ -289,7 +300,13 @@ const Card = ({ offer }) => {
                   <CardCategory key={index} category={category} />
                 ))}
             </div>
-            <p className='show'>{description}</p>
+            {/*<p className='show'>{description}</p>*/}
+            <p
+              className='show hipertext'
+              dangerouslySetInnerHTML={{
+                __html: convertUrlsToLinks(description)
+              }}
+            ></p>
             {isAuth && (
               <div className='card__button-container'>
                 {typeof userId === 'object' &&

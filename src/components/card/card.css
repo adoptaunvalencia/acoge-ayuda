@@ -198,3 +198,12 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+.hipertext > a{
+  color: var(--text-light-red);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.hipertext > a:hover {
+  color: var(--text-tertiary);
+}
