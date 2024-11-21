@@ -42,13 +42,6 @@ const Collaborator = () => {
                     alt='Linkedin logo'
                   />
                 </a>
-                {/* <a className="collaborator__social-link" href={collaborator.urlLinkedin} target="_blank">
-                  <img
-                    className="collaborator__social-image"
-                    src={githubIcon}
-                    alt="Github logo"
-                  />
-                </a> */}
               </div>
               <div className='collaborator__main'>
                 <img
