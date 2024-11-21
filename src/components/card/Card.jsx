@@ -290,9 +290,15 @@ const Card = ({ offer }) => {
                 ))}
             </div>
             <p className='show'>{description}</p>
-            {offer?.url && (
-            <a href={offer?.url} className='show hipertext' target="_blank" rel="noopener noreferrer">Más info🌐</a>
-
+            {isAuth && offer?.url && (
+              <a
+                href={offer?.url}
+                className='show hipertext'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Más info🌐
+              </a>
             )}
             {isAuth && (
               <div className='card__button-container'>
