@@ -198,12 +198,17 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-.hipertext > a{
-  color: var(--text-light-red);
-  text-decoration: underline;
+.hipertext{
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
   cursor: pointer;
   transition: all 0.3s;
+  background-color: var(--bg-light-gray);
+  font-weight: 400;
+  width:80px;
+  text-align: center;
+  border-radius: 5px;;
 }
-.hipertext > a:hover {
-  color: var(--text-tertiary);
+.hipertext:hover {
+  color: var(--text-light-red);
 }
