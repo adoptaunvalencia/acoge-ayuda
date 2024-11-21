@@ -8,6 +8,7 @@ import logo from '../../assets/icons/Logo.svg'
 import linkedin from '../../assets/icons/linkedin-icon.svg'
 import instagram from '../../assets/icons/ig.png'
 import whatsapp from '../../assets/icons/ws.png'
+import gmail from '../../assets/icons/gmail.png'
 
 const Footer = () => {
   const { scroll, headerRef } = useContext(RefContext)
@@ -41,6 +42,7 @@ const Footer = () => {
         </p>
         <div className='footer-content-link'>
           <div>
+            <h5>Enlaces de interés:</h5>
             <Link to='privacy-policy'>Politicas de privacidad🤓</Link>
             <a
               href='https://gofund.me/99592a71'
@@ -53,6 +55,14 @@ const Footer = () => {
             <Link to='collaborators'>Colaboradores🔥</Link>
           </div>
           <div>
+          <a
+              href='https://mail.google.com/mail/u/0/#sent?compose=CllgCJTKXCbdZPLfxNTMTMrPwjWVsQLlXPKlcnLFZgXgRhhJFVVPwZzSWMgpFtLXJMFCnwplSfg'
+              rel='noopener noreferrer'
+              target='_blank'
+              title='adoptaunvalencia@gmail.com'
+            >
+              <img src={gmail} alt='linkedin' width='24' />
+            </a>
             <a
               href='https://www.linkedin.com/in/adopta-un-valenciano/'
               rel='noopener noreferrer'
