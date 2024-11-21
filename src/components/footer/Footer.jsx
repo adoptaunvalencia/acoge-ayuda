@@ -51,20 +51,17 @@ const Footer = () => {
             >
               Apoyanos👏🏻
             </a>
-
             <Link to='collaborators'>Colaboradores🔥</Link>
           </div>
           <div>
-          <a
-              href='https://mail.google.com/mail/u/0/#sent?compose=CllgCJTKXCbdZPLfxNTMTMrPwjWVsQLlXPKlcnLFZgXgRhhJFVVPwZzSWMgpFtLXJMFCnwplSfg'
-              rel='noopener noreferrer'
-              target='_blank'
+            <a
+              href='mailto:adoptaunvalencia@gmail.com'
               title='adoptaunvalencia@gmail.com'
             >
-              <img src={gmail} alt='linkedin' width='24' />
+              <img src={gmail} alt='Correo electrónico' width='24' />
             </a>
             <a
-              href='https://www.linkedin.com/in/adopta-un-valenciano/'
+              href='https://www.linkedin.com/in/adopta-un-valenciano/"'
               rel='noopener noreferrer'
               target='_blank'
             >
@@ -82,7 +79,7 @@ const Footer = () => {
               rel='noopener noreferrer'
               target='_blank'
             >
-              <img src={whatsapp} alt='instagram' width='24' />
+              <img src={whatsapp} alt='whatsapp' width='24' />
             </a>
           </div>
           <InstallApp />
