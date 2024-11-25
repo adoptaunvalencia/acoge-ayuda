@@ -1,7 +1,7 @@
 .filter {
   -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: var(--bg-dark-gray-transparent);
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.123);
 }
 .modal-overlay {
   position: fixed;
