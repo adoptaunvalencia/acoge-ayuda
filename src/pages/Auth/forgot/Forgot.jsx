@@ -6,6 +6,7 @@ import { forgotPassword } from '../../../reducers/auth.reducer/auth.action'
 import './Forgot.css'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
+import Spinner from '../../../components/spinner/Spinner'
 
 const Forgot = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -14,7 +15,7 @@ const Forgot = () => {
     dispatchLoad
   } = useContext(ReducerContext)
   const { scroll, forgotRef } = useContext(RefContext)
-  const {showToast} = useContext(FunctionContext)
+  const { showToast } = useContext(FunctionContext)
   const navigate = useNavigate()
 
   const fields = [
@@ -38,15 +39,22 @@ const Forgot = () => {
   }, [])
 
   return (
-    <div ref={forgotRef} className='forgot-password-form fadeIn'>
-      <h2>Recuperar Contraseña</h2>
-      <Form
-        fields={fields}
-        onSubmit={handleFormSubmit}
-        buttonText='Enviar Correo de Recuperación'
-      />
-      <Link to='../send-code'>Tengo mi código</Link>
-    </div>
+    <>
+      {load && (
+        <div className='spinner'>
+          <Spinner />
+        </div>
+      )}
+      <div ref={forgotRef} className='forgot-password-form fadeIn'>
+        <h2>Recuperar Contraseña</h2>
+        <Form
+          fields={fields}
+          onSubmit={handleFormSubmit}
+          buttonText='Enviar Correo de Recuperación'
+        />
+        <Link to='../send-code'>Tengo mi código</Link>
+      </div>
+    </>
   )
 }
 

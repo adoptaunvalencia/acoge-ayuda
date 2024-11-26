@@ -6,11 +6,15 @@ import './sendCode.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
+import Spinner from '../../../components/spinner/Spinner'
 
 const SendCode = () => {
   const [responseMessage, setResponseMessage] = useState('')
   const navigate = useNavigate()
-  const { dispatchLoad } = useContext(ReducerContext)
+  const {
+    dispatchLoad,
+    stateLoad: { load }
+  } = useContext(ReducerContext)
   const { scroll, sendCodeRef } = useContext(RefContext)
   const { showToast } = useContext(FunctionContext)
   const fields = [
@@ -40,14 +44,21 @@ const SendCode = () => {
   }, [])
 
   return (
-    <div ref={sendCodeRef} className='send-code fadeIn'>
-      <h2>Verificación de Código</h2>
-      <Form
-        fields={fields}
-        onSubmit={handleFormSubmit}
-        buttonText='Enviar Código'
-      />
-    </div>
+    <>
+      {load && (
+        <div className='spinner'>
+          <Spinner />
+        </div>
+      )}
+      <div ref={sendCodeRef} className='send-code fadeIn'>
+        <h2>Verificación de Código</h2>
+        <Form
+          fields={fields}
+          onSubmit={handleFormSubmit}
+          buttonText='Enviar Código'
+        />
+      </div>
+    </>
   )
 }
 
