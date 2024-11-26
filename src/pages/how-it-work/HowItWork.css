@@ -1,0 +1,25 @@
+.how-it-work__container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 10px;
+}
+.how-it-work__container > h3 {
+  text-align: center;
+}
+
+.how-it-work__container > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.how-it-work__container > div > video {
+  width: 70%;
+}
+@media (max-width: 560px) {
+  .how-it-work__container > div > video {
+    width: 90%;
+  }
+}

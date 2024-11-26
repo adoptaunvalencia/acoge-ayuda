@@ -11,6 +11,7 @@ import NewPassword from './pages/Auth/new-password/NewPassword'
 import CreateOffer from './pages/create-offer/CreateOffer'
 import Collaborator from './pages/collaborators/Collaborator'
 import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
+import HowItWork from './pages/how-it-work/HowItWork'
 
 const App = () => {
   return (
@@ -23,6 +24,8 @@ const App = () => {
         <Route path='send-code' element={<SendCode />} />
         <Route path='new-password' element={<NewPassword />} />
         <Route path='privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='how-it-work' element={<HowItWork />} />
+        
         {/* <Route
           path='dashboard'
           element={
