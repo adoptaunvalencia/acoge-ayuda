@@ -52,7 +52,7 @@ const Footer = () => {
               Apoyanos👏🏻
             </a>
             <Link to='collaborators'>Colaboradores🔥</Link>
-            <InstallApp />
+            {/* <InstallApp /> */}
           </div>
           <div>
             <a
