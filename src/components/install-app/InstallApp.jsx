@@ -8,19 +8,22 @@ const InstallApp = () => {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   useEffect(() => {
     const handleBeforeInstallPrompt = (event) => {
-      console.log('beforeinstallprompt fired'); // Agrega este log
-      event.preventDefault();
-      setDeferredPrompt(event);
+      console.log('beforeinstallprompt fired') // Agrega este log
+      event.preventDefault()
+      setDeferredPrompt(event)
       setTimeout(() => {
-        setShowInstallPrompt(true);
-      }, 2000);
-    };
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-  
+        setShowInstallPrompt(true)
+      }, 2000)
+    }
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
-  }, []);
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt
+      )
+    }
+  }, [])
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
@@ -40,20 +43,23 @@ const InstallApp = () => {
   return (
     <>
       {showInstallPrompt && (
-        <button
+        <div
           className={`install-app ${showInstallPrompt && 'fadeIn'}`}
           onClick={handleInstallClick}
         >
-          <p>Instalar APP</p>
-          <img
-            src={logo}
-            alt='Adopta un Valenciano'
-            width='65'
-            loading='lazy'
-          />
-        </button>
-      )}
+          <p>¡Descarga nuestra aplicación ahora!</p>
 
+          <div>
+            <p>Instalar App</p>
+            <img
+              src={logo}
+              alt='Adopta un Valenciano'
+              width='35'
+              loading='lazy'
+            />
+          </div>
+        </div>
+      )}
     </>
   )
 }

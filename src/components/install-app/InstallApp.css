@@ -1,6 +1,26 @@
 .install-app {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  padding:5px;
+  border-bottom: 1px solid var(--text-secondary);
+  gap:10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.install-app >p {
+  font-style: italic;
+}
+.install-app > div {
+  display: flex;
+  align-items: center;
+  gap:5px;
+  background-color: var(--bg-light-gray);
+  padding: 5px;
+  color:var(--text-secondary);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.install-app > div:hover{
+  transform: scale(1.03);
 }
