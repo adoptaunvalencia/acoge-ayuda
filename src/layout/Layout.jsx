@@ -39,11 +39,6 @@ const Layout = () => {
 
   return (
     <>
-      {/* {load && (
-        <div className='spinner'>
-          <Spinner />
-        </div>
-      )} */}
       <InstallApp />
       <header>
         <Header isAuth={isAuth} user={user} />
