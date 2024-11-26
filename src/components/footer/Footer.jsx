@@ -52,6 +52,7 @@ const Footer = () => {
               Apoyanos👏🏻
             </a>
             <Link to='collaborators'>Colaboradores🔥</Link>
+            <InstallApp />
           </div>
           <div>
             <a
@@ -82,17 +83,8 @@ const Footer = () => {
               <img src={whatsapp} alt='whatsapp' width='24' />
             </a>
           </div>
-          <InstallApp />
         </div>
       </div>
-      {/*  <div className='footer-content-img'>
-        <img
-          style={{ cursor: 'pointer' }}
-          src={Logo}
-          alt='Adopta un Valenciano Logo'
-          onClick={handleScroll}
-        />
-      </div> */}
     </div>
   )
 }
