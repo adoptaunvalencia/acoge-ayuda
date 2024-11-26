@@ -170,7 +170,6 @@ const Card = ({ offer }) => {
       if (!response.ok) {
         showToast('error', result.message)
       } else {
-        //showToast('success', result.message)
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
           payload: offers_map.map((off) =>

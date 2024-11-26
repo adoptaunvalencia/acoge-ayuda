@@ -8,21 +8,19 @@ const InstallApp = () => {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   useEffect(() => {
     const handleBeforeInstallPrompt = (event) => {
-      event.preventDefault()
-      setDeferredPrompt(event)
+      console.log('beforeinstallprompt fired'); // Agrega este log
+      event.preventDefault();
+      setDeferredPrompt(event);
       setTimeout(() => {
-        setShowInstallPrompt(true)
-      }, 2000)
-    }
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-
+        setShowInstallPrompt(true);
+      }, 2000);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  
     return () => {
-      window.removeEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt
-      )
-    }
-  }, [])
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
@@ -43,7 +41,7 @@ const InstallApp = () => {
     <>
       {showInstallPrompt && (
         <button
-          className={`install-app ${!showInstallPrompt && 'fadeIn'}`}
+          className={`install-app ${showInstallPrompt && 'fadeIn'}`}
           onClick={handleInstallClick}
         >
           <p>Instalar APP</p>

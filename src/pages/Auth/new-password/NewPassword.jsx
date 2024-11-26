@@ -6,14 +6,18 @@ import './NewPassword.css'
 import { ReducerContext } from '../../../contexts/reducer.contexts/ReducerContext'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
+import Spinner from '../../../components/spinner/Spinner'
 
 const NewPassword = () => {
   const [responseMessage, setResponseMessage] = useState('')
-  const { dispatchLoad } = useContext(ReducerContext)
+  const {
+    dispatchLoad,
+    stateLoad: { load }
+  } = useContext(ReducerContext)
   const { handleLoginSubmit } = useContext(FunctionContext)
-  const {scroll, newPasswordRef} = useContext(RefContext)
+  const { scroll, newPasswordRef } = useContext(RefContext)
   const navigate = useNavigate()
-  const {showToast} = useContext(FunctionContext)
+  const { showToast } = useContext(FunctionContext)
 
   const { token } = useParams()
 
@@ -28,9 +32,9 @@ const NewPassword = () => {
   ]
   useEffect(() => {
     setTimeout(() => {
-        scroll(newPasswordRef)
-    }, 500);
-  },[])
+      scroll(newPasswordRef)
+    }, 500)
+  }, [])
 
   const handleFormSubmit = async (formData) => {
     try {
@@ -49,14 +53,21 @@ const NewPassword = () => {
   }
 
   return (
-    <div ref={newPasswordRef} className='new-password fadeIn'>
-      <h2>Restablecer Contraseña</h2>
-      <Form
-        fields={fields}
-        onSubmit={handleFormSubmit}
-        buttonText='Restablecer Contraseña'
-      />
-    </div>
+    <>
+      {load && (
+        <div className='spinner'>
+          <Spinner />
+        </div>
+      )}
+      <div ref={newPasswordRef} className='new-password fadeIn'>
+        <h2>Restablecer Contraseña</h2>
+        <Form
+          fields={fields}
+          onSubmit={handleFormSubmit}
+          buttonText='Restablecer Contraseña'
+        />
+      </div>
+    </>
   )
 }
 

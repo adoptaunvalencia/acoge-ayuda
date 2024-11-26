@@ -5,6 +5,7 @@ import Form from '../../../components/form-group/Form'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
 import './login.css'
+import Spinner from '../../../components/spinner/Spinner'
 
 const Login = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -40,15 +41,22 @@ const Login = () => {
   }, [])
 
   return (
-    <div ref={loginRef} className='login-form fadeIn'>
-      <h2>Iniciar Sesión</h2>
-      <Form
-        fields={fields}
-        onSubmit={handleLoginSubmit}
-        buttonText='Iniciar Sesión'
-      />
-      <Link to='../forgot-password'>Restablecer contraseña</Link>
-    </div>
+    <>
+      {load && (
+        <div className='spinner'>
+          <Spinner />
+        </div>
+      )}
+      <div ref={loginRef} className='login-form fadeIn'>
+        <h2>Iniciar Sesión</h2>
+        <Form
+          fields={fields}
+          onSubmit={handleLoginSubmit}
+          buttonText='Iniciar Sesión'
+        />
+        <Link to='../forgot-password'>Restablecer contraseña</Link>
+      </div>
+    </>
   )
 }
 

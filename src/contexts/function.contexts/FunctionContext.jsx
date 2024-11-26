@@ -30,14 +30,6 @@ export const FunctionProvider = ({ children }) => {
   })
   const [showPopup, setShowPopup] = useState(false)
   const [filteredOffers, setFilteredOffers] = useState([])
-  /*   const [categorizedOffers, setCategorizedOffers] = useState({
-    all: [],
-    accommodation: [],
-    hygiene: [],
-    food: [],
-    pet_fostering: [],
-    my_offers:[]
-  }) */
   const [activeOffer, setActiveOffer] = useState({})
 
   const {
@@ -94,14 +86,14 @@ export const FunctionProvider = ({ children }) => {
     } finally {
       setTimeout(() => {
         dispatchLoad({ type: 'LOAD_FALSE' })
-      }, 1000)
+      }, 1500)
     }
   }
 
   const getOffers = async () => {
+    dispatchLoad({ type: 'LOAD_TRUE' })
     try {
       const offersMap = await fetchAuth(urlAPi.offersMap, {}, 'GET', existToken)
-
       if (offersMap?.data?.offers) {
         dispatchOffer({
           type: 'SET_OFFERS_MAP',
@@ -111,6 +103,10 @@ export const FunctionProvider = ({ children }) => {
     } catch (error) {
       localStorage.removeItem('AUTH_VALIDATE_USER_TOKEN')
       console.error('Error loading offers:', error.message)
+    } finally {
+      setTimeout(() => {
+        dispatchLoad({ type: 'LOAD_FALSE' })
+      }, 1500)
     }
   }
 
@@ -179,7 +175,6 @@ export const FunctionProvider = ({ children }) => {
     },
     [offers_map, userLocation]
   )
-
 
   const handleFilterMyOffers = () => {
     if (isAuth) {
