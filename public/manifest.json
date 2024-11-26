@@ -2,6 +2,7 @@
   "id": "/",
   "short_name": "Adopta-un-Valenciano",
   "name": "Adopta-un-Valenciano",
+  "description": "Conectamos personas dispuestas a ayudar con aquellos que lo necesitan.",
   "icons": [
     {
       "src": "/images/logo.png",
@@ -27,5 +28,8 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "lang": "es"
 }
