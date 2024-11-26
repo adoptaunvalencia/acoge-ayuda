@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { FunctionContext } from '../contexts/function.contexts/FunctionContext'
 import Modal from '../components/modal/Modal'
 import WelcomePopUp from '../components/welcome-pop-up/WelcomePopUp'
+import InstallApp from '../components/install-app/InstallApp'
 
 const Layout = () => {
   const {
@@ -38,11 +39,7 @@ const Layout = () => {
 
   return (
     <>
-      {/* {load && (
-        <div className='spinner'>
-          <Spinner />
-        </div>
-      )} */}
+      <InstallApp />
       <header>
         <Header isAuth={isAuth} user={user} />
       </header>
