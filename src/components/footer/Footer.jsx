@@ -44,13 +44,14 @@ const Footer = () => {
           <div>
             <h5>Enlaces de interés:</h5>
             <Link to='privacy-policy'>Politicas de privacidad🤓</Link>
-            <a
+            <Link to='how-it-work'>Como funciona❤️</Link>
+            {/* <a
               href='https://gofund.me/99592a71'
               rel='noopener noreferrer'
               target='_blank'
             >
               Apoyanos👏🏻
-            </a>
+            </a> */}
             <Link to='collaborators'>Colaboradores🔥</Link>
             {/* <InstallApp /> */}
           </div>
