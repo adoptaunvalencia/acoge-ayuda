@@ -5,7 +5,7 @@ export const collaborators = [
     urlLinkedin: 'https://www.linkedin.com/in/daniele-mazzola',
     urlLinkedinImage:
       'https://res.cloudinary.com/dylazw28d/image/upload/v1731840619/Colllaborators/s3eo5fqs38uufmwgjgkp.jpg',
-    rol: 'Full-Stack Team Lead & Product Manager',
+    rol: 'Coordinador del proyecto y responsable',
     responsable: 'si'
   },
   {
@@ -24,6 +24,15 @@ export const collaborators = [
     urlLinkedinImage:
       'https://res.cloudinary.com/dylazw28d/image/upload/v1731840621/Colllaborators/zti0qcsso80enahawzmr.jpg',
     rol: 'Desarrollo Frontend | Backend',
+    responsable: 'no'
+  },
+  {
+    name: 'Alberto González Martínez',
+    country: 'España',
+    urlLinkedin: 'https://www.linkedin.com/in/albertogonzalezmartinez/',
+    urlLinkedinImage:
+      'https://res.cloudinary.com/dylazw28d/image/upload/v1731840619/Colllaborators/rbgx3cdaoikriuiphqud.jpg',
+    rol: 'Desarrollo Frontend',
     responsable: 'no'
   },
   {
@@ -70,16 +79,6 @@ export const collaborators = [
     urlLinkedinImage:
       'https://res.cloudinary.com/dylazw28d/image/upload/v1731840619/Colllaborators/tugzwypwprmoofy249jq.jpg',
     rol: 'Diseño UX/UI',
-    responsable: 'no'
-  },
-
-  {
-    name: 'Alberto González Martínez',
-    country: 'España',
-    urlLinkedin: 'https://www.linkedin.com/in/albertogonzalezmartinez/',
-    urlLinkedinImage:
-      'https://res.cloudinary.com/dylazw28d/image/upload/v1731840619/Colllaborators/rbgx3cdaoikriuiphqud.jpg',
-    rol: 'Desarrollo Frontend',
     responsable: 'no'
   },
   {
