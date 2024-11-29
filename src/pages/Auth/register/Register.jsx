@@ -5,6 +5,7 @@ import Form from '../../../components/form-group/Form'
 import './Register.css'
 import { FunctionContext } from '../../../contexts/function.contexts/FunctionContext'
 import { RefContext } from '../../../contexts/ref.context/RefContext'
+import Spinner from '../../../components/spinner/Spinner'
 
 const Register = () => {
   const [responseMessage, setResponseMessage] = useState('')
@@ -45,20 +46,29 @@ const Register = () => {
 
   useEffect(() => {
     setTimeout(() => {
-        scroll(registerRef)
-    }, 500);
-  },[])
+      scroll(registerRef)
+    }, 500)
+  }, [])
 
   return (
-    <div ref={registerRef} className='register-form fadeIn'>
-      <h2>Registro de Usuario</h2>
-      <Form
-        fields={fields}
-        onSubmit={handleRegisterFormSubmit}
-        buttonText='Registrarse'
-      />
-      {responseMessage && <p className='response-message'>{responseMessage}</p>}
-    </div>
+    <>
+      {load && (
+        <div className='spinner'>
+          <Spinner />
+        </div>
+      )}
+      <div ref={registerRef} className='register-form fadeIn'>
+        <h2>Registro de Usuario</h2>
+        <Form
+          fields={fields}
+          onSubmit={handleRegisterFormSubmit}
+          buttonText='Registrarse'
+        />
+        {responseMessage && (
+          <p className='response-message'>{responseMessage}</p>
+        )}
+      </div>
+    </>
   )
 }
 
