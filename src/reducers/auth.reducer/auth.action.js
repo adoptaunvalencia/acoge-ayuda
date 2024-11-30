@@ -18,7 +18,7 @@ export const registerUser = async (formData, dispatchLoad, showToast) => {
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    }, 300)
   }
 }
 export const loginUser = async (formData, dispatchLoad, showToast) => {
@@ -36,7 +36,7 @@ export const loginUser = async (formData, dispatchLoad, showToast) => {
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    }, 300)
   }
 }
 
@@ -55,7 +55,7 @@ export const forgotPassword = async (formData, dispatchLoad, showToast) => {
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    }, 300)
   }
 }
 
@@ -76,7 +76,7 @@ export const verifyCode = async (formData, dispatchLoad, showToast) => {
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    }, 300)
   }
 }
 
@@ -102,7 +102,7 @@ export const resetPassword = async (
   } finally {
     setTimeout(() => {
       dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    }, 300)
   }
 }
 
@@ -118,8 +118,6 @@ export const fetchUser = async (formData, dispatchLoad, token) => {
   } catch (error) {
     showToast('error', error.message)
   } finally {
-    setTimeout(() => {
-      dispatchLoad({ type: 'LOAD_FALSE' })
-    }, 1000)
+    dispatchLoad({ type: 'LOAD_FALSE' })
   }
 }

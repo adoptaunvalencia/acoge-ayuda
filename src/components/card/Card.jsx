@@ -212,7 +212,7 @@ const Card = ({ offer }) => {
             <span>autor</span>
           </div>
         )}
-        {!load && (
+        {load && (
           <Modal>
             <Spinner />
           </Modal>
