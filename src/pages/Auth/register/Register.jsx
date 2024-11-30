@@ -41,7 +41,8 @@ const Register = () => {
       type: 'text',
       required: true
     },
-    { name: 'password', label: 'Contraseña', type: 'password', required: true }
+    { name: 'password', label: 'Contraseña', type: 'password', required: true },
+    { name: 'politics', label: 'Acepto los acuerdos de Politicas de Privacidad', type: 'checkbox', required: true }
   ]
 
   useEffect(() => {

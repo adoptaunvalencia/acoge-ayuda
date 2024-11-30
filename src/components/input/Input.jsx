@@ -11,7 +11,7 @@ const Input = (props) => {
     required = false,
     className = '',
     maxLength = 256,
-    disabled=false,
+    disabled = false,
     onChange
   } = props
 
@@ -20,9 +20,13 @@ const Input = (props) => {
   }
 
   return (
-    <div className={`form-input ${className}`}>
+    <div
+      className={`${className} ${
+        type === 'checkbox' ? 'form__checkbox' : 'form-input'
+      }`}
+    >
       <input
-        className={`input`}
+        className={` ${type === 'checkbox' ? 'input__checkbox' : 'input'}`}
         id={id}
         name={name}
         type={type}
@@ -30,7 +34,10 @@ const Input = (props) => {
         maxLength={maxLength}
         disabled={disabled}
       />
-      <label className='input-label' htmlFor={id}>
+      <label
+        className={`${type === 'checkbox' ? 'label__checkbox' : 'input-label'}`}
+        htmlFor={id}
+      >
         {label}
       </label>
       <span className='input-tooltip'>{tooltip}</span>

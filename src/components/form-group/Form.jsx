@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Input from '../input/Input'
 import Textarea from '../textarea/Textarea'
 import Button from '../button/Button'
@@ -39,13 +40,13 @@ const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!validateForm()) return
-    
+
     onSubmit(formData)
   }
 
   return (
     <form onSubmit={handleSubmit} className='form'>
-      {fields.map(({ label, name, type }) => (
+      {fields.map(({ label, name, type, required }) => (
         <div key={name} className='form-input'>
           {type === 'textarea' ? (
             <Textarea
@@ -57,15 +58,25 @@ const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
               rows={6}
             />
           ) : (
-            <Input
-              type={type}
-              label={label}
-              name={name}
-              value={formData[name] || ''}
-              onChange={handleInputChange(name)}
-            />
+            <>
+              <Input
+                type={type}
+                label={label}
+                name={name}
+                value={formData[name] || ''}
+                onChange={handleInputChange(name)}
+                required={required}
+              />
+              {errors[name] && <div className='error-text'>{errors[name]}</div>}
+              {type === 'checkbox' && name === 'politics' && (
+                <div className='margin__bottom'>
+                  <Link to='../privacy-policy'>
+                    Ver las Politicas de privacidad🤓
+                  </Link>
+                </div>
+              )}
+            </>
           )}
-          {errors[name] && <div className='error-text'>{errors[name]}</div>}
         </div>
       ))}
       <Button
