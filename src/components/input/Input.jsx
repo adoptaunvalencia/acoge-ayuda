@@ -40,7 +40,7 @@ const Input = (props) => {
       >
         {label}
       </label>
-      <span className='input-tooltip'>{tooltip}</span>
+      {type !== 'checkbox' && <span className='input-tooltip'>{tooltip}</span>}
     </div>
   )
 }
