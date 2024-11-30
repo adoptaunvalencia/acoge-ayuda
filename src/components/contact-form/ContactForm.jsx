@@ -4,31 +4,37 @@ import Form from '../form-group/Form'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
 import Spinner from '../spinner/Spinner'
 import './ContactForm.css'
+import Modal from '../modal/Modal'
 
 const ContactForm = () => {
   const {
-    stateLoad: { load },
+    stateLoad: { load }
   } = useContext(ReducerContext)
 
   const { handleFormSubmit } = useContext(FunctionContext)
 
   // Uso de useMemo para evitar recrear los campos en cada renderizado
-  const fields = useMemo(() => [
-    { name: 'subject', label: 'Asunto', type: 'text', required: true },
-    {
-      name: 'body',
-      label: 'Mensaje',
-      type: 'textarea',
-      maxLenght: 256,
-      rows: 4,
-      required: true
-    }
-  ], [])
+  const fields = useMemo(
+    () => [
+      { name: 'subject', label: 'Asunto', type: 'text', required: true },
+      {
+        name: 'body',
+        label: 'Mensaje',
+        type: 'textarea',
+        maxLenght: 256,
+        rows: 4,
+        required: true
+      }
+    ],
+    []
+  )
 
   return (
     <>
       {load ? (
-        <Spinner />
+        <Modal>
+          <Spinner />
+        </Modal>
       ) : (
         <div className='contact-form__container'>
           <h2 className='contact-form__title'>Contactar</h2>
