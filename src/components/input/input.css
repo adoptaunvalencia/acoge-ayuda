@@ -39,3 +39,18 @@
   transform: none;
   background: none;
 }
+.form__checkbox{
+  width:100%;
+  display: flex;
+  gap:10px;
+  flex-direction: row;
+  align-items: baseline;
+  
+}
+.input__checkbox{
+
+}
+.label__checkbox{
+  width:100%;
+  background-color: white;
+}
