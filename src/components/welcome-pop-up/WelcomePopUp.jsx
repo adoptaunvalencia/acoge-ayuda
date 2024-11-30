@@ -59,6 +59,9 @@ const WelcomePopUp = () => {
               />
             </Link>
           </div>
+          <Link to='privacy-policy' onClick={handleCreateCount}>
+            Politicas de Privacidad
+          </Link>
         </section>
       )}
     </>
