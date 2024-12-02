@@ -33,6 +33,8 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
         city: user.city,
         address: user.address,
         postalcode: user.postalcode,
+        lat: user.lat,
+        lon: user.lon
       }));
     } else {
       setFormData((prev) => ({
@@ -40,6 +42,8 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
         city: "",
         address: "",
         postalcode: "",
+        lat:'',
+        lon: ''
       }));
     }
   };
