@@ -23,6 +23,7 @@ const CreateOfferForm = ({ fields, user, onSubmit, buttonText }) => {
     pet_fostering: "Cuidado de Mascotas",
     other: "Otros",
   };
+  
 
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
