@@ -11,6 +11,8 @@ import Spinner from '../spinner/Spinner'
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId, status } = offer
   const [statusOffer, setStatusOffer] = useState(status)
+  const [activeOffer, setActiveOffer] = useState({})
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const {
     stateIsAuth: { user, isAuth },
     dispatchOffer,
@@ -20,10 +22,10 @@ const Card = ({ offer }) => {
   } = useContext(ReducerContext)
   const {
     existToken,
-    isModalOpen,
-    setIsModalOpen,
-    activeOffer,
-    setActiveOffer,
+    /* isModalOpen,
+    setIsModalOpen, */
+    /* activeOffer,
+    setActiveOffer, */
     showToast,
     setMyOffers,
     myOffers
@@ -36,18 +38,15 @@ const Card = ({ offer }) => {
     lat: offer.location.coordinates[1],
     lon: offer.location.coordinates[0]
   })
-  const handleOpenModal = useCallback(
-    (offer) => {
-      setActiveOffer(offer)
-      setIsModalOpen(true)
-    },
-    [setIsModalOpen, setActiveOffer]
-  )
+  const handleOpenModal = (offer) => {
+    setActiveOffer(offer)
+    setIsModalOpen(true)
+  }
 
-  const handleCloseModal = useCallback(() => {
+  const handleCloseModal = () => {
     setIsModalOpen(false)
     setActiveOffer(null)
-  }, [setIsModalOpen, setActiveOffer])
+  }
 
   const handleUpdateOffer = async (offer) => {
     dispatchLoad({ type: 'LOAD_TRUE' })
@@ -217,14 +216,14 @@ const Card = ({ offer }) => {
             <Spinner />
           </Modal>
         )}
-        {activeOffer && (
-          <Modal
-            isModalOpen={isModalOpen}
-            handleCloseModal={() => setIsModalOpen(false)}
-          >
-            <ContactForm />
-          </Modal>
-        )}
+
+        <Modal
+          isModalOpen={isModalOpen}
+          handleCloseModal={handleCloseModal}
+        >
+          <ContactForm />
+        </Modal>
+
         {isAuth && (
           <div className='card__user-info show'>
             {userId?.avatar && <img src={userId.avatar} alt='User avatar' />}
