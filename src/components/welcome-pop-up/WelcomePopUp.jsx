@@ -32,7 +32,7 @@ const WelcomePopUp = () => {
             <p className='welcome__explain-title'>{texts.explainTextTitle1}</p>
             <p className='welcome__explain-text'>
               {texts.explainTextDescription1}
-            </p>
+            </p> 
           </div>
           <div className='welcome__explain-container'>
             <p className='welcome__explain-title'>{texts.explainTextTitle2}</p>
