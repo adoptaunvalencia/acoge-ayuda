@@ -13,7 +13,6 @@ const ContactForm = () => {
 
   const { handleFormSubmit } = useContext(FunctionContext)
 
-  // Uso de useMemo para evitar recrear los campos en cada renderizado
   const fields = useMemo(
     () => [
       { name: 'subject', label: 'Asunto', type: 'text', required: true },
