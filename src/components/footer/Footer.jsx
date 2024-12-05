@@ -46,6 +46,7 @@ const Footer = () => {
             <Link to='privacy-policy'>Politicas de privacidad🤓 <span className='update__privacy-policy'>Actualizado</span></Link>
             <Link to='how-it-work'>Como funciona❤️</Link>
             <Link to='collaborators'>Colaboradores🔥</Link>
+            {/* <Link to='sponsors'>Patrocinadores🔥</Link> */}
             {/* <InstallApp /> */}
           </div>
           <div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SponsorsPage.css";
+import Button from "../../components/button/Button";
 
 const SponsorsPage = () => {
   const [sponsors, setSponsors] = useState([]);
@@ -67,6 +68,7 @@ const SponsorsPage = () => {
   return (
     <div className="sponsors-page">
       <h1>Nuestros Patrocinadores</h1>
+      {/* <Button text='Add Sponsor' borderRadius='50px' action={() => setShowForm(true)} /> */}
       <button onClick={() => setShowForm(true)}>Agregar Patrocinador</button>
       <div className="sponsors-list">
         {sponsors.map((sponsor) => (
