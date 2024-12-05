@@ -1,5 +1,5 @@
 import React from "react";
-import "./SponsorsPage.css"; // Archivo CSS para estilos
+import "../../pages/Sponsors/SponsorsPage.css"; // Archivo CSS para estilos
 
 // Datos de ejemplo (pueden venir de una API)
 const sponsors = [
@@ -23,7 +23,7 @@ const sponsors = [
   },
 ];
 
-const SponsorsPage = () => {
+const SponsorsCard = () => {
   return (
     <div className="sponsors-page">
       <h1>Nuestros Patrocinadores</h1>
@@ -41,4 +41,4 @@ const SponsorsPage = () => {
   );
 };
 
-export default SponsorsPage;
+export default SponsorsCard;

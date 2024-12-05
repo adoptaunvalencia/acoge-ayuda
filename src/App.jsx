@@ -12,6 +12,8 @@ import CreateOffer from './pages/create-offer/CreateOffer'
 import Collaborator from './pages/collaborators/Collaborator'
 import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
 import HowItWork from './pages/how-it-work/HowItWork'
+import SponsorsCard from './components/Sponsor/SponsorCard'
+import NotFound from './pages/404/NotFound'
 
 const App = () => {
   return (
@@ -25,7 +27,15 @@ const App = () => {
         <Route path='new-password' element={<NewPassword />} />
         <Route path='privacy-policy' element={<PrivacyPolicy />} />
         <Route path='how-it-work' element={<HowItWork />} />
-        
+        {/* <Route
+          path='sponsors'
+          element={
+            <ProtectedRoute>
+              <SponsorsCard />
+            </ProtectedRoute>
+          }
+        /> */}
+
         {/* <Route
           path='dashboard'
           element={
@@ -43,7 +53,7 @@ const App = () => {
           }
         />
         <Route path='collaborators' element={<Collaborator />} />
-        <Route path='*' element={<Home />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
   )
