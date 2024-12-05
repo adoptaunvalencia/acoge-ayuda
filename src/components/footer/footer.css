@@ -1,21 +1,28 @@
 .footer-container {
   background-color: var(--bg-lighter-gray);
   width: 100%;
-  padding:  80px;
+  padding: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap:40px;
+  gap: 40px;
 }
 
 .footer-text {
   display: flex;
   flex-direction: column;
-  gap:40px;
+  gap: 40px;
 }
 
-.footer-text>p{
-  color:rgb(92, 92, 92);
+.footer-text > p {
+  color: rgb(92, 92, 92);
+}
+
+.update__privacy-policy {
+  font-size: 14px;
+  color: var(--text-primary-light);
+  text-shadow: 0 0 10px #ff0000, 0 0 10px #ff0000, 0 0 15px #f80101,
+    0 0 20px rgba(0, 255, 0, 0.7);
 }
 
 .footer-content-img {
@@ -38,56 +45,54 @@
   transform: scale(1.1);
 }
 
-.footer-content-link{
+.footer-content-link {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
 }
-.footer-content-link>div>h5{
+.footer-content-link > div > h5 {
   font-size: 18px;
   font-weight: 400;
-  color:rgb(92, 92, 92);
+  color: rgb(92, 92, 92);
 }
-.footer-content-link>div>a{
+.footer-content-link > div > a {
   transition: all 0.3s ease-in-out;
-  color:var(--text-primary)!important;
+  color: var(--text-primary) !important;
   font-weight: bold;
 }
-.footer-content-link>div>a:hover{
+.footer-content-link > div > a:hover {
   transform: translatey(3px);
 }
-.footer-content-link>div:first-child{
+.footer-content-link > div:first-child {
   display: flex;
   flex-direction: column;
-  gap:10px
+  gap: 10px;
 }
-.footer-content-link>div:last-child{
+.footer-content-link > div:last-child {
   display: flex;
   gap: 14px;
   align-items: end;
 }
 .footer-content-link > div > a {
-  color:var(--text-tertiary);
+  color: var(--text-tertiary);
   transition: all 0.3s;
 }
-.footer-content-link > a:hover{
+.footer-content-link > a:hover {
   transform: translateX(2px);
 }
 
-@media (max-width:560px) {
-  .footer-container{
+@media (max-width: 560px) {
+  .footer-container {
     padding: 40px 20px;
   }
-
 }
 
-@media (max-width:353px) { 
+@media (max-width: 353px) {
   .footer-content-link {
     flex-direction: column;
   }
-  .footer-content-link>div:last-child{
+  .footer-content-link > div:last-child {
     justify-content: end;
   }
-
 }
