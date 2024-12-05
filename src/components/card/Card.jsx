@@ -22,10 +22,6 @@ const Card = ({ offer }) => {
   } = useContext(ReducerContext)
   const {
     existToken,
-    /* isModalOpen,
-    setIsModalOpen, */
-    /* activeOffer,
-    setActiveOffer, */
     showToast,
     setMyOffers,
     myOffers
