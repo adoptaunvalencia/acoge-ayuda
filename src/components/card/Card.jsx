@@ -217,7 +217,7 @@ const Card = ({ offer }) => {
           isModalOpen={isModalOpen}
           handleCloseModal={handleCloseModal}
         >
-          <ContactForm />
+          <ContactForm offer={offer} />
         </Modal>
 
         {isAuth && (

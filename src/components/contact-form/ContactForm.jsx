@@ -6,7 +6,7 @@ import Spinner from '../spinner/Spinner'
 import './ContactForm.css'
 import Modal from '../modal/Modal'
 
-const ContactForm = () => {
+const ContactForm = (offer) => {
   const {
     stateLoad: { load }
   } = useContext(ReducerContext)
@@ -44,6 +44,7 @@ const ContactForm = () => {
             fields={fields}
             onSubmit={handleFormSubmit}
             buttonText='Enviar email'
+            offer={offer}
           />
         </div>
       )}
