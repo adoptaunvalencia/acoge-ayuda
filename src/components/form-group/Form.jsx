@@ -5,7 +5,7 @@ import Textarea from '../textarea/Textarea'
 import Button from '../button/Button'
 import './Form.css'
 
-const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
+const Form = ({ fields, onSubmit, buttonText, initialValues = {}, offer={} }) => {
   const [formData, setFormData] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
@@ -41,7 +41,7 @@ const Form = ({ fields, onSubmit, buttonText, initialValues = {} }) => {
     e.preventDefault()
     if (!validateForm()) return
 
-    onSubmit(formData)
+    onSubmit({formData, offer})
   }
 
   return (
