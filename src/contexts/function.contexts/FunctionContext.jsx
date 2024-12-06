@@ -28,9 +28,9 @@ export const FunctionProvider = ({ children }) => {
     longitude: null,
     radius: null
   })
+  const [activeOffer, setActiveOffer] = useState({})
   const [showPopup, setShowPopup] = useState(false)
   const [filteredOffers, setFilteredOffers] = useState([])
-  const [activeOffer, setActiveOffer] = useState({})
 
   const {
     stateOffer: { offers, offers_map },
@@ -208,9 +208,12 @@ export const FunctionProvider = ({ children }) => {
 
   const handleCreateOffer = () => {}
 
-  const handleFormSubmit = async (formData) => {
+  const handleFormSubmit = async (props) => {
+    const {formData} = props
+    console.log(props);
     try {
-      const userReceiveId = activeOffer.userId._id
+      const userReceiveId = props.offer.offer.userId._id
+      
       const userReceiveData = await fetchUser(
         userReceiveId,
         dispatchLoad,
