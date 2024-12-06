@@ -11,7 +11,7 @@ import Spinner from '../spinner/Spinner'
 const Card = ({ offer }) => {
   const { title, description, city, typeOffer, userId, status } = offer
   const [statusOffer, setStatusOffer] = useState(status)
-  const [activeOffer, setActiveOffer] = useState({})
+  const [activeOffe, setActiveOffe] = useState({})
   const [isModalOpen, setIsModalOpen] = useState(false)
   const {
     stateIsAuth: { user, isAuth },
@@ -24,7 +24,8 @@ const Card = ({ offer }) => {
     existToken,
     showToast,
     setMyOffers,
-    myOffers
+    myOffers,
+    activeOffer, setActiveOffer
   } = useContext(FunctionContext)
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
@@ -36,12 +37,13 @@ const Card = ({ offer }) => {
   })
   const handleOpenModal = (offer) => {
     setActiveOffer(offer)
+    setActiveOffe(offer)
     setIsModalOpen(true)
   }
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setActiveOffer(null)
+    setActiveOffe(null)
   }
 
   const handleUpdateOffer = async (offer) => {
