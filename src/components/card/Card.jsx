@@ -219,7 +219,7 @@ const Card = ({ offer }) => {
           isModalOpen={isModalOpen}
           handleCloseModal={handleCloseModal}
         >
-          <ContactForm />
+          <ContactForm setIsModalOpen={setIsModalOpen} />
         </Modal>
 
         {isAuth && (
