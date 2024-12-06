@@ -229,6 +229,7 @@ export const FunctionProvider = ({ children }) => {
         showToast
       )
       setIsModalOpen(false)
+      return data
     } catch (error) {
       showToast('error', error.message)
     }
