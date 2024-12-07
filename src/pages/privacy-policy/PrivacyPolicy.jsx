@@ -76,7 +76,31 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>5. ¿Cuánto tiempo guardamos tus datos?</h3>
+          <h3>5. Transmisión de Datos a los creadores de ofertas de asistencia.</h3>
+          <p>
+            Cuando un usuario solicita ayuda o se inscribe en una oferta de
+            asistencia ofrecida a través de nuestra plataforma, los datos
+            personales proporcionados, como el número de teléfono y el correo
+            electrónico, serán compartidos con el creador de la oferta de
+            asistencia correspondiente. Esta transferencia de datos es necesaria
+            para facilitar la comunicación directa y garantizar la prestación
+            del servicio solicitado.
+          </p>
+          <p>
+            Nos aseguramos de que los creadores de ofertas se comprometan a
+            tratar los datos personales conforme a la normativa de protección de
+            datos vigente y exclusivamente para los fines relacionados con la
+            oferta en cuestión. No obstante, no asumimos responsabilidad por el
+            uso indebido de los datos por parte de los creadores una vez
+            compartidos.
+          </p>
+          <p>
+            Si tienes dudas o necesitas más información sobre cómo se comparten
+            tus datos, por favor, contáctanos a través de <strong>adoptaunvalencia@gmail.com</strong>.
+          </p>
+        </div>
+        <div className='section'>
+          <h3>6. ¿Cuánto tiempo guardamos tus datos?</h3>
           <p>
             Guardaremos tus datos únicamente mientras sea necesario para cumplir
             con los objetivos de la plataforma. No queremos nada más que
@@ -84,7 +108,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>6. Enlaces a Sitios Externos</h3>
+          <h3>7. Enlaces a Sitios Externos</h3>
           <p>
             Como parte de nuestra misión de colaboración, es posible que incluya
             un enlace a somsolidaritat.gva.es en nuestra plataforma. Si decides
@@ -94,7 +118,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>7. Publicaciones No Permitidas</h3>
+          <h3>8. Publicaciones No Permitidas</h3>
           <p>
             No está permitido publicar contenido relacionado con drogas, armas o
             cualquier producto que pueda afectar la seguridad o el bienestar de
@@ -102,19 +126,20 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>8. Responsabilidad sobre Comentarios</h3>
+          <h3>9. Responsabilidad sobre Comentarios</h3>
           <p>
             No nos hacemos responsables de los comentarios realizados por los
             usuarios. Sin embargo, si nuestros moderadores detectan contenido
             sospechoso o inapropiado, este será eliminado y el usuario
             responsable, suspendido. Además, como usuario, también tienes la
             posibilidad de denunciar publicaciones inapropiadas enviando un
-            correo a <strong>adoptaunvalencia@gmail.com</strong> con la información
-            correspondiente y una captura de pantalla de la publicación.
+            correo a <strong>adoptaunvalencia@gmail.com</strong> con la
+            información correspondiente y una captura de pantalla de la
+            publicación.
           </p>
         </div>
         <div className='section'>
-          <h3>9. Independencia Política</h3>
+          <h3>10. Independencia Política</h3>
           <p>
             Somos una plataforma independiente y no estamos vinculados a ningún
             partido político. Nuestra única misión es conectar a quienes
@@ -122,7 +147,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>10. Tus Derechos</h3>
+          <h3>11. Tus Derechos</h3>
           <p>
             Tienes derecho a solicitar acceso, modificación o eliminación de tu
             información en cualquier momento. Escríbenos a
