@@ -211,17 +211,16 @@ export const FunctionProvider = ({ children }) => {
   const handleFormSubmit = async (formData) => {
     try {
       const userReceiveId = activeOffer.userId._id
-      const userReceiveData = await fetchUser(
+      /* const userReceiveData = await fetchUser(
         userReceiveId,
         dispatchLoad,
         existToken
-      )
-
+      ) */
       const newEmail = {
-        ...formData,
-        userSend: user,
-        userReceive: userReceiveData
+        formData: formData,
+        offer: activeOffer,
       }
+      
       const data = await createEmail(
         newEmail,
         dispatchLoad,
