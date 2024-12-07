@@ -211,22 +211,21 @@ export const FunctionProvider = ({ children }) => {
   const handleFormSubmit = async (formData) => {
     try {
       const userReceiveId = activeOffer.userId._id
-      /* const userReceiveData = await fetchUser(
-        userReceiveId,
-        dispatchLoad,
-        existToken
-      ) */
       const newEmail = {
         formData: formData,
-        offer: activeOffer,
+        offer: activeOffer
       }
-      
       const data = await createEmail(
         newEmail,
         dispatchLoad,
         existToken,
         showToast
       )
+      const updateOffers = filteredOffers.filter(
+        (el) => el._id.toString() !== activeOffer._id.toString()
+      )
+      setFilteredOffers(updateOffers)
+      dispatchOffer({ type: 'SET_OFFERS_MAP', payload: updateOffers })
       setIsModalOpen(false)
       return data
     } catch (error) {
