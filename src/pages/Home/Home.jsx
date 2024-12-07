@@ -116,7 +116,7 @@ const Home = () => {
         </div>
       )}
       <div ref={homeRef} className='home__container-sections fadeIn'>
-        <Interiorista />
+        {/* <Interiorista /> */}
         <section className='home__container'>
           <div className='home__content-title'>
             <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
