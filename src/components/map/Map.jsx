@@ -47,7 +47,7 @@ export const Map = ({ offers }) => {
       />
 
       <LayerGroup>
-        {offers?.map((offer) => (
+        {offers?.filter(offer => offer.status !== false).map((offer) => (
           <CustomMarker
             key={offer._id}
             offer={offer}
