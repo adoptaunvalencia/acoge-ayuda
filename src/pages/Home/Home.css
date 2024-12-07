@@ -1,5 +1,4 @@
 .home__container-sections {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -49,7 +48,7 @@
   align-items: center;
   gap: 50px;
 }
-.home__my-offers>h3{
+.home__my-offers > h3 {
   text-align: center;
 }
 

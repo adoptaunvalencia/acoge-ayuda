@@ -9,6 +9,7 @@ import './Home.css'
 import Select from '../../components/select/Select'
 import { RefContext } from '../../contexts/ref.context/RefContext'
 import Spinner from '../../components/spinner/Spinner'
+import Interiorista from '../../components/reconstruction-action/Interiorista'
 
 const Home = () => {
   const {
@@ -114,8 +115,9 @@ const Home = () => {
           <Spinner />
         </div>
       )}
-      <div className='home__container-sections fadeIn'>
-        <section ref={homeRef} className='home__container'>
+      <div ref={homeRef} className='home__container-sections fadeIn'>
+        <Interiorista />
+        <section className='home__container'>
           <div className='home__content-title'>
             <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
           </div>
