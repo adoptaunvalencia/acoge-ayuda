@@ -73,7 +73,7 @@ export const collaborators = [
     responsable: 'no'
   },
   {
-    name: 'Cristina Verugo García',
+    name: 'Cristina Verdugo García',
     country: 'España',
     urlLinkedin: 'https://www.linkedin.com/in/cristina-verdugo',
     urlLinkedinImage:
