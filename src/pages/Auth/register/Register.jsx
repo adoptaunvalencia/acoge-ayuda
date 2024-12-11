@@ -26,21 +26,21 @@ const Register = () => {
       type: 'email',
       required: true,
       validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-    },
+    },/* 
     {
       name: 'birthDate',
       label: 'Fecha de Nacimiento',
       type: 'date',
-      required: true
-    },
-    { name: 'city', label: 'Ciudad', type: 'text', required: true },
+      required: false
+    }, */
+    /* { name: 'city', label: 'Ciudad', type: 'text', required: true },
     { name: 'address', label: 'Dirección', type: 'text', required: true },
     {
       name: 'postalcode',
       label: 'Código Postal',
       type: 'text',
       required: true
-    },
+    }, */
     { name: 'password', label: 'Contraseña', type: 'password', required: true },
     { name: 'politics', label: 'Acepto los acuerdos de Politicas de Privacidad', type: 'checkbox', required: true }
   ]

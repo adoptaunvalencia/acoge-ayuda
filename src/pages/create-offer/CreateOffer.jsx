@@ -41,11 +41,11 @@ const CreateOffer = () => {
       rows: 3,
       required: true
     },
-    {
+    /* {
       name: 'useUserAddress',
       label: 'Usar mi propia dirección',
       type: 'checkbox'
-    },
+    }, */
     { name: 'city', label: 'Ciudad', type: 'text', required: true },
     { name: 'address', label: 'Dirección', type: 'text', required: true },
     {
