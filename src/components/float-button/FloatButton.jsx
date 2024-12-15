@@ -11,6 +11,7 @@ const FloatButton = () => {
       <Link to='create-offer'>
         <Button
           icon={addIcon}
+          iconSixe='30'
           bgColor='var(--bg-primary-red)'
           padding='10px 10px'
           borderRadius='100%'
