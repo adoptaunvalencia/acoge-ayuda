@@ -277,11 +277,14 @@ export const FunctionProvider = ({ children }) => {
   const [showCookies, setShowCookies] = useState(false)
 
   const handleAcceptCookies = () => {
+    Cookies.set('PRIVACY-COOKIES-AUV', true, { expires: 7 })
+    setHasAcceptedCookies(true)
+    setShowCookies(false)
+  }
 
-      Cookies.set('PRIVACY-COOKIES-AUV', true, { expires: 7 })
-      setHasAcceptedCookies(true)
-      setShowCookies(false)
-    }
+  const handleRefuseCookies = () => {
+    setShowCookies(false)
+  }
 
   return (
     <FunctionContext.Provider
@@ -314,8 +317,11 @@ export const FunctionProvider = ({ children }) => {
         setMyOffers,
         localShow,
         handleAcceptCookies,
-        hasAcceptedCookies, setHasAcceptedCookies,
-        showCookies, setShowCookies
+        handleRefuseCookies,
+        hasAcceptedCookies,
+        setHasAcceptedCookies,
+        showCookies,
+        setShowCookies
       }}
     >
       {children}
