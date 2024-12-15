@@ -1,0 +1,35 @@
+.cookies__container{
+  background-color: var(--bg-light-red);
+  padding: 30px 10px;
+  position: fixed;
+  width:100%;
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  transition: all 2s;
+  z-index:4999;
+}
+
+.cookies__inactive{
+  bottom: -350px;
+}
+
+.cookies__active{
+  bottom:0px;
+
+}
+
+.cookies__content-information{
+  padding:10px;
+}
+.cookies__content-information >p{
+  color: var(--text-primary-light)
+}
+
+@media (max-width:636px){
+  .cookies__container{
+    flex-direction: column;
+    gap:20px;
+  }
+}

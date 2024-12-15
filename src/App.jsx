@@ -14,6 +14,7 @@ import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
 import HowItWork from './pages/how-it-work/HowItWork'
 import SponsorsCard from './components/Sponsor/SponsorCard'
 import NotFound from './pages/404/NotFound'
+import SettingPrivacy from './pages/setting-privacy/SettingPrivacy'
 
 const App = () => {
   return (
@@ -27,6 +28,8 @@ const App = () => {
         <Route path='new-password' element={<NewPassword />} />
         <Route path='privacy-policy' element={<PrivacyPolicy />} />
         <Route path='how-it-work' element={<HowItWork />} />
+        <Route path='ajustes-de-privacidad' element={<SettingPrivacy />} />
+        
         {/* <Route
           path='sponsors'
           element={

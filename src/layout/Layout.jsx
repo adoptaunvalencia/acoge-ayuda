@@ -13,6 +13,7 @@ import { FunctionContext } from '../contexts/function.contexts/FunctionContext'
 import Modal from '../components/modal/Modal'
 import WelcomePopUp from '../components/welcome-pop-up/WelcomePopUp'
 import InstallApp from '../components/install-app/InstallApp'
+import Cookie from '../components/cookies/Cookie'
 
 const Layout = () => {
   const {
@@ -70,6 +71,7 @@ const Layout = () => {
           </div>
         </div>
       )}
+      <Cookie />
     </>
   )
 }
