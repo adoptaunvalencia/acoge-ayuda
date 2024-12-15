@@ -99,6 +99,12 @@ button:hover {
   cursor: not-allowed;
   pointer-events: none;
 }
+.disabled {
+  background-color: var(--bg-medium-gray)!important;
+  color: var(--text-primary-light)!important;
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 hr {
   width: 100%;

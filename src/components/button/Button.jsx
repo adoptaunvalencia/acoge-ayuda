@@ -12,9 +12,11 @@ const Button = ({
   disabled = false,
   type = 'submit'
 }) => {
+  console.log(disabled);
+  
   return (
     <button
-      className='button-component'
+      className={`button-component ${disabled  && 'disabled'}`}
       onClick={action}
       disabled={disabled}
       type={type}

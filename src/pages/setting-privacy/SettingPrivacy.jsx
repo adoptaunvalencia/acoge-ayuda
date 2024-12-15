@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './SettingPrivacy.css'
 import { RefContext } from '../../contexts/ref.context/RefContext'
 import { FunctionContext } from '../../contexts/function.contexts/FunctionContext'
@@ -6,16 +6,16 @@ import Button from '../../components/button/Button'
 import { Link } from 'react-router-dom'
 
 const SettingPrivacy = () => {
+  const [isNecessaryCookie, setIsNecessaryCookie] = useState(true)
   const { scroll, cookiesSettings } = useContext(RefContext)
   const {
     handleAcceptCookies,
+    handleRefuseCookies,
     hasAcceptedCookies,
     setHasAcceptedCookies,
     showCookies,
     setShowCookies
   } = useContext(FunctionContext)
-
-  console.log(hasAcceptedCookies)
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,18 +38,41 @@ const SettingPrivacy = () => {
             expìración de 7 días.
           </p>
         </div>
+        <div className='setting__content-setting'>
+          <div className='setting__content-setting-title'>
+            <h4>Personalizar cookies</h4>
+          </div>
+          <div className='setting__content-setting-input'>
+            <input
+              type='checkbox'
+              checked={isNecessaryCookie}
+              onChange={() => setIsNecessaryCookie(!isNecessaryCookie)}
+            />
+            <label>
+              Cookies necesarias para ofrecerte la mejor experiencia de usuario
+              posible.
+            </label>
+          </div>
+        </div>
         <div className='setting__content-btn-confirm'>
           {!hasAcceptedCookies && (
             <div>
-            <p>¿Estas de acuerdo?</p>
-            <Button
-              text='Aceptar'
-              bgColor='var(--bg-primary-yellow)'
-              borderRadius='5px'
-              action={handleAcceptCookies}
-              type='button'
-            />
-
+              <p>¿Estas de acuerdo?</p>
+              <Button
+                text='Aceptar'
+                bgColor='var(--bg-primary-yellow)'
+                borderRadius='5px'
+                action={handleAcceptCookies}
+                type='button'
+                disabled={!isNecessaryCookie}
+              />
+              <Button
+                text='Rechazar'
+                bgColor='var(--bg-primary-yellow)'
+                borderRadius='5px'
+                action={handleRefuseCookies}
+                type='button'
+              />
             </div>
           )}
         </div>
