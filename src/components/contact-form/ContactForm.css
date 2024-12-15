@@ -2,16 +2,29 @@
   padding: 20px 40px;
   border-radius: var(--spacing-l);
   background: #ffffff;
-  text-align: center;
+  text-align: start;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+  gap: 20px;
+  max-height: 90svh;
+  overflow: auto;
 }
 
 .contact-form__title {
   font-size: var(--font-size-l);
   color: var(--bg-dark-gray);
   text-transform: uppercase;
+  text-align: center;
+}
+
+.contact-form__information {
+  font-size: 14px;
+  color: red;
+  font-weight: 600;
+}
+
+@media (max-width:500px){
+  .contact-form__container {
+    padding: 20px 10px;
+  }
 }
