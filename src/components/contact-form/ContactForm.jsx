@@ -5,6 +5,7 @@ import { FunctionContext } from '../../contexts/function.contexts/FunctionContex
 import Spinner from '../spinner/Spinner'
 import './ContactForm.css'
 import Modal from '../modal/Modal'
+import { Link } from 'react-router-dom'
 
 const ContactForm = ({ setIsModalOpen }) => {
   const {
@@ -42,11 +43,24 @@ const ContactForm = ({ setIsModalOpen }) => {
         <Spinner />
       ) : (
         <div className='contact-form__container'>
-          <h2 className='contact-form__title'>Contactar</h2>
-          <p>
-            Envía tu solicitud, y el creador de la oferta se pondrá en contacto
-            contigo muy pronto. ❤️
-          </p>
+          <div>
+            <h2 className='contact-form__title'>Contactar</h2>
+          </div>
+          <div>
+            <p>
+              Envía tu solicitud, y el creador de la oferta se pondrá en
+              contacto contigo muy pronto. ❤️
+            </p>
+          </div>
+          <div>
+            <i className='contact-form__information'>
+              Para facilitar la comunicación entre el solicitante y el creador
+              de la oferta, es necesario compartir tu correo electrónico y
+              número de teléfono. Al presionar "Contactar", confirmas tu
+              consentimiento para compartir estos datos. Para más información, visita nuestras <Link to='privacy-policy'>Politicas de Privacidad 'punto 5'.</Link>
+            </i>
+          </div>
+
           <Form
             fields={fields}
             onSubmit={sendFormHelp}
