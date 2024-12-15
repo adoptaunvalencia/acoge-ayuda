@@ -275,15 +275,22 @@ export const FunctionProvider = ({ children }) => {
     Cookies.get('PRIVACY-COOKIES-AUV') === 'true'
   )
   const [showCookies, setShowCookies] = useState(false)
+  const [isNecessaryCookie, setIsNecessaryCookie] = useState(true)
 
   const handleAcceptCookies = () => {
     Cookies.set('PRIVACY-COOKIES-AUV', true, { expires: 7 })
     setHasAcceptedCookies(true)
     setShowCookies(false)
+    setIsNecessaryCookie(true)
   }
-
+  
   const handleRefuseCookies = () => {
     setShowCookies(false)
+  }
+  
+  const handleChangeSetting = () => {
+    Cookies.set('PRIVACY-COOKIES-AUV', false)
+    setShowCookies(true)
   }
 
   return (
@@ -318,10 +325,12 @@ export const FunctionProvider = ({ children }) => {
         localShow,
         handleAcceptCookies,
         handleRefuseCookies,
+        handleChangeSetting,
         hasAcceptedCookies,
         setHasAcceptedCookies,
         showCookies,
-        setShowCookies
+        setShowCookies,
+        isNecessaryCookie, setIsNecessaryCookie
       }}
     >
       {children}
