@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import Cookies from 'js-cookie'
 import { ReducerContext } from '../reducer.contexts/ReducerContext'
 import { fetchAuth } from '../../services/services'
 import { fetchOffers } from '../../reducers/offers.reducer/offer.action'
@@ -270,6 +271,18 @@ export const FunctionProvider = ({ children }) => {
     isRegister()
   }, [])
 
+  const [hasAcceptedCookies, setHasAcceptedCookies] = useState(
+    Cookies.get('PRIVACY-COOKIES-AUV') === 'true'
+  )
+  const [showCookies, setShowCookies] = useState(false)
+
+  const handleAcceptCookies = () => {
+
+      Cookies.set('PRIVACY-COOKIES-AUV', true, { expires: 7 })
+      setHasAcceptedCookies(true)
+      setShowCookies(false)
+    }
+
   return (
     <FunctionContext.Provider
       value={{
@@ -299,7 +312,10 @@ export const FunctionProvider = ({ children }) => {
         setFilteredOffers,
         myOffers,
         setMyOffers,
-        localShow
+        localShow,
+        handleAcceptCookies,
+        hasAcceptedCookies, setHasAcceptedCookies,
+        showCookies, setShowCookies
       }}
     >
       {children}
