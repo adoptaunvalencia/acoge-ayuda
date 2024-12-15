@@ -23,6 +23,11 @@
   font-weight: 600;
 }
 
+.contact-form__link{
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 @media (max-width:500px){
   .contact-form__container {
     padding: 20px 10px;

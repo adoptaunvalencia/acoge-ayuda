@@ -57,7 +57,15 @@ const ContactForm = ({ setIsModalOpen }) => {
               Para facilitar la comunicación entre el solicitante y el creador
               de la oferta, es necesario compartir tu correo electrónico y
               número de teléfono. Al presionar "Contactar", confirmas tu
-              consentimiento para compartir estos datos. Para más información, visita nuestras <Link to='privacy-policy'>Politicas de Privacidad 'punto 5'.</Link>
+              consentimiento para compartir estos datos. Para más información,
+              visita nuestras{' '}
+              <Link to='privacy-policy' className='contact-form__link'>
+                Politicas de Privacidad 'punto 5'.
+              </Link>{' '}
+              ¿Que no puedes publicar?{' '}
+              <Link to='privacy-policy' className='contact-form__link'>
+                Politicas de Privacidad 'punto 8'.
+              </Link>
             </i>
           </div>
 

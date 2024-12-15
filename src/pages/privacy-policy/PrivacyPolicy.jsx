@@ -76,7 +76,9 @@ const PrivacyPolicy = () => {
           </p>
         </div>
         <div className='section'>
-          <h3>5. Transmisión de Datos a los creadores de ofertas de asistencia.</h3>
+          <h3>
+            5. Transmisión de Datos a los creadores de ofertas de asistencia.
+          </h3>
           <p>
             Cuando un usuario solicita ayuda o se inscribe en una oferta de
             asistencia ofrecida a través de nuestra plataforma, los datos
@@ -96,7 +98,8 @@ const PrivacyPolicy = () => {
           </p>
           <p>
             Si tienes dudas o necesitas más información sobre cómo se comparten
-            tus datos, por favor, contáctanos a través de <strong>adoptaunvalencia@gmail.com</strong>.
+            tus datos, por favor, contáctanos a través de{' '}
+            <strong>adoptaunvalencia@gmail.com</strong>.
           </p>
         </div>
         <div className='section'>
@@ -120,9 +123,10 @@ const PrivacyPolicy = () => {
         <div className='section'>
           <h3>8. Publicaciones No Permitidas</h3>
           <p>
-            No está permitido publicar contenido relacionado con drogas, armas o
-            cualquier producto que pueda afectar la seguridad o el bienestar de
-            nuestros usuarios.
+            No se permite la publicación de ofertas de asistencia relacionadas
+            con drogas, armas o cualquier otro producto que pueda comprometer la
+            seguridad o el bienestar de nuestros usuarios, ni la solicitud de
+            ayudas económicas.
           </p>
         </div>
         <div className='section'>
