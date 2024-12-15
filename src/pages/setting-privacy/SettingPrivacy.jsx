@@ -6,15 +6,17 @@ import Button from '../../components/button/Button'
 import { Link } from 'react-router-dom'
 
 const SettingPrivacy = () => {
-  const [isNecessaryCookie, setIsNecessaryCookie] = useState(true)
+  
   const { scroll, cookiesSettings } = useContext(RefContext)
   const {
     handleAcceptCookies,
     handleRefuseCookies,
+    handleChangeSetting,
     hasAcceptedCookies,
     setHasAcceptedCookies,
     showCookies,
-    setShowCookies
+    setShowCookies,
+    isNecessaryCookie, setIsNecessaryCookie
   } = useContext(FunctionContext)
 
   useEffect(() => {
@@ -22,6 +24,14 @@ const SettingPrivacy = () => {
       scroll(cookiesSettings)
     }, 500)
   }, [])
+
+  useEffect(() => {
+    console.log(isNecessaryCookie);
+    
+    
+    if(!isNecessaryCookie) handleChangeSetting()
+
+  },[isNecessaryCookie])
   return (
     <div ref={cookiesSettings} className='setting__container'>
       <div className='setting__content-title'>

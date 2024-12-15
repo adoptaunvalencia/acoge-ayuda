@@ -4,6 +4,7 @@ const Button = ({
   text,
   fontSize,
   icon,
+  iconSixe=15,
   bgColor,
   textColor,
   padding,
@@ -12,7 +13,6 @@ const Button = ({
   disabled = false,
   type = 'submit'
 }) => {
-  console.log(disabled);
   
   return (
     <button
@@ -28,7 +28,7 @@ const Button = ({
         borderRadius: borderRadius
       }}
     >
-      {icon && <img className='icon' src={icon} alt='icon type help' />}
+      {icon && <img className='icon' width={iconSixe} src={icon} alt='icon type help' />}
       {text && <span>{text}</span>}
     </button>
   )
