@@ -18,7 +18,6 @@ import {
   loginUser,
   registerUser
 } from '../../reducers/auth.reducer/auth.action'
-import useScrollToRef from '../../hooks/useScrollToRef'
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
@@ -32,6 +31,11 @@ export const FunctionProvider = ({ children }) => {
   const [showPopup, setShowPopup] = useState(false)
   const [filteredOffers, setFilteredOffers] = useState([])
   const [activeOffer, setActiveOffer] = useState({})
+  const [stateCookiesSettings, setStateCookiesSettings] = useState({
+    hasAcceptedCookies: Cookies.get('PRIVACY-COOKIES-AUV') === 'true',
+    showCookies: false,
+    isNecessaryCookie: true
+  })
 
   const {
     stateOffer: { offers, offers_map },
@@ -271,26 +275,29 @@ export const FunctionProvider = ({ children }) => {
     isRegister()
   }, [])
 
-  const [hasAcceptedCookies, setHasAcceptedCookies] = useState(
-    Cookies.get('PRIVACY-COOKIES-AUV') === 'true'
-  )
-  const [showCookies, setShowCookies] = useState(false)
-  const [isNecessaryCookie, setIsNecessaryCookie] = useState(true)
-
   const handleAcceptCookies = () => {
     Cookies.set('PRIVACY-COOKIES-AUV', true, { expires: 7 })
-    setHasAcceptedCookies(true)
-    setShowCookies(false)
-    setIsNecessaryCookie(true)
+    setStateCookiesSettings((prev) => ({
+      ...prev,
+      hasAcceptedCookies: true,
+      showCookies: false,
+      isNecessaryCookie: true
+    }))
   }
-  
+
   const handleRefuseCookies = () => {
-    setShowCookies(false)
+    setStateCookiesSettings((prev) => ({
+      ...prev,
+      showCookies: false
+    }))
   }
-  
+
   const handleChangeSetting = () => {
     Cookies.set('PRIVACY-COOKIES-AUV', false)
-    setShowCookies(true)
+    setStateCookiesSettings((prev) => ({
+      ...prev,
+      showCookies: true
+    }))
   }
 
   return (
@@ -326,11 +333,8 @@ export const FunctionProvider = ({ children }) => {
         handleAcceptCookies,
         handleRefuseCookies,
         handleChangeSetting,
-        hasAcceptedCookies,
-        setHasAcceptedCookies,
-        showCookies,
-        setShowCookies,
-        isNecessaryCookie, setIsNecessaryCookie
+        stateCookiesSettings,
+        setStateCookiesSettings
       }}
     >
       {children}

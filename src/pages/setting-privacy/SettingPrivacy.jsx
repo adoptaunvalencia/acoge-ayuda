@@ -6,17 +6,18 @@ import Button from '../../components/button/Button'
 import { Link } from 'react-router-dom'
 
 const SettingPrivacy = () => {
-  
   const { scroll, cookiesSettings } = useContext(RefContext)
   const {
     handleAcceptCookies,
     handleRefuseCookies,
     handleChangeSetting,
-    hasAcceptedCookies,
-    setHasAcceptedCookies,
-    showCookies,
-    setShowCookies,
-    isNecessaryCookie, setIsNecessaryCookie
+    stateCookiesSettings,
+    stateCookiesSettings: {
+      isNecessaryCookie,
+      hasAcceptedCookies,
+      showCookies
+    },
+    setStateCookiesSettings
   } = useContext(FunctionContext)
 
   useEffect(() => {
@@ -26,12 +27,17 @@ const SettingPrivacy = () => {
   }, [])
 
   useEffect(() => {
-    console.log(isNecessaryCookie);
-    
-    
-    if(!isNecessaryCookie) handleChangeSetting()
+    if (!isNecessaryCookie) handleChangeSetting()
+    return
+  }, [isNecessaryCookie])
 
-  },[isNecessaryCookie])
+  const handleChangeNecessaryCokkie = () => {
+    setStateCookiesSettings((prev) => ({
+      ...prev,
+      isNecessaryCookie: !isNecessaryCookie
+    }))
+  }
+
   return (
     <div ref={cookiesSettings} className='setting__container'>
       <div className='setting__content-title'>
@@ -56,7 +62,8 @@ const SettingPrivacy = () => {
             <input
               type='checkbox'
               checked={isNecessaryCookie}
-              onChange={() => setIsNecessaryCookie(!isNecessaryCookie)}
+              onChange={handleChangeNecessaryCokkie}
+              disabled
             />
             <label>
               Cookies necesarias para ofrecerte la mejor experiencia de usuario

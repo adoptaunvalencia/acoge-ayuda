@@ -10,16 +10,20 @@ const Cookie = () => {
   const {
     handleAcceptCookies,
     handleRefuseCookies,
-    hasAcceptedCookies,
-    setHasAcceptedCookies,
-    showCookies,
-    setShowCookies,
-    isNecessaryCookie
+    stateCookiesSettings: {
+      hasAcceptedCookies,
+      isNecessaryCookie,
+      showCookies
+    },
+    setStateCookiesSettings
   } = useContext(FunctionContext)
 
   useEffect(() => {
     if (!hasAcceptedCookies) {
-      setShowCookies(true)
+      setStateCookiesSettings((prev) => ({
+        ...prev,
+        showCookies: true
+      }))
     }
   }, [hasAcceptedCookies])
 
