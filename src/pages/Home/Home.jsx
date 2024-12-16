@@ -33,16 +33,14 @@ const Home = () => {
     filteredOffers,
     setFilteredOffers,
     myOffers,
-    setMyOffers
+    setMyOffers,
+    existToken
   } = useContext(FunctionContext)
 
   useEffect(() => {
     setTimeout(() => {
       scroll(homeRef)
     }, 500)
-    const token = localStorage.getItem('AUTH_VALIDATE_USER_TOKEN')
-    if (token) getProfile()
-    else getOffers()
   }, [])
 
   const selectOptionsObject = {
