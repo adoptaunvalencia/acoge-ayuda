@@ -1,7 +1,7 @@
 .footer-container {
   background-color: var(--bg-lighter-gray);
   width: 100%;
-  padding: 80px;
+  padding: 180px 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,7 +84,7 @@
 
 @media (max-width: 560px) {
   .footer-container {
-    padding: 40px 20px;
+    padding: 150px 20px;
   }
 }
 
