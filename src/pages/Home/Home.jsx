@@ -116,9 +116,6 @@ const Home = () => {
       )}
       <div ref={homeRef} className='home__container-sections fadeIn'>
         {/* <Interiorista /> */}
-        {modal && <div className='modal-search filter'>
-          <div className='modal-input'></div>
-        </div>}
         <section className='home__container'>
           <div className='home__content-title'>
             <h2>Resultados de Ayuda Disponibles en Tu Zona</h2>
@@ -132,7 +129,7 @@ const Home = () => {
               </strong>
             </p>
           </div>
-          <div className='home__content-buttons z-index-4002'>
+          <div className='home__content-buttons'>
             <div className='width_full'>
               <Select
                 label='Buscar por Radio'
@@ -152,7 +149,7 @@ const Home = () => {
             />
           </div>
         </section>
-        <section className='show z-index-4001'>
+        <section className='show'>
           <FilterServicer
             onCategoryToggle={handleCategoryToggle}
             activeTypes={activeType}
