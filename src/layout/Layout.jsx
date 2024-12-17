@@ -60,7 +60,7 @@ const Layout = () => {
         <Footer />
       </footer>
       <ToastContainer />
-     {/*  {!isCaptchaVerified && (
+      {!isCaptchaVerified && (
         <div className='captcha-overlay'>
           <div className='captcha-container'>
             <p>Por favor, verifica el CAPTCHA para continuar...</p>
@@ -70,7 +70,7 @@ const Layout = () => {
             />
           </div>
         </div>
-      )} */}
+      )}
       <Cookie />
     </>
   )
