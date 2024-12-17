@@ -21,6 +21,7 @@ import {
 
 export const FunctionContext = createContext()
 export const FunctionProvider = ({ children }) => {
+  const [modal, setModal] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [myOffers, setMyOffers] = useState([])
   const [userLocation, setUserLocation] = useState({
@@ -303,6 +304,8 @@ export const FunctionProvider = ({ children }) => {
   return (
     <FunctionContext.Provider
       value={{
+        modal,
+        setModal,
         existToken,
         isModalOpen,
         setIsModalOpen,
