@@ -57,14 +57,14 @@ const Footer = () => {
               <img src={gmail} alt='Correo electrónico' width='24' />
             </a>
             <a
-              href='https://www.linkedin.com/in/adopta-un-valenciano/"'
+              href='https://www.linkedin.com/in/adopta-un-valenciano"'
               rel='noopener noreferrer'
               target='_blank'
             >
               <img src={linkedin} alt='linkedin' width='24' />
             </a>
             <a
-              href='https://www.instagram.com/adopta_un_valenciano/'
+              href='https://www.instagram.com/adopta_un_valenciano'
               rel='noopener noreferrer'
               target='_blank'
             >
